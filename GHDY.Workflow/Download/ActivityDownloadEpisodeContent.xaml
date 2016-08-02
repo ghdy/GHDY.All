@@ -1,0 +1,419 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="GHDY.Workflow.Download.ActivityDownloadEpisodeContent" local:ActivityDownloadEpisodeContent.outputPrefix="&gt;&gt;"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:gc="clr-namespace:GHDY.Core;assembly=GHDY.Core"
+ xmlns:gcl="clr-namespace:GHDY.Core.LearningContentProviderCore;assembly=GHDY.Core"
+ xmlns:local="clr-namespace:GHDY.Workflow.Download">
+  <x:Members>
+    <x:Property Name="target" Type="InArgument(gcl:BaseTarget)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="episode" Type="InArgument(gcl:XEpisode)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="outputPrefix" Type="InArgument(x:String)" />
+    <x:Property Name="result" Type="OutArgument(x:Boolean)" />
+  </x:Members>
+  <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
+  <sap2010:WorkflowViewState.IdRef>GHDY.Workflow.Download.ActivityDownloadEpisodeContent_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>GHDY.Core.LearningContentProviderCore</x:String>
+      <x:String>GHDY.Core</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>GHDY.Workflow.Download</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Speech</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>GHDY.Core.LearningContentProvider.VOA</AssemblyReference>
+      <AssemblyReference>GHDY.Core</AssemblyReference>
+      <AssemblyReference>GHDY.SyncEngine</AssemblyReference>
+      <AssemblyReference>System.Activities.Presentation</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>GHDY.Workflow</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="DownloadAllContents" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="episodeContentFolder" />
+      <Variable x:TypeArguments="gc:EpisodeContent" Name="episodeContent" />
+      <Variable x:TypeArguments="local:DownloadFileResult" Name="resultDownloadAudio" />
+      <Variable x:TypeArguments="local:DownloadFileResult" Name="resultDownloadLrc" />
+      <Variable x:TypeArguments="local:DownloadFileResult" Name="resultDownloadTranslation" />
+      <Variable x:TypeArguments="local:DownloadFileResult" Name="resultDownloadImages" />
+    </Sequence.Variables>
+    <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="gc:EpisodeContent">
+          <mca:CSharpReference x:TypeArguments="gc:EpisodeContent">episodeContent</mca:CSharpReference>
+        </OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="gc:EpisodeContent">
+          <mca:CSharpValue x:TypeArguments="gc:EpisodeContent">target.Reader.GetEpisodeContent(episode.ID, episode.AlbumID)</mca:CSharpValue>
+        </InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">
+          <mca:CSharpReference x:TypeArguments="x:String">episodeContentFolder</mca:CSharpReference>
+        </OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">target.GetDownloadEpisodeContentFolderPath(episode.ID, episode.AlbumID)</mca:CSharpValue>
+        </InArgument>
+      </Assign.Value>
+    </Assign>
+    <Parallel DisplayName="Parallel" sap2010:WorkflowViewState.IdRef="Parallel_1">
+      <Sequence DisplayName="DownloadAudio" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="x:String" Name="_downloadAudioFilePath" />
+        </Sequence.Variables>
+        <Assign sap2010:WorkflowViewState.IdRef="Assign_3">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">
+              <mca:CSharpReference x:TypeArguments="x:String">_downloadAudioFilePath</mca:CSharpReference>
+            </OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">
+              <mca:CSharpValue x:TypeArguments="x:String">Path.Combine(episodeContentFolder,episode.ID+EpisodeFileTypes.AudioFile.ToExt())</mca:CSharpValue>
+            </InArgument>
+          </Assign.Value>
+        </Assign>
+        <local:DownloadFileActivity DelaySeconds="2" DisplayName="DownloadAudioActivity" sap2010:WorkflowViewState.IdRef="DownloadFileActivity_7" MinFileSizeKB="300" NotifyDownloadProgress="True">
+          <local:DownloadFileActivity.DownloadFilePath>
+            <InArgument x:TypeArguments="x:String">
+              <mca:CSharpValue x:TypeArguments="x:String">_downloadAudioFilePath</mca:CSharpValue>
+            </InArgument>
+          </local:DownloadFileActivity.DownloadFilePath>
+          <local:DownloadFileActivity.Result>
+            <OutArgument x:TypeArguments="local:DownloadFileResult">
+              <mca:CSharpReference x:TypeArguments="local:DownloadFileResult">resultDownloadAudio</mca:CSharpReference>
+            </OutArgument>
+          </local:DownloadFileActivity.Result>
+          <local:DownloadFileActivity.SourceUrl>
+            <InArgument x:TypeArguments="x:Uri">
+              <mca:CSharpValue x:TypeArguments="x:Uri">episodeContent.AudioURL</mca:CSharpValue>
+            </InArgument>
+          </local:DownloadFileActivity.SourceUrl>
+        </local:DownloadFileActivity>
+        <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_1">
+          <InArgument x:TypeArguments="x:String">
+            <mca:CSharpValue x:TypeArguments="x:String">outputPrefix+"Download Audio:" + resultDownloadAudio.ToString()</mca:CSharpValue>
+          </InArgument>
+        </WriteLine>
+      </Sequence>
+      <If DisplayName="If has Lrc" sap2010:WorkflowViewState.IdRef="If_2">
+        <If.Condition>
+          <InArgument x:TypeArguments="x:Boolean">
+            <mca:CSharpValue x:TypeArguments="x:Boolean">episode.HasLrc==true</mca:CSharpValue>
+          </InArgument>
+        </If.Condition>
+        <If.Then>
+          <Sequence DisplayName="DownloadLrc" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="_downloadLrcFilePath" />
+            </Sequence.Variables>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_4">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">
+                  <mca:CSharpReference x:TypeArguments="x:String">_downloadLrcFilePath</mca:CSharpReference>
+                </OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">
+                  <mca:CSharpValue x:TypeArguments="x:String">Path.Combine(episodeContentFolder,episodeContent.ID+EpisodeFileTypes.SubtitleFile.ToExt())</mca:CSharpValue>
+                </InArgument>
+              </Assign.Value>
+            </Assign>
+            <local:DownloadFileActivity DelaySeconds="2" DisplayName="DownloadLrcActivity" sap2010:WorkflowViewState.IdRef="DownloadFileActivity_8" MinFileSizeKB="1" NotifyDownloadProgress="False">
+              <local:DownloadFileActivity.DownloadFilePath>
+                <InArgument x:TypeArguments="x:String">
+                  <mca:CSharpValue x:TypeArguments="x:String">_downloadLrcFilePath</mca:CSharpValue>
+                </InArgument>
+              </local:DownloadFileActivity.DownloadFilePath>
+              <local:DownloadFileActivity.Result>
+                <OutArgument x:TypeArguments="local:DownloadFileResult">
+                  <mca:CSharpReference x:TypeArguments="local:DownloadFileResult">resultDownloadLrc</mca:CSharpReference>
+                </OutArgument>
+              </local:DownloadFileActivity.Result>
+              <local:DownloadFileActivity.SourceUrl>
+                <InArgument x:TypeArguments="x:Uri">
+                  <mca:CSharpValue x:TypeArguments="x:Uri">episodeContent.LrcURL</mca:CSharpValue>
+                </InArgument>
+              </local:DownloadFileActivity.SourceUrl>
+            </local:DownloadFileActivity>
+            <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_2">
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">outputPrefix + "Download Lrc:" + resultDownloadLrc</mca:CSharpValue>
+              </InArgument>
+            </WriteLine>
+          </Sequence>
+        </If.Then>
+        <If.Else>
+          <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_5">
+            <InArgument x:TypeArguments="x:String">
+              <mca:CSharpValue x:TypeArguments="x:String">outputPrefix + "Not has Lrc."</mca:CSharpValue>
+            </InArgument>
+          </WriteLine>
+        </If.Else>
+      </If>
+      <If DisplayName="If has Images" sap2010:WorkflowViewState.IdRef="If_3">
+        <If.Condition>
+          <InArgument x:TypeArguments="x:Boolean">
+            <mca:CSharpValue x:TypeArguments="x:Boolean">episodeContent.Images != null</mca:CSharpValue>
+          </InArgument>
+        </If.Condition>
+        <If.Then>
+          <ForEach x:TypeArguments="gc:EpisodeImage" DisplayName="ForEach&lt;EpisodeImage&gt;" sap2010:WorkflowViewState.IdRef="ForEach`1_2">
+            <ForEach.Values>
+              <InArgument x:TypeArguments="scg:IEnumerable(gc:EpisodeImage)">
+                <mca:CSharpValue x:TypeArguments="scg:IEnumerable(gc:EpisodeImage)">episodeContent.Images</mca:CSharpValue>
+              </InArgument>
+            </ForEach.Values>
+            <ActivityAction x:TypeArguments="gc:EpisodeImage">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="gc:EpisodeImage" Name="image" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="DownloadImage" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="x:String" Name="_downloadImageFilePath" />
+                </Sequence.Variables>
+                <Assign sap2010:WorkflowViewState.IdRef="Assign_9">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">
+                      <mca:CSharpReference x:TypeArguments="x:String">_downloadImageFilePath</mca:CSharpReference>
+                    </OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">
+                      <mca:CSharpValue x:TypeArguments="x:String">Path.Combine(episodeContentFolder, image.FileName)</mca:CSharpValue>
+                    </InArgument>
+                  </Assign.Value>
+                </Assign>
+                <local:DownloadFileActivity DelaySeconds="2" DisplayName="DownloadImageActivity" sap2010:WorkflowViewState.IdRef="DownloadFileActivity_9" MinFileSizeKB="4" NotifyDownloadProgress="False">
+                  <local:DownloadFileActivity.DownloadFilePath>
+                    <InArgument x:TypeArguments="x:String">
+                      <mca:CSharpValue x:TypeArguments="x:String">_downloadImageFilePath</mca:CSharpValue>
+                    </InArgument>
+                  </local:DownloadFileActivity.DownloadFilePath>
+                  <local:DownloadFileActivity.Result>
+                    <OutArgument x:TypeArguments="local:DownloadFileResult">
+                      <mca:CSharpReference x:TypeArguments="local:DownloadFileResult">resultDownloadImages</mca:CSharpReference>
+                    </OutArgument>
+                  </local:DownloadFileActivity.Result>
+                  <local:DownloadFileActivity.SourceUrl>
+                    <InArgument x:TypeArguments="x:Uri">
+                      <mca:CSharpValue x:TypeArguments="x:Uri">image.URL</mca:CSharpValue>
+                    </InArgument>
+                  </local:DownloadFileActivity.SourceUrl>
+                </local:DownloadFileActivity>
+                <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_10">
+                  <InArgument x:TypeArguments="x:String">
+                    <mca:CSharpValue x:TypeArguments="x:String">outputPrefix +"Download Image:" + resultDownloadImages.ToString()</mca:CSharpValue>
+                  </InArgument>
+                </WriteLine>
+              </Sequence>
+            </ActivityAction>
+          </ForEach>
+        </If.Then>
+        <If.Else>
+          <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_11">
+            <InArgument x:TypeArguments="x:String">
+              <mca:CSharpValue x:TypeArguments="x:String">outputPrefix + "Not has Image."</mca:CSharpValue>
+            </InArgument>
+          </WriteLine>
+        </If.Else>
+      </If>
+      <If sap2010:WorkflowViewState.IdRef="If_4">
+        <If.Condition>
+          <InArgument x:TypeArguments="x:Boolean">
+            <mca:CSharpValue x:TypeArguments="x:Boolean">episode.HasTranslation == true</mca:CSharpValue>
+          </InArgument>
+        </If.Condition>
+        <If.Then>
+          <Sequence DisplayName="DownloadTranslation" sap2010:WorkflowViewState.IdRef="Sequence_5">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="_downloadTranslationFilePath" />
+            </Sequence.Variables>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_10">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">
+                  <mca:CSharpReference x:TypeArguments="x:String">_downloadTranslationFilePath</mca:CSharpReference>
+                </OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">
+                  <mca:CSharpValue x:TypeArguments="x:String">Path.Combine(episodeContentFolder, episodeContent.TranslationFileName)</mca:CSharpValue>
+                </InArgument>
+              </Assign.Value>
+            </Assign>
+            <local:DownloadFileActivity DelaySeconds="2" DisplayName="DownloadTranActivity" sap2010:WorkflowViewState.IdRef="DownloadFileActivity_10" MinFileSizeKB="1" NotifyDownloadProgress="False">
+              <local:DownloadFileActivity.DownloadFilePath>
+                <InArgument x:TypeArguments="x:String">
+                  <mca:CSharpValue x:TypeArguments="x:String">_downloadTranslationFilePath</mca:CSharpValue>
+                </InArgument>
+              </local:DownloadFileActivity.DownloadFilePath>
+              <local:DownloadFileActivity.Result>
+                <OutArgument x:TypeArguments="local:DownloadFileResult">
+                  <mca:CSharpReference x:TypeArguments="local:DownloadFileResult">resultDownloadTranslation</mca:CSharpReference>
+                </OutArgument>
+              </local:DownloadFileActivity.Result>
+              <local:DownloadFileActivity.SourceUrl>
+                <InArgument x:TypeArguments="x:Uri">
+                  <mca:CSharpValue x:TypeArguments="x:Uri">episodeContent.TranslationURL</mca:CSharpValue>
+                </InArgument>
+              </local:DownloadFileActivity.SourceUrl>
+            </local:DownloadFileActivity>
+            <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_12">
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">outputPrefix + "Download Translation:" + resultDownloadTranslation</mca:CSharpValue>
+              </InArgument>
+            </WriteLine>
+          </Sequence>
+        </If.Then>
+        <If.Else>
+          <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_13">
+            <InArgument x:TypeArguments="x:String">
+              <mca:CSharpValue x:TypeArguments="x:String">outputPrefix + "Not has Translation."</mca:CSharpValue>
+            </InArgument>
+          </WriteLine>
+        </If.Else>
+      </If>
+    </Parallel>
+    <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_9" Text="----------------------" />
+    <If sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Condition>
+        <InArgument x:TypeArguments="x:Boolean">
+          <mca:CSharpValue x:TypeArguments="x:Boolean">resultDownloadAudio != DownloadFileResult.Fail</mca:CSharpValue>
+        </InArgument>
+      </If.Condition>
+      <If.Then>
+        <Assign sap2010:WorkflowViewState.IdRef="Assign_7">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:Boolean">
+              <mca:CSharpReference x:TypeArguments="x:Boolean">result</mca:CSharpReference>
+            </OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Then>
+      <If.Else>
+        <Assign sap2010:WorkflowViewState.IdRef="Assign_8">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:Boolean">
+              <mca:CSharpReference x:TypeArguments="x:Boolean">result</mca:CSharpReference>
+            </OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Else>
+    </If>
+    <sads:DebugSymbol.Symbol>d0VEOlxDI1xHSERZXEdIRFkuV29ya2Zsb3dcRG93bmxvYWRcQWN0aXZpdHlEb3dubG9hZEVwaXNvZGVDb250ZW50LnhhbWxVAZ0BAaYBAQJEA+ACDgIBAU0FWA4DAdgDWQVkDgMBwQNlBb4CEAIBKr8CBb8CXgIBKMACBd4CCgIBAlULVY4BAwHkA1ALUGgDAdkDYQthkAEDAc0DXAtcZQMBwgNmB4wBEgMB8gKNAQfDAQwDAYsCxAEHhgIMAwGSAYcCB70CDAIBK78CQ78CWwIBKcMCC8MCeAIBA8cCCdACEgIBG9MCCdwCEgIBDmoJdRIDAagDdgmGASYDAYADhwEJiwEVAwHzApABDZABYAMBjAKUAQu6ARYDAaMCvQELwQEXAwGXAscBDccBaQMBkwHLAQv9ARUDAaoBgAILhAIXAwGeAYoCDYoCagIBLI4CC7QCFgIBQ7cCC7sCFwIBN84CNc4COQIBJ8oCD8oCXAIBHNoCNdoCOgIBGtYCD9YCXAIBD3IPcp0BAwG1A20PbWsDAakDeQ95YwMBnAN2MnY1AwGbA34PfngDAY8DgwEPgwFhAwGDA3a+AXbEAQMBggN2oQF2pgEDAYEDiQENiQGKAQMB9AKYAQ2jARYDAdkCpAENtAEqAwGxArUBDbkBGQMBpAK/AQ+/AWoDAZgCzgERzgF8AwGAAtUBD/sBGgMBqwGCAg+CAmwDAZ8BkgINnQIWAgF5ngINrgIqAgFRrwINswIZAgFEuQIPuQJyAgE4oAEToAGrAQMB5gKbARObAW0DAdoCpwETpwFlAwHNAqQBNqQBOQMBzAKsAROsAXoDAcACsQETsQFjAwG0AqQBvgGkAcUBAwGzAqQBowGkAaYBAwGyArcBEbcBgQEDAaUC2QER5AEaAwHlAeUBEfUBLgMBugH2ARH6AR0DAawBmgITmgKXAQMBhgGVAhOVAnUCAXqhAhOhAm0CAW2eAjaeAjkCAWymAhOmAoIBAgFgqwITqwJrAgFUngLAAZ4CxwECAVOeAqUBngKoAQIBUrECEbECkQECAUXhARfhAYcBAwHzAdwBF9wBcwMB5gHoARfoAWsDAdgB5QE65QE9AwHXAe0BF+0BgQEDAcoB8gEX8gFbAwG9AeUBxAHlAcsBAwG8AeUBqQHlAawBAwG7AfgBFfgBlAEDAa0B</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="2025,62" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="2025,62" />
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="242,62" />
+      <sap2010:ViewStateData Id="DownloadFileActivity_7" sap:VirtualizedContainerService.HintSize="242,22" />
+      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="242,62" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="264,650">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="242,62" />
+      <sap2010:ViewStateData Id="DownloadFileActivity_8" sap:VirtualizedContainerService.HintSize="242,22" />
+      <sap2010:ViewStateData Id="WriteLine_2" sap:VirtualizedContainerService.HintSize="242,62" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="264,350">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_5" sap:VirtualizedContainerService.HintSize="210,62" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="499,650" />
+      <sap2010:ViewStateData Id="Assign_9" sap:VirtualizedContainerService.HintSize="242,62" />
+      <sap2010:ViewStateData Id="DownloadFileActivity_9" sap:VirtualizedContainerService.HintSize="242,22" />
+      <sap2010:ViewStateData Id="WriteLine_10" sap:VirtualizedContainerService.HintSize="242,62" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="264,350">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_2" sap:VirtualizedContainerService.HintSize="294,500" />
+      <sap2010:ViewStateData Id="WriteLine_11" sap:VirtualizedContainerService.HintSize="210,62" />
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="529,650" />
+      <sap2010:ViewStateData Id="Assign_10" sap:VirtualizedContainerService.HintSize="242,62" />
+      <sap2010:ViewStateData Id="DownloadFileActivity_10" sap:VirtualizedContainerService.HintSize="242,22" />
+      <sap2010:ViewStateData Id="WriteLine_12" sap:VirtualizedContainerService.HintSize="242,62" />
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="264,350">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteLine_13" sap:VirtualizedContainerService.HintSize="210,62" />
+      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="499,650" />
+      <sap2010:ViewStateData Id="Parallel_1" sap:VirtualizedContainerService.HintSize="2025,696" />
+      <sap2010:ViewStateData Id="WriteLine_9" sap:VirtualizedContainerService.HintSize="2025,62" />
+      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="242,62" />
+      <sap2010:ViewStateData Id="Assign_8" sap:VirtualizedContainerService.HintSize="242,62" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="2025,212" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="2047,1378">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="GHDY.Workflow.Download.ActivityDownloadEpisodeContent_1" sap:VirtualizedContainerService.HintSize="2087,1458" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

@@ -1,0 +1,860 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="GHDY.Workflow.Recognize.ActivityRecognizeEpisodeStateMachine"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:gc="clr-namespace:GHDY.Core;assembly=GHDY.Core"
+ xmlns:gce="clr-namespace:GHDY.Core.Episode;assembly=GHDY.Core"
+ xmlns:gcl="clr-namespace:GHDY.Core.LearningContentProviderCore;assembly=GHDY.Core"
+ xmlns:local="clr-namespace:GHDY.Workflow.Recognize"
+ xmlns:local1="clr-namespace:GHDY.Workflow"
+ xmlns:local2="clr-namespace:GHDY.Workflow.Recognize.Interface"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:p="schema:GHDY.Core.DocumentModel"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="result" Type="OutArgument(p:DMDocument)" />
+    <x:Property Name="target" Type="InArgument(gcl:BaseTarget)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="recognizeConfig" Type="InArgument(local:RecognizeConfig)" />
+    <x:Property Name="episode" Type="InArgument(gcl:XEpisode)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+  </x:Members>
+  <local:ActivityRecognizeEpisodeStateMachine.recognizeConfig>
+    <InArgument x:TypeArguments="local:RecognizeConfig">
+      <mca:CSharpValue x:TypeArguments="local:RecognizeConfig">new RecognizeConfig("en-US")</mca:CSharpValue>
+    </InArgument>
+  </local:ActivityRecognizeEpisodeStateMachine.recognizeConfig>
+  <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
+  <sap2010:WorkflowViewState.IdRef>GHDY.Workflow.Recognize.ActivityRecognizeEpisodeStateMachine_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>GHDY.Core</x:String>
+      <x:String>GHDY.Core.DocumentModel</x:String>
+      <x:String>GHDY.Workflow.Recognize</x:String>
+      <x:String>GHDY.Core.LearningContentProviderCore</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>GHDY.Core.Episode</x:String>
+      <x:String>GHDY.Workflow.Recognize.Interface</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>SharpEntropy</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Activities.Presentation</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Speech</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>GHDY.Core.LearningContentProvider.VOA</AssemblyReference>
+      <AssemblyReference>GHDY.Core</AssemblyReference>
+      <AssemblyReference>GHDY.NLP</AssemblyReference>
+      <AssemblyReference>GHDY.SyncEngine</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>GHDY.Workflow</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <StateMachine DisplayName="RecognizeEpisodeStateMachine" sap2010:WorkflowViewState.IdRef="StateMachine_1">
+    <StateMachine.InitialState>
+      <State x:Name="__ReferenceID3" DisplayName="Initialize" sap2010:WorkflowViewState.IdRef="State_4">
+        <State.Entry>
+          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <local:InitializeActivity sap2010:WorkflowViewState.IdRef="InitializeActivity_1">
+              <local:InitializeActivity.Episode>
+                <InArgument x:TypeArguments="gcl:XEpisode">
+                  <mca:CSharpValue x:TypeArguments="gcl:XEpisode">episode</mca:CSharpValue>
+                </InArgument>
+              </local:InitializeActivity.Episode>
+              <local:InitializeActivity.Result>
+                <OutArgument x:TypeArguments="gce:LocalEpisode">
+                  <mca:CSharpReference x:TypeArguments="gce:LocalEpisode">currentLocalEpisode</mca:CSharpReference>
+                </OutArgument>
+              </local:InitializeActivity.Result>
+              <local:InitializeActivity.Target>
+                <InArgument x:TypeArguments="gcl:BaseTarget">
+                  <mca:CSharpValue x:TypeArguments="gcl:BaseTarget">target</mca:CSharpValue>
+                </InArgument>
+              </local:InitializeActivity.Target>
+            </local:InitializeActivity>
+            <Assign sap2010:WorkflowViewState.IdRef="Assign_7">
+              <Assign.To>
+                <OutArgument x:TypeArguments="gc:EpisodeContent">
+                  <mca:CSharpReference x:TypeArguments="gc:EpisodeContent">currentEpisodeContent</mca:CSharpReference>
+                </OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="gc:EpisodeContent">
+                  <mca:CSharpValue x:TypeArguments="gc:EpisodeContent">currentLocalEpisode.Content</mca:CSharpValue>
+                </InArgument>
+              </Assign.Value>
+            </Assign>
+          </Sequence>
+        </State.Entry>
+        <State.Transitions>
+          <Transition DisplayName="InitCompleted" sap2010:WorkflowViewState.IdRef="Transition_3">
+            <Transition.Trigger>
+              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_6">
+                <local1:BookmarkActivity DisplayName="BookmarkInit" sap2010:WorkflowViewState.IdRef="BookmarkActivity_7">
+                  <local1:BookmarkActivity.BookmarkName>
+                    <InArgument x:TypeArguments="x:String">
+                      <mca:CSharpValue x:TypeArguments="x:String">RecognizeTransition.Init.ToString()</mca:CSharpValue>
+                    </InArgument>
+                  </local1:BookmarkActivity.BookmarkName>
+                </local1:BookmarkActivity>
+                <Assign sap2010:WorkflowViewState.IdRef="Assign_12">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="local:RecognizeTransition">
+                      <mca:CSharpReference x:TypeArguments="local:RecognizeTransition">currentTransition</mca:CSharpReference>
+                    </OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="local:RecognizeTransition">
+                      <mca:CSharpValue x:TypeArguments="local:RecognizeTransition">RecognizeTransition.Split2Sentences</mca:CSharpValue>
+                    </InArgument>
+                  </Assign.Value>
+                </Assign>
+              </Sequence>
+            </Transition.Trigger>
+            <Transition.To>
+              <State x:Name="__ReferenceID2" DisplayName="SplitSentence" sap2010:WorkflowViewState.IdRef="State_1">
+                <State.Entry>
+                  <local:SplitEpisodeActivity sap2010:WorkflowViewState.IdRef="SplitEpisodeActivity_2">
+                    <local:SplitEpisodeActivity.EpisodeContent>
+                      <InArgument x:TypeArguments="gc:EpisodeContent">
+                        <mca:CSharpValue x:TypeArguments="gc:EpisodeContent">currentEpisodeContent</mca:CSharpValue>
+                      </InArgument>
+                    </local:SplitEpisodeActivity.EpisodeContent>
+                  </local:SplitEpisodeActivity>
+                </State.Entry>
+                <State.Exit>
+                  <WriteLine sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="Split2Sentences Exit." />
+                </State.Exit>
+                <State.Transitions>
+                  <Transition DisplayName="NoLyrics" sap2010:WorkflowViewState.IdRef="Transition_12">
+                    <Transition.Trigger>
+                      <Sequence x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                        <local1:BookmarkResultActivity x:TypeArguments="local2:SplitedDocument" sap2010:WorkflowViewState.IdRef="BookmarkResultActivity`1_5">
+                          <local1:BookmarkResultActivity.BookmarkName>
+                            <InArgument x:TypeArguments="x:String">
+                              <mca:CSharpValue x:TypeArguments="x:String">RecognizeTransition.Split2Sentences.ToString()</mca:CSharpValue>
+                            </InArgument>
+                          </local1:BookmarkResultActivity.BookmarkName>
+                          <local1:BookmarkResultActivity.Result>
+                            <OutArgument x:TypeArguments="local2:SplitedDocument">
+                              <mca:CSharpReference x:TypeArguments="local2:SplitedDocument">splitedDocument</mca:CSharpReference>
+                            </OutArgument>
+                          </local1:BookmarkResultActivity.Result>
+                        </local1:BookmarkResultActivity>
+                        <local:CreateDocumentModelActivity sap2010:WorkflowViewState.IdRef="CreateDocumentModelActivity_1">
+                          <local:CreateDocumentModelActivity.LocalEpisode>
+                            <InArgument x:TypeArguments="gce:LocalEpisode">
+                              <mca:CSharpValue x:TypeArguments="gce:LocalEpisode">currentLocalEpisode</mca:CSharpValue>
+                            </InArgument>
+                          </local:CreateDocumentModelActivity.LocalEpisode>
+                          <local:CreateDocumentModelActivity.SplitedDocument>
+                            <InArgument x:TypeArguments="local2:SplitedDocument">
+                              <mca:CSharpValue x:TypeArguments="local2:SplitedDocument">splitedDocument</mca:CSharpValue>
+                            </InArgument>
+                          </local:CreateDocumentModelActivity.SplitedDocument>
+                        </local:CreateDocumentModelActivity>
+                        <If sap2010:WorkflowViewState.IdRef="If_2">
+                          <If.Condition>
+                            <InArgument x:TypeArguments="x:Boolean">
+                              <mca:CSharpValue x:TypeArguments="x:Boolean">File.Exists(currentLocalEpisode.SubtitleFilePath) == true</mca:CSharpValue>
+                            </InArgument>
+                          </If.Condition>
+                          <If.Then>
+                            <Assign sap2010:WorkflowViewState.IdRef="Assign_14">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="local:RecognizeTransition">
+                                  <mca:CSharpReference x:TypeArguments="local:RecognizeTransition">currentTransition</mca:CSharpReference>
+                                </OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="local:RecognizeTransition">
+                                  <mca:CSharpValue x:TypeArguments="local:RecognizeTransition">RecognizeTransition.SetTimeline</mca:CSharpValue>
+                                </InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </If.Then>
+                          <If.Else>
+                            <Assign sap2010:WorkflowViewState.IdRef="Assign_15">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="local:RecognizeTransition">
+                                  <mca:CSharpReference x:TypeArguments="local:RecognizeTransition">currentTransition</mca:CSharpReference>
+                                </OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="local:RecognizeTransition">
+                                  <mca:CSharpValue x:TypeArguments="local:RecognizeTransition">RecognizeTransition.DictationAudio</mca:CSharpValue>
+                                </InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </Transition.Trigger>
+                    <Transition.To>
+                      <State x:Name="__ReferenceID8" DisplayName="Dictation" sap2010:WorkflowViewState.IdRef="State_9">
+                        <State.Entry>
+                          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_5">
+                            <local:DictationActivity CultureName="en-US" DisplayName="DictationActivity" sap2010:WorkflowViewState.IdRef="DictationActivity_1">
+                              <local:DictationActivity.AudioFilePath>
+                                <InArgument x:TypeArguments="x:String">
+                                  <mca:CSharpValue x:TypeArguments="x:String">currentLocalEpisode.AudioFilePath</mca:CSharpValue>
+                                </InArgument>
+                              </local:DictationActivity.AudioFilePath>
+                            </local:DictationActivity>
+                          </Sequence>
+                        </State.Entry>
+                        <State.Transitions>
+                          <Transition DisplayName="DictaionCompleted" sap2010:WorkflowViewState.IdRef="Transition_11">
+                            <Transition.Trigger>
+                              <Sequence sap2010:WorkflowViewState.IdRef="Sequence_9">
+                                <local1:BookmarkActivity DisplayName="BookmarkDictation" sap2010:WorkflowViewState.IdRef="BookmarkActivity_10">
+                                  <local1:BookmarkActivity.BookmarkName>
+                                    <InArgument x:TypeArguments="x:String">
+                                      <mca:CSharpValue x:TypeArguments="x:String">RecognizeTransition.DictationAudio.ToString()</mca:CSharpValue>
+                                    </InArgument>
+                                  </local1:BookmarkActivity.BookmarkName>
+                                </local1:BookmarkActivity>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_17">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="local:RecognizeTransition">
+                                      <mca:CSharpReference x:TypeArguments="local:RecognizeTransition">currentTransition</mca:CSharpReference>
+                                    </OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="local:RecognizeTransition">
+                                      <mca:CSharpValue x:TypeArguments="local:RecognizeTransition">RecognizeTransition.MarkupSound</mca:CSharpValue>
+                                    </InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </Sequence>
+                            </Transition.Trigger>
+                            <Transition.To>
+                              <State x:Name="__ReferenceID1" DisplayName="SetTimeline" sap2010:WorkflowViewState.IdRef="State_10">
+                                <State.Entry>
+                                  <local:SetSentenceTimelineActivity sap2010:WorkflowViewState.IdRef="SetSentenceTimelineActivity_1">
+                                    <local:SetSentenceTimelineActivity.LocalEpisode>
+                                      <InArgument x:TypeArguments="gce:LocalEpisode">
+                                        <mca:CSharpValue x:TypeArguments="gce:LocalEpisode">currentLocalEpisode</mca:CSharpValue>
+                                      </InArgument>
+                                    </local:SetSentenceTimelineActivity.LocalEpisode>
+                                  </local:SetSentenceTimelineActivity>
+                                </State.Entry>
+                                <State.Transitions>
+                                  <Transition DisplayName="SetAllTimeline" sap2010:WorkflowViewState.IdRef="Transition_15">
+                                    <Transition.Trigger>
+                                      <Sequence DisplayName="SetTimelineCompleted" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                                        <Sequence.Variables>
+                                          <Variable x:TypeArguments="gc:Lyrics" Name="_machedLyrics" />
+                                          <Variable x:TypeArguments="x:Boolean" Name="_setDocTimelineResult" />
+                                        </Sequence.Variables>
+                                        <local1:BookmarkResultActivity x:TypeArguments="gc:Lyrics" sap2010:WorkflowViewState.IdRef="BookmarkResultActivity`1_6">
+                                          <local1:BookmarkResultActivity.BookmarkName>
+                                            <InArgument x:TypeArguments="x:String">
+                                              <mca:CSharpValue x:TypeArguments="x:String">RecognizeTransition.SetTimeline.ToString()</mca:CSharpValue>
+                                            </InArgument>
+                                          </local1:BookmarkResultActivity.BookmarkName>
+                                          <local1:BookmarkResultActivity.Result>
+                                            <OutArgument x:TypeArguments="gc:Lyrics">
+                                              <mca:CSharpReference x:TypeArguments="gc:Lyrics">_machedLyrics</mca:CSharpReference>
+                                            </OutArgument>
+                                          </local1:BookmarkResultActivity.Result>
+                                        </local1:BookmarkResultActivity>
+                                        <local1:SetDocumentTimelineActivity sap2010:WorkflowViewState.IdRef="SetDocumentTimelineActivity_1" NeedLoadDocument="False" NeedSaveDocument="True">
+                                          <local1:SetDocumentTimelineActivity.Document>
+                                            <InArgument x:TypeArguments="p:DMDocument">
+                                              <mca:CSharpValue x:TypeArguments="p:DMDocument">currentDocument</mca:CSharpValue>
+                                            </InArgument>
+                                          </local1:SetDocumentTimelineActivity.Document>
+                                          <local1:SetDocumentTimelineActivity.DocumentFilePath>
+                                            <InArgument x:TypeArguments="x:String">
+                                              <mca:CSharpValue x:TypeArguments="x:String">currentLocalEpisode.SyncDocumentFilePath</mca:CSharpValue>
+                                            </InArgument>
+                                          </local1:SetDocumentTimelineActivity.DocumentFilePath>
+                                          <local1:SetDocumentTimelineActivity.Lyrics>
+                                            <InArgument x:TypeArguments="gc:Lyrics">
+                                              <mca:CSharpValue x:TypeArguments="gc:Lyrics">_machedLyrics</mca:CSharpValue>
+                                            </InArgument>
+                                          </local1:SetDocumentTimelineActivity.Lyrics>
+                                          <local1:SetDocumentTimelineActivity.Result>
+                                            <OutArgument x:TypeArguments="x:Boolean">
+                                              <mca:CSharpReference x:TypeArguments="x:Boolean">_setDocTimelineResult</mca:CSharpReference>
+                                            </OutArgument>
+                                          </local1:SetDocumentTimelineActivity.Result>
+                                        </local1:SetDocumentTimelineActivity>
+                                        <local:ReloadDMDocumentActivity sap2010:WorkflowViewState.IdRef="ReloadDMDocumentActivity_2">
+                                          <local:ReloadDMDocumentActivity.Episode>
+                                            <InArgument x:TypeArguments="gce:LocalEpisode">
+                                              <mca:CSharpValue x:TypeArguments="gce:LocalEpisode">currentLocalEpisode</mca:CSharpValue>
+                                            </InArgument>
+                                          </local:ReloadDMDocumentActivity.Episode>
+                                        </local:ReloadDMDocumentActivity>
+                                        <Assign sap2010:WorkflowViewState.IdRef="Assign_20">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="local:RecognizeTransition">
+                                              <mca:CSharpReference x:TypeArguments="local:RecognizeTransition">currentTransition</mca:CSharpReference>
+                                            </OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="local:RecognizeTransition">
+                                              <mca:CSharpValue x:TypeArguments="local:RecognizeTransition">RecognizeTransition.MarkupSound</mca:CSharpValue>
+                                            </InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                      </Sequence>
+                                    </Transition.Trigger>
+                                    <Transition.Condition>
+                                      <mca:CSharpValue x:TypeArguments="x:Boolean">currentTransition == RecognizeTransition.MarkupSound</mca:CSharpValue>
+                                    </Transition.Condition>
+                                    <Transition.To>
+                                      <State x:Name="__ReferenceID5" DisplayName="MarkupSound" sap2010:WorkflowViewState.IdRef="State_6">
+                                        <State.Entry>
+                                          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_10">
+                                            <local:ReferenceSoundMarkupActivity sap2010:WorkflowViewState.IdRef="ReferenceSoundMarkupActivity_1">
+                                              <local:ReferenceSoundMarkupActivity.LocalEpisode>
+                                                <InArgument x:TypeArguments="gce:LocalEpisode">
+                                                  <mca:CSharpValue x:TypeArguments="gce:LocalEpisode">currentLocalEpisode</mca:CSharpValue>
+                                                </InArgument>
+                                              </local:ReferenceSoundMarkupActivity.LocalEpisode>
+                                            </local:ReferenceSoundMarkupActivity>
+                                          </Sequence>
+                                        </State.Entry>
+                                        <State.Transitions>
+                                          <Transition DisplayName="MarkupCompleted" sap2010:WorkflowViewState.IdRef="Transition_8">
+                                            <Transition.Trigger>
+                                              <Sequence DisplayName="Merge RefSentences 2 Doc" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                                                <local1:BookmarkResultActivity x:TypeArguments="scg:IEnumerable(local2:RefSentence)" sap2010:WorkflowViewState.IdRef="BookmarkResultActivity`1_4">
+                                                  <local1:BookmarkResultActivity.BookmarkName>
+                                                    <InArgument x:TypeArguments="x:String">
+                                                      <mca:CSharpValue x:TypeArguments="x:String">RecognizeTransition.MarkupSound.ToString()</mca:CSharpValue>
+                                                    </InArgument>
+                                                  </local1:BookmarkResultActivity.BookmarkName>
+                                                  <local1:BookmarkResultActivity.Result>
+                                                    <OutArgument x:TypeArguments="scg:IEnumerable(local2:RefSentence)">
+                                                      <mca:CSharpReference x:TypeArguments="scg:IEnumerable(local2:RefSentence)">refSentences</mca:CSharpReference>
+                                                    </OutArgument>
+                                                  </local1:BookmarkResultActivity.Result>
+                                                </local1:BookmarkResultActivity>
+                                                <If sap2010:WorkflowViewState.IdRef="If_3">
+                                                  <If.Condition>
+                                                    <InArgument x:TypeArguments="x:Boolean">
+                                                      <mca:CSharpValue x:TypeArguments="x:Boolean">refSentences!=null &amp;&amp; refSentences.Count()&gt;0</mca:CSharpValue>
+                                                    </InArgument>
+                                                  </If.Condition>
+                                                  <If.Then>
+                                                    <local:MergeRefSentence2DocumentActivity DisplayName="MergeRefSentence2Doc" sap2010:WorkflowViewState.IdRef="MergeRefSentence2DocumentActivity_2">
+                                                      <local:MergeRefSentence2DocumentActivity.LocalEpisode>
+                                                        <InArgument x:TypeArguments="gce:LocalEpisode">
+                                                          <mca:CSharpValue x:TypeArguments="gce:LocalEpisode">currentLocalEpisode</mca:CSharpValue>
+                                                        </InArgument>
+                                                      </local:MergeRefSentence2DocumentActivity.LocalEpisode>
+                                                      <local:MergeRefSentence2DocumentActivity.RefSentences>
+                                                        <InArgument x:TypeArguments="scg:IEnumerable(local2:RefSentence)">
+                                                          <mca:CSharpValue x:TypeArguments="scg:IEnumerable(local2:RefSentence)">refSentences</mca:CSharpValue>
+                                                        </InArgument>
+                                                      </local:MergeRefSentence2DocumentActivity.RefSentences>
+                                                    </local:MergeRefSentence2DocumentActivity>
+                                                  </If.Then>
+                                                </If>
+                                                <Assign sap2010:WorkflowViewState.IdRef="Assign_18">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="local:RecognizeTransition">
+                                                      <mca:CSharpReference x:TypeArguments="local:RecognizeTransition">currentTransition</mca:CSharpReference>
+                                                    </OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="local:RecognizeTransition">
+                                                      <mca:CSharpValue x:TypeArguments="local:RecognizeTransition">RecognizeTransition.ActualPronounce</mca:CSharpValue>
+                                                    </InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                              </Sequence>
+                                            </Transition.Trigger>
+                                            <Transition.To>
+                                              <State x:Name="__ReferenceID6" DisplayName="AddPronounce" sap2010:WorkflowViewState.IdRef="State_8">
+                                                <State.Entry>
+                                                  <local:PronunciationMarkupActivity sap2010:WorkflowViewState.IdRef="PronunciationMarkupActivity_1">
+                                                    <local:PronunciationMarkupActivity.LocalEpisode>
+                                                      <InArgument x:TypeArguments="gce:LocalEpisode">
+                                                        <mca:CSharpValue x:TypeArguments="gce:LocalEpisode">currentLocalEpisode</mca:CSharpValue>
+                                                      </InArgument>
+                                                    </local:PronunciationMarkupActivity.LocalEpisode>
+                                                  </local:PronunciationMarkupActivity>
+                                                </State.Entry>
+                                                <State.Transitions>
+                                                  <Transition DisplayName="AddCompleted" sap2010:WorkflowViewState.IdRef="Transition_14">
+                                                    <Transition.Trigger>
+                                                      <Sequence DisplayName="Wait for Pronunciations" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                                                        <local1:BookmarkActivity sap2010:WorkflowViewState.IdRef="BookmarkActivity_12">
+                                                          <local1:BookmarkActivity.BookmarkName>
+                                                            <InArgument x:TypeArguments="x:String">
+                                                              <mca:CSharpValue x:TypeArguments="x:String">RecognizeTransition.ActualPronounce.ToString()</mca:CSharpValue>
+                                                            </InArgument>
+                                                          </local1:BookmarkActivity.BookmarkName>
+                                                        </local1:BookmarkActivity>
+                                                        <local:ReloadDMDocumentActivity sap2010:WorkflowViewState.IdRef="ReloadDMDocumentActivity_1">
+                                                          <local:ReloadDMDocumentActivity.Episode>
+                                                            <InArgument x:TypeArguments="gce:LocalEpisode">
+                                                              <mca:CSharpValue x:TypeArguments="gce:LocalEpisode">currentLocalEpisode</mca:CSharpValue>
+                                                            </InArgument>
+                                                          </local:ReloadDMDocumentActivity.Episode>
+                                                        </local:ReloadDMDocumentActivity>
+                                                        <Assign sap2010:WorkflowViewState.IdRef="Assign_19">
+                                                          <Assign.To>
+                                                            <OutArgument x:TypeArguments="p:DMDocument">
+                                                              <mca:CSharpReference x:TypeArguments="p:DMDocument">currentDocument</mca:CSharpReference>
+                                                            </OutArgument>
+                                                          </Assign.To>
+                                                          <Assign.Value>
+                                                            <InArgument x:TypeArguments="p:DMDocument">
+                                                              <mca:CSharpValue x:TypeArguments="p:DMDocument">currentLocalEpisode.SyncDocument</mca:CSharpValue>
+                                                            </InArgument>
+                                                          </Assign.Value>
+                                                        </Assign>
+                                                        <Assign sap2010:WorkflowViewState.IdRef="Assign_16">
+                                                          <Assign.To>
+                                                            <OutArgument x:TypeArguments="local:RecognizeTransition">
+                                                              <mca:CSharpReference x:TypeArguments="local:RecognizeTransition">currentTransition</mca:CSharpReference>
+                                                            </OutArgument>
+                                                          </Assign.To>
+                                                          <Assign.Value>
+                                                            <InArgument x:TypeArguments="local:RecognizeTransition">
+                                                              <mca:CSharpValue x:TypeArguments="local:RecognizeTransition">RecognizeTransition.Recognize</mca:CSharpValue>
+                                                            </InArgument>
+                                                          </Assign.Value>
+                                                        </Assign>
+                                                      </Sequence>
+                                                    </Transition.Trigger>
+                                                    <Transition.Condition>
+                                                      <mca:CSharpValue x:TypeArguments="x:Boolean">currentTransition == RecognizeTransition.Recognize</mca:CSharpValue>
+                                                    </Transition.Condition>
+                                                    <Transition.To>
+                                                      <State x:Name="__ReferenceID7" DisplayName="Recognize" sap2010:WorkflowViewState.IdRef="State_7">
+                                                        <State.Transitions>
+                                                          <Transition DisplayName="AllRecognized" sap2010:WorkflowViewState.IdRef="Transition_13">
+                                                            <Transition.Trigger>
+                                                              <local1:BookmarkActivity DisplayName="BookmarkRecgnize" sap2010:WorkflowViewState.IdRef="BookmarkActivity_11">
+                                                                <local1:BookmarkActivity.BookmarkName>
+                                                                  <InArgument x:TypeArguments="x:String">
+                                                                    <mca:CSharpValue x:TypeArguments="x:String">RecognizeTransition.Recognize.ToString()</mca:CSharpValue>
+                                                                  </InArgument>
+                                                                </local1:BookmarkActivity.BookmarkName>
+                                                              </local1:BookmarkActivity>
+                                                            </Transition.Trigger>
+                                                            <Transition.Condition>
+                                                              <mca:CSharpValue x:TypeArguments="x:Boolean">currentTransition== RecognizeTransition.Compleded</mca:CSharpValue>
+                                                            </Transition.Condition>
+                                                            <Transition.To>
+                                                              <State x:Name="__ReferenceID4" DisplayName="FinalState" sap2010:WorkflowViewState.IdRef="State_5" IsFinal="True" />
+                                                            </Transition.To>
+                                                          </Transition>
+                                                        </State.Transitions>
+                                                      </State>
+                                                    </Transition.To>
+                                                  </Transition>
+                                                </State.Transitions>
+                                              </State>
+                                            </Transition.To>
+                                            <Transition.Action>
+                                              <local:RecognizeStateChangedActivity sap2010:WorkflowViewState.IdRef="RecognizeStateChangedActivity_5">
+                                                <local:RecognizeStateChangedActivity.Transition>
+                                                  <InArgument x:TypeArguments="local:RecognizeTransition">
+                                                    <mca:CSharpValue x:TypeArguments="local:RecognizeTransition">RecognizeTransition.ActualPronounce</mca:CSharpValue>
+                                                  </InArgument>
+                                                </local:RecognizeStateChangedActivity.Transition>
+                                              </local:RecognizeStateChangedActivity>
+                                            </Transition.Action>
+                                            <Transition.Condition>
+                                              <mca:CSharpValue x:TypeArguments="x:Boolean">currentTransition == RecognizeTransition.ActualPronounce</mca:CSharpValue>
+                                            </Transition.Condition>
+                                          </Transition>
+                                        </State.Transitions>
+                                        <State.Variables>
+                                          <Variable x:TypeArguments="scg:IEnumerable(local2:RefSentence)" Name="refSentences" />
+                                        </State.Variables>
+                                      </State>
+                                    </Transition.To>
+                                  </Transition>
+                                </State.Transitions>
+                              </State>
+                            </Transition.To>
+                            <Transition.Action>
+                              <local:RecognizeStateChangedActivity sap2010:WorkflowViewState.IdRef="RecognizeStateChangedActivity_4">
+                                <local:RecognizeStateChangedActivity.Transition>
+                                  <InArgument x:TypeArguments="local:RecognizeTransition">
+                                    <mca:CSharpValue x:TypeArguments="local:RecognizeTransition">RecognizeTransition.SetTimeline</mca:CSharpValue>
+                                  </InArgument>
+                                </local:RecognizeStateChangedActivity.Transition>
+                              </local:RecognizeStateChangedActivity>
+                            </Transition.Action>
+                            <Transition.Condition>
+                              <mca:CSharpValue x:TypeArguments="x:Boolean">currentTransition == RecognizeTransition.SetTimeline</mca:CSharpValue>
+                            </Transition.Condition>
+                          </Transition>
+                        </State.Transitions>
+                      </State>
+                    </Transition.To>
+                    <Transition.Action>
+                      <local:RecognizeStateChangedActivity sap2010:WorkflowViewState.IdRef="RecognizeStateChangedActivity_7">
+                        <local:RecognizeStateChangedActivity.Transition>
+                          <InArgument x:TypeArguments="local:RecognizeTransition">
+                            <mca:CSharpValue x:TypeArguments="local:RecognizeTransition">RecognizeTransition.DictationAudio</mca:CSharpValue>
+                          </InArgument>
+                        </local:RecognizeStateChangedActivity.Transition>
+                      </local:RecognizeStateChangedActivity>
+                    </Transition.Action>
+                    <Transition.Condition>
+                      <mca:CSharpValue x:TypeArguments="x:Boolean">currentTransition== RecognizeTransition.DictationAudio</mca:CSharpValue>
+                    </Transition.Condition>
+                  </Transition>
+                  <Transition Trigger="{x:Reference __ReferenceID0}" DisplayName="HasLyrics" sap2010:WorkflowViewState.IdRef="Transition_5" To="{x:Reference __ReferenceID1}">
+                    <Transition.Action>
+                      <local:RecognizeStateChangedActivity sap2010:WorkflowViewState.IdRef="RecognizeStateChangedActivity_3">
+                        <local:RecognizeStateChangedActivity.Transition>
+                          <InArgument x:TypeArguments="local:RecognizeTransition">
+                            <mca:CSharpValue x:TypeArguments="local:RecognizeTransition">RecognizeTransition.SetTimeline</mca:CSharpValue>
+                          </InArgument>
+                        </local:RecognizeStateChangedActivity.Transition>
+                      </local:RecognizeStateChangedActivity>
+                    </Transition.Action>
+                    <Transition.Condition>
+                      <mca:CSharpValue x:TypeArguments="x:Boolean">currentTransition == RecognizeTransition.SetTimeline</mca:CSharpValue>
+                    </Transition.Condition>
+                  </Transition>
+                </State.Transitions>
+                <State.Variables>
+                  <Variable x:TypeArguments="local2:SplitedDocument" Name="splitedDocument" />
+                </State.Variables>
+              </State>
+            </Transition.To>
+            <Transition.Action>
+              <local:RecognizeStateChangedActivity sap2010:WorkflowViewState.IdRef="RecognizeStateChangedActivity_1">
+                <local:RecognizeStateChangedActivity.Transition>
+                  <InArgument x:TypeArguments="local:RecognizeTransition">
+                    <mca:CSharpValue x:TypeArguments="local:RecognizeTransition">RecognizeTransition.Split2Sentences</mca:CSharpValue>
+                  </InArgument>
+                </local:RecognizeStateChangedActivity.Transition>
+              </local:RecognizeStateChangedActivity>
+            </Transition.Action>
+            <Transition.Condition>
+              <mca:CSharpValue x:TypeArguments="x:Boolean">currentTransition == RecognizeTransition.Split2Sentences</mca:CSharpValue>
+            </Transition.Condition>
+          </Transition>
+        </State.Transitions>
+      </State>
+    </StateMachine.InitialState>
+    <x:Reference>__ReferenceID2</x:Reference>
+    <x:Reference>__ReferenceID3</x:Reference>
+    <x:Reference>__ReferenceID4</x:Reference>
+    <x:Reference>__ReferenceID5</x:Reference>
+    <x:Reference>__ReferenceID6</x:Reference>
+    <x:Reference>__ReferenceID7</x:Reference>
+    <x:Reference>__ReferenceID8</x:Reference>
+    <x:Reference>__ReferenceID1</x:Reference>
+    <StateMachine.Variables>
+      <Variable x:TypeArguments="local:RecognizeTransition" Name="currentTransition" />
+      <Variable x:TypeArguments="gce:LocalEpisode" Name="currentLocalEpisode" />
+      <Variable x:TypeArguments="p:DMDocument" Name="currentDocument" />
+      <Variable x:TypeArguments="gc:EpisodeContent" Name="currentEpisodeContent" />
+    </StateMachine.Variables>
+    <sads:DebugSymbol.Symbol>d1FEOlxXb3JraW5nXEdIRFlcR0hEWS5Xb3JrZmxvd1xSZWNvZ25pemVcQWN0aXZpdHlSZWNvZ25pemVFcGlzb2RlU3RhdGVNYWNoaW5lLnhhbWx3IwcjbgECVAPPBBICAQGSAQ+uBBcDAfgDVge+BA8DAZUD3gM/3gOyAQMBkwPUAif5Ay8DAaUClAMv5gM3AwHVAc4DN+IDPwMBwAHhAReNBB8DAYEBhwIf/QMnAgEClAETmgEwAwGGBZ0BE50BawMBhAWiARfeASIDAaQEmQQXmQSMAQMBmgSQBBeWBD0DAY8EpwQXpwSKAQMBhQSeBBekBD0DAfoDWAt2FgMByAN7D48BGgMBqgO6BA+6BIYBAwGhA7EED7cENQMBlwPWAiveAjYDAYcD4wIvkQM6AwG8AvIDL/IDpgEDAbIC6QMv7wNVAwGnApYDM5wDVwMBmwKhAzfIA0IDAeABywM3ywOoAQMB1wHSAz/YA1kDAcsB2wM/2wOvAQMBwgHjARvrASYDAbQB8AEfhAIqAwGWAYkEH4kEkgEDAY0BgAQfhgRFAwGDAYkCI48CRwIBd5QCJ84CMgIBDdECJ9ECmgECAQSXARmXAXUDAYcFnQFRnQFoAwGFBaMBGa4BOQMB7wSvARm6AT0DAdoEuwEZ3QEeAwGlBJMEHZMEjgEDAZAEoQQdoQSLAQMB+wNZDWkoAwHcA2oNdRYDAckDfBGCASsDAb4DgwERjgEaAwGrA7QEFbQEhwEDAZgD1wIt3QJSAwGIA+QCMe8CUQMB8gLwAjGEAzYDAdIChQMxkAM6AwG9AuwDNewDpwEDAagCmQM5mQOSAQMBnAKiAzmoA1MDAZECqQM5rwNaAwGHArADObsDQgMB9AG8AznHA0IDAeEB1QNF1QOrAQMBzAHkAR3qATcDAbUB8QEh9wE7AwGqAfgBIYMCKgMBlwGDBCWDBJMBAwGEAYwCKYwCggECAXiZAimkAkkCAWClAim6Ak4CATG7AinBAkoCASXCAinNAjICAQ6mAR+mAYsBAwH6BKsBH6sBggEDAfAEsgEfsgF4AwHlBLcBH7cBegMB2wS+AR++AZcBAwGmBMIBHc0BJgMBxQTQAR3bASYDAbAEXBNcXAMB7wNmE2ZdAwHmA2ETYXQDAd0DchNydQMB0wNtE213AwHKA38Xf3gDAb8DiwEXiwGJAQMBtQOGAReGAX8DAawD2gIz2gKMAQMBiQPnAjfnAp8BAwH9AuwCN+wCpAEDAfMC8wI38wKtAQMB0wL3AjWCA18DAd0CjQM3jQOpAQMByAKIAzeIA58BAwG+AqUDP6UDqwEDAZICrAM/rAOYAQMBiAK4Az+4A6EBAwH+AbMDP7MDmAEDAfUBxAM/xAOrAQMB6wG/Az+/A6cBAwHiAecBI+cBggEDAbcB5AFC5AFJAwG2AfQBJ/QBkgEDAasBgAIngAKVAQMBoQH7ASf7AY8BAwGYAZwCL5wClwECAWyhAi+hAoMBAgFhpQK3AaUCvQECAV+oAi+oAoABAgFUrQIvrQKVAQIBSbcCL7cCiwECAT6yAi+yAnsCATOlAp4BpQKlAQIBMr4CL74CiAECASbKAi/KAp0BAgEaxQIvxQKXAQIBD8oBI8oBkQEDAdAExQEjxQGLAQMBxgTYASPYAZQBAwG7BNMBI9MBiwEDAbEE+gI7+gKUAQMB6AL/Ajv/AqABAwHeAg==</sads:DebugSymbol.Symbol>
+  </StateMachine>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="InitializeActivity_1" sap:VirtualizedContainerService.HintSize="244,22.4" />
+      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="244,61.6" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="266.4,248.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BookmarkActivity_7" sap:VirtualizedContainerService.HintSize="316,67" />
+      <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="316,61" />
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="338,292">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SplitEpisodeActivity_2" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="214.4,62.4" />
+      <sap2010:ViewStateData Id="BookmarkResultActivity`1_5" sap:VirtualizedContainerService.HintSize="511,97" />
+      <sap2010:ViewStateData Id="CreateDocumentModelActivity_1" sap:VirtualizedContainerService.HintSize="511,22" />
+      <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="243,61" />
+      <sap2010:ViewStateData Id="Assign_15" sap:VirtualizedContainerService.HintSize="243,61" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="511,214" />
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="533,537">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="DictationActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="222,146">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BookmarkActivity_10" sap:VirtualizedContainerService.HintSize="383,67" />
+      <sap2010:ViewStateData Id="Assign_17" sap:VirtualizedContainerService.HintSize="383,61" />
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="405,292">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SetSentenceTimelineActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="BookmarkResultActivity`1_6" sap:VirtualizedContainerService.HintSize="364,97" />
+      <sap2010:ViewStateData Id="SetDocumentTimelineActivity_1" sap:VirtualizedContainerService.HintSize="364,22" />
+      <sap2010:ViewStateData Id="ReloadDMDocumentActivity_2" sap:VirtualizedContainerService.HintSize="364,22" />
+      <sap2010:ViewStateData Id="Assign_20" sap:VirtualizedContainerService.HintSize="364,61" />
+      <sap2010:ViewStateData Id="Sequence_12" sap:VirtualizedContainerService.HintSize="386,446">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ReferenceSoundMarkupActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="222,146">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BookmarkResultActivity`1_4" sap:VirtualizedContainerService.HintSize="464,97" />
+      <sap2010:ViewStateData Id="MergeRefSentence2DocumentActivity_2" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="464,213" />
+      <sap2010:ViewStateData Id="Assign_18" sap:VirtualizedContainerService.HintSize="464,61" />
+      <sap2010:ViewStateData Id="Sequence_11" sap:VirtualizedContainerService.HintSize="486,575">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="PronunciationMarkupActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="BookmarkActivity_12" sap:VirtualizedContainerService.HintSize="395,67" />
+      <sap2010:ViewStateData Id="ReloadDMDocumentActivity_1" sap:VirtualizedContainerService.HintSize="395,22" />
+      <sap2010:ViewStateData Id="Assign_19" sap:VirtualizedContainerService.HintSize="395,61" />
+      <sap2010:ViewStateData Id="Assign_16" sap:VirtualizedContainerService.HintSize="395,61" />
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="417,455">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BookmarkActivity_11" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="State_5" sap:VirtualizedContainerService.HintSize="114.4,61.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">654,369</av:Point>
+            <av:Size x:Key="ShapeSize">114.4,61.6</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Transition_13" sap:VirtualizedContainerService.HintSize="430,551">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">711,500 711,430</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">38</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">39</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="State_7" sap:VirtualizedContainerService.HintSize="114.4,61.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">654,500</av:Point>
+            <av:Size x:Key="ShapeSize">114.4,61.6</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Transition_14" sap:VirtualizedContainerService.HintSize="459,915">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">514,530.5 654,530.5</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">36</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">37</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="State_8" sap:VirtualizedContainerService.HintSize="114.4,61.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">400,500</av:Point>
+            <av:Size x:Key="ShapeSize">114.4,61.6</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="RecognizeStateChangedActivity_5" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Transition_8" sap:VirtualizedContainerService.HintSize="528,1035">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">237,534.05 267,534.05 267,533.55 400,533.55</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">40</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">41</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="State_6" sap:VirtualizedContainerService.HintSize="114.4,61.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">123,500.5</av:Point>
+            <av:Size x:Key="ShapeSize">114.4,61.6</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Double x:Key="StateContainerWidth">100</x:Double>
+            <x:Double x:Key="StateContainerHeight">25</x:Double>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Transition_15" sap:VirtualizedContainerService.HintSize="430,906">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">180,430.5 180,500.5</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">39</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">38</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="State_10" sap:VirtualizedContainerService.HintSize="114.4,61.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">123,369.5</av:Point>
+            <av:Size x:Key="ShapeSize">114.4,61.6</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="RecognizeStateChangedActivity_4" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Transition_11" sap:VirtualizedContainerService.HintSize="447,752">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">422.5,370 422.5,340 180,340 180,369.5</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">18</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">38</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="State_9" sap:VirtualizedContainerService.HintSize="114.4,61.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">394,370</av:Point>
+            <av:Size x:Key="ShapeSize">114.4,61.6</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Double x:Key="StateContainerWidth">100</x:Double>
+            <x:Double x:Key="StateContainerHeight">25</x:Double>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="RecognizeStateChangedActivity_7" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Transition_12" sap:VirtualizedContainerService.HintSize="575,1297">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">307,271 307,301 451,301 451,370</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">39</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">38</x:Int32>
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="RecognizeStateChangedActivity_3" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Transition_5" sap:VirtualizedContainerService.HintSize="575,1297">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">307,271 307,301 162.9,301 162.9,369.5</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">39</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">26</x:Int32>
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="State_1" sap:VirtualizedContainerService.HintSize="114.4,61.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">250,210</av:Point>
+            <av:Size x:Key="ShapeSize">114.4,61.6</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Double x:Key="StateContainerWidth">100</x:Double>
+            <x:Double x:Key="StateContainerHeight">25</x:Double>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="RecognizeStateChangedActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Transition_3" sap:VirtualizedContainerService.HintSize="430,752">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:PointCollection x:Key="ConnectorLocation">413,150.3 301.48,150.3 301.48,210</av:PointCollection>
+            <x:Int32 x:Key="SrcConnectionPointIndex">37</x:Int32>
+            <x:Int32 x:Key="DestConnectionPointIndex">34</x:Int32>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="State_4" sap:VirtualizedContainerService.HintSize="114.4,61.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">413,119.5</av:Point>
+            <av:Size x:Key="ShapeSize">114.4,61.6</av:Size>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Double x:Key="StateContainerWidth">100</x:Double>
+            <x:Double x:Key="StateContainerHeight">25</x:Double>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="StateMachine_1" sap:VirtualizedContainerService.HintSize="908.8,650.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <av:Point x:Key="ShapeLocation">440,0</av:Point>
+            <x:Double x:Key="StateContainerWidth">894</x:Double>
+            <x:Double x:Key="StateContainerHeight">613.26</x:Double>
+            <av:PointCollection x:Key="ConnectorLocation">475,75.2 475,105.2 475.92,105.2 475.92,119.5</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="GHDY.Workflow.Recognize.ActivityRecognizeEpisodeStateMachine_1" sap:VirtualizedContainerService.HintSize="948.8,730.4" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

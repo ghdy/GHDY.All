@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="GHDY.Core.DocumentModel.SyncControl.DMDocumentScrollViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dm="schema:GHDY.Core.DocumentModel"
+             xmlns:control="clr-namespace:GHDY.Core.DocumentModel.SyncControl"
+             xmlns:dialog ="clr-namespace:GHDY.Core.DocumentModel.SyncControl.Dialog"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             Height="Auto"
+             Width="Auto"
+             d:DesignHeight="360" d:DesignWidth="640">
+
+    <FrameworkElement.Resources>
+
+        <!-- SelectMode data provider -->
+        <ObjectDataProvider ObjectType="{x:Type control:SelectMode}" MethodName="GetValues" x:Key="selectModes">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="control:SelectMode"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <Style TargetType="ToolBar">
+            <!--<Setter Property="Height" Value="42"/>-->
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="toolbarItemBase" TargetType="Control">
+            <!--<Setter Property="FontSize" Value="18"/>-->
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="Margin" Value="2,0"/>
+        </Style>
+        <Style x:Key="toolbarButton" TargetType="Button" BasedOn="{StaticResource ResourceKey=toolbarItemBase}">
+            <Setter Property="Background" Value="Pink"/>
+        </Style>
+        <Style x:Key="toolbarCheckBox" TargetType="CheckBox" BasedOn="{StaticResource ResourceKey=toolbarItemBase}">
+            <Setter Property="Background" Value="AliceBlue"/>
+        </Style>
+        <Style TargetType="Label" BasedOn="{StaticResource ResourceKey=toolbarItemBase}">
+            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style TargetType="StatusBar">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
+    </FrameworkElement.Resources>
+
+    <DockPanel LastChildFill="True">
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar Header="Mode:" ToolTip="Ctrl->Word, Alt->Paragraph, Ctrl+Alt->Phrase.">
+                <!--<Label x:Name="txt_SelectMode" Content="{Binding SelectMode}"/>-->
+                <ListView x:Name="selector_Mode"
+                          ItemsSource="{Binding Source={StaticResource ResourceKey=selectModes}}" 
+                          SelectedItem="{Binding SelectMode}"
+                          BorderThickness="0"
+                          FontStyle="Italic" 
+                          FontWeight="Black" 
+                          SelectionMode="Single">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel VerticalAlignment="Center" Background="Transparent"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+            </ToolBar>
+
+            <ToolBar Header="Merge|Split:">
+                <Button Command="control:ProcessCommands.MergeWords"
+                        CommandParameter="Phrase"
+                        Content="{Binding RelativeSource={RelativeSource Self}, Path=CommandParameter}"/>
+                <Button Command="control:ProcessCommands.SplitPhrase"
+                        CommandParameter="Words"
+                        Content="{Binding RelativeSource={RelativeSource Self}, Path=CommandParameter}"/>
+            </ToolBar>
+            <ToolBar Header="EditText:">
+
+                <Button x:Name="btnEditSentenceText"
+                        ToolTip="Mouse DoubleClick Sentence"
+                        CommandParameter="Sentence"
+                        Command="control:ProcessCommands.EditText"
+                        Content="{Binding RelativeSource={RelativeSource Self}, Path=CommandParameter}"/>
+
+                <Button x:Name="btnEditWordText"
+                        ToolTip="Mouse DoubleClick Word"
+                        CommandParameter="Word"
+                        Command="control:ProcessCommands.EditText"
+                        Content="{Binding RelativeSource={RelativeSource Self}, Path=CommandParameter}"/>
+            </ToolBar>
+        </ToolBarTray>
+
+        <!--<StatusBar DockPanel.Dock="Bottom">
+
+            <ToolBar Header="Selected:" Width="165" VerticalContentAlignment="Center" VerticalAlignment="Center">
+                <Label Content="{Binding SelectedElements.Count}"/>
+            </ToolBar>
+
+        </StatusBar>-->
+
+        <FlowDocumentScrollViewer x:Name="flowDocumentViewer"
+                                  FontFamily="Courier New">
+        </FlowDocumentScrollViewer>
+    </DockPanel>
+</UserControl>

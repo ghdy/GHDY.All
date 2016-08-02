@@ -1,0 +1,240 @@
+﻿<Window xmlns:Primitives="clr-namespace:System.Windows.Controls.Ribbon.Primitives;assembly=System.Windows.Controls.Ribbon"  x:Class="GHDY.Demo.EpisodeDownloadWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converter="clr-namespace:GHDY.Demo.ValueConverter"
+        Loaded="Window_Loaded"
+        Title="EpisodeDownloadWindow" 
+        Height="800" 
+        Width="1280">
+    <FrameworkElement.Resources>
+        <converter:InverseBoolValueConverter x:Key="inverseBoolValueConverter"/>
+
+        <Style x:Key="styleRibbonLabel" TargetType="Control">
+            <Setter Property="FontFamily" Value="Consolas"/>
+        </Style>
+        <Style x:Key="styleColumn" TargetType="FrameworkElement">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="IsEnabled" Value="False"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="styleTitleColumn" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource styleColumn}">
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <Style x:Key="VerticalSeparatorStyle" 
+       TargetType="{x:Type Separator}"
+       BasedOn="{StaticResource {x:Type Separator}}">
+            <Setter Property="Margin" Value="6,0,6,0"/>
+            <Setter Property="LayoutTransform">
+                <Setter.Value>
+                    <TransformGroup>
+                        <TransformGroup.Children>
+                            <TransformCollection>
+                                <RotateTransform Angle="90"/>
+                            </TransformCollection>
+                        </TransformGroup.Children>
+                    </TransformGroup>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="GroupBox">
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </FrameworkElement.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="6*"/>
+        </Grid.ColumnDefinitions>
+
+        <Ribbon Grid.Row="0" Grid.ColumnSpan="2">
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu >
+                    <RibbonApplicationMenuItem Header="Close"/>
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+
+            <RibbonTab Header="Download">
+
+                <RibbonGroup Header="SelectAlbum">
+                    <RibbonTextBox Label="Target:" 
+                                   Style="{StaticResource ResourceKey=styleRibbonLabel}"
+                                   TextBoxWidth="127"
+                                   Text="{Binding Path=CurrentTarget.ID, Mode=OneWay}"></RibbonTextBox>
+                    
+                    <RibbonComboBox SelectionBoxWidth="110"
+                                    Style="{StaticResource ResourceKey=styleRibbonLabel}"
+                                    Margin="2,0,0,0"
+                                    Label="Albums:">
+                        <RibbonGallery x:Name="selector_Album"
+                                       SelectionChanged="selector_Album_SelectionChanged">
+                            <RibbonGalleryCategory x:Name="category_Album" ItemsSource="{Binding Albums}">
+
+                                <RibbonGalleryCategory.ItemTemplate>
+                                    <DataTemplate>
+                                        <RibbonGalleryItem FontSize="10" Content="{Binding ID}"/>
+                                    </DataTemplate>
+                                </RibbonGalleryCategory.ItemTemplate>
+                            </RibbonGalleryCategory>
+
+                        </RibbonGallery>
+                    </RibbonComboBox>
+
+                    <RibbonControlGroup HorizontalAlignment="Center">
+                        <RibbonControlGroup.Items>
+                            <RibbonToggleButton x:Name="btnAllEpisodes"
+                                                Label="AllEpisodes" 
+                                                ToolTip="AllEpisodes" 
+                                                Content="AllEpisodes"
+                                                IsChecked="True"/>
+                            <RibbonToggleButton Label="Translation" 
+                                                ToolTip="HasTranslation" 
+                                                Content="HasTranslation"
+                                                IsEnabled="{Binding ElementName=btnAllEpisodes, Path=IsChecked, Converter={StaticResource ResourceKey=inverseBoolValueConverter}}"/>
+                            <RibbonToggleButton Label="Lyrics" 
+                                                ToolTip="HasTranslation" 
+                                                Content="HasTranslation"
+                                                IsEnabled="{Binding ElementName=btnAllEpisodes, Path=IsChecked, Converter={StaticResource ResourceKey=inverseBoolValueConverter}}"/>
+                        </RibbonControlGroup.Items>
+                    </RibbonControlGroup>
+                </RibbonGroup>
+
+                <RibbonGroup Header="SelectPage">
+                    <ListBox x:Name="selector_Page"
+                             Width="200"
+                             ItemsSource="{Binding Pages}"
+                             SelectionChanged="selector_Page_SelectionChanged">
+
+                        <ListBox.Template>
+                            <ControlTemplate>
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                    <WrapPanel Orientation="Horizontal" IsItemsHost="True" ScrollViewer.CanContentScroll="True"/>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ListBox.Template>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label FontSize="12" Content="{Binding Index}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
+                </RibbonGroup>
+                
+                <RibbonGroup Header="AutoDownload">
+                    <RibbonButton Label="Download" 
+                                  HorizontalAlignment="Center" 
+                                  HorizontalContentAlignment="Center"
+                                  Command="ApplicationCommands.SelectAll"
+                                  CommandParameter="{Binding ElementName=selector_Album, Path=SelectedValue}"/>
+                    <RibbonButton Label="Refresh" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                </RibbonGroup>
+            </RibbonTab>
+
+            <RibbonTab Header="Targets">
+                <RibbonGroup Header="group2">
+                    <RibbonButton Label="test2"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+
+        <DataGrid x:Name="selector_Episode"
+                  Grid.Row="1" 
+                  Grid.Column="0" 
+                  RowHeight="52"
+                  AutoGenerateColumns="False"
+                  AlternatingRowBackground="AliceBlue"
+                  ItemsSource="{Binding Episodes}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Open Episode Folder" Command="ApplicationCommands.Open"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="Tran" Binding="{Binding HasTranslation}" ElementStyle="{StaticResource ResourceKey=styleColumn}" IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="Lrc" Binding="{Binding HasLrc}" ElementStyle="{StaticResource ResourceKey=styleColumn}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Title" 
+                                    Binding="{Binding Title}"  
+                                    MaxWidth="300"
+                                    ElementStyle="{StaticResource ResourceKey=styleTitleColumn}"
+                                     IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Binding="{Binding IsContentDownloaded}"  ElementStyle="{StaticResource ResourceKey=styleColumn}" IsReadOnly="True">
+                    <DataGridCheckBoxColumn.Header>
+                        <Image Source="/GHDY.Core;component/Images/Download.png" Width="24" Height="24" ToolTip="Downloaded"/>
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Binding="{Binding IsRecognized}"  ElementStyle="{StaticResource ResourceKey=styleColumn}" IsReadOnly="True">
+                    <DataGridCheckBoxColumn.Header>
+                        <Image Source="/GHDY.Core;component/Images/Recognize.png" Width="24" Height="24" ToolTip="Recognized"/>
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Binding="{Binding IsRecognized}"  ElementStyle="{StaticResource ResourceKey=styleColumn}" IsReadOnly="True">
+                    <DataGridCheckBoxColumn.Header>
+                        <Image Source="/GHDY.Core;component/Images/Translate.png" Width="24" Height="24" ToolTip="Translated"/>
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Background="LightYellow">
+            <GroupBox Header="Download Episode Content:">
+                <StackPanel>
+                    <ListBox Margin="5" Height="160" ItemsSource="{Binding DownloadInfoCollection}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="AliceBlue" BorderThickness="1">
+                                    <Expander>
+                                        <Expander.Header>
+                                            <WrapPanel>
+                                                <Label Content="{Binding Result}" Foreground="Green"/>
+                                                <Separator Style="{DynamicResource VerticalSeparatorStyle}" />
+                                                <ProgressBar Maximum="100" Width="120" Value="{Binding Persentage}"/>
+                                                <Separator Style="{DynamicResource VerticalSeparatorStyle}" />
+                                                <Label Content="{Binding FileName}"/>
+
+                                            </WrapPanel>
+                                        </Expander.Header>
+
+                                        <TextBox Text="{Binding Url}"/>
+                                    </Expander>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ListBox>
+                    <Button Content="Download" 
+                            Margin="5"
+                            Command="{Binding CmdDownloadContent}" 
+                            CommandParameter="{Binding ElementName=selector_Episode, Path=SelectedItem}"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="PreProcess:">
+                <Button Content="CreateDocumentModel" 
+                        Command="{Binding CmdCreateDocumentModel}" 
+                        CommandParameter="{Binding ElementName=selector_Episode, Path=SelectedItem}"/>
+            </GroupBox>
+        </StackPanel>
+
+        <StatusBar Grid.ColumnSpan="2" Grid.Row="2">
+            <Label Content="Message:"/>
+            <TextBlock Text="{Binding Message}" Width="300" Foreground="Blue"/>
+        </StatusBar>
+    </Grid>
+</Window>

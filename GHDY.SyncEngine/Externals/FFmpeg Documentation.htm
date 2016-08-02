@@ -1,0 +1,2027 @@
+
+<!-- saved from url=(0037)http://www.ffmpeg.org/ffmpeg-doc.html -->
+<HTML><HEAD><META http-equiv="Content-Type" content="text/html; charset=GBK">
+<!-- Created by texi2html 1.56k from ffmpeg-doc.texi on 26 July 2010 -->
+
+<TITLE>FFmpeg Documentation</TITLE>
+</HEAD><BODY>
+<H1>FFmpeg Documentation</H1>
+<P>
+</P><P></P><HR><P>
+</P><H1>Table of Contents</H1>
+<UL>
+<LI><A name="TOC1" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC1">1. Synopsis</A>
+</LI><LI><A name="TOC2" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC2">2. Description</A>
+</LI><LI><A name="TOC3" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC3">3. Options</A>
+<UL>
+<LI><A name="TOC4" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC4">3.1 Generic options</A>
+</LI><LI><A name="TOC5" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC5">3.2 Main options</A>
+</LI><LI><A name="TOC6" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC6">3.3 Video Options</A>
+</LI><LI><A name="TOC7" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC7">3.4 Advanced Video Options</A>
+</LI><LI><A name="TOC8" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC8">3.5 Audio Options</A>
+</LI><LI><A name="TOC9" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC9">3.6 Advanced Audio options:</A>
+</LI><LI><A name="TOC10" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC10">3.7 Subtitle options:</A>
+</LI><LI><A name="TOC11" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC11">3.8 Audio/Video grab options</A>
+</LI><LI><A name="TOC12" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC12">3.9 Advanced options</A>
+</LI><LI><A name="TOC13" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC13">3.10 Preset files</A>
+</LI><LI><A name="TOC14" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC14">3.11 FFmpeg formula evaluator</A>
+</LI><LI><A name="TOC15" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC15">3.12 Protocols</A>
+</LI></UL>
+</LI><LI><A name="TOC16" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC16">4. Tips</A>
+</LI><LI><A name="TOC17" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC17">5. Examples</A>
+<UL>
+<LI><A name="TOC18" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC18">5.1 Video and Audio grabbing</A>
+</LI><LI><A name="TOC19" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC19">5.2 X11 grabbing</A>
+</LI><LI><A name="TOC20" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC20">5.3 Video and Audio file format conversion</A>
+</LI></UL>
+</LI><LI><A name="TOC21" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC21">6. Video Filters</A>
+<UL>
+<LI><A name="TOC22" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC22">6.1 crop</A>
+</LI><LI><A name="TOC23" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC23">6.2 format</A>
+</LI><LI><A name="TOC24" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC24">6.3 noformat</A>
+</LI><LI><A name="TOC25" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC25">6.4 null</A>
+</LI><LI><A name="TOC26" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC26">6.5 pad</A>
+</LI><LI><A name="TOC27" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC27">6.6 pixdesctest</A>
+</LI><LI><A name="TOC28" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC28">6.7 scale</A>
+</LI><LI><A name="TOC29" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC29">6.8 slicify</A>
+</LI><LI><A name="TOC30" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC30">6.9 unsharp</A>
+</LI><LI><A name="TOC31" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC31">6.10 vflip</A>
+</LI></UL>
+</LI><LI><A name="TOC32" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC32">7. Video Sources</A>
+<UL>
+<LI><A name="TOC33" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC33">7.1 buffer</A>
+</LI><LI><A name="TOC34" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC34">7.2 color</A>
+</LI><LI><A name="TOC35" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC35">7.3 nullsrc</A>
+</LI></UL>
+</LI><LI><A name="TOC36" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC36">8. Video Sinks</A>
+<UL>
+<LI><A name="TOC37" href="http://www.ffmpeg.org/ffmpeg-doc.html#SEC37">8.1 nullsink</A>
+</LI></UL>
+</LI></UL>
+<P></P><HR><P>
+
+</P><P>
+FFmpeg Documentation
+
+
+
+
+</P><H1><A name="SEC1" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC1">1. Synopsis</A></H1>
+
+<P>
+The generic syntax is:
+
+
+
+</P><PRE>ffmpeg [[infile options][<SAMP>`-i'</SAMP> <VAR>infile</VAR>]]... {[outfile options] <VAR>outfile</VAR>}...
+</PRE>
+
+
+
+<H1><A name="SEC2" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC2">2. Description</A></H1>
+
+<P>
+FFmpeg is a very fast video and audio converter. It can also grab from
+a live audio/video source.
+
+
+</P><P>
+The command line interface is designed to be intuitive, in the sense
+that FFmpeg tries to figure out all parameters that can possibly be
+derived automatically. You usually only have to specify the target
+bitrate you want.
+
+
+</P><P>
+FFmpeg can also convert from any sample rate to any other, and resize
+video on the fly with a high quality polyphase filter.
+
+
+</P><P>
+As a general rule, options are applied to the next specified
+file. Therefore, order is important, and you can have the same
+option on the command line multiple times. Each occurrence is
+then applied to the next input or output file.
+
+
+</P><P>
+* To set the video bitrate of the output file to 64kbit/s:
+
+</P><PRE>ffmpeg -i input.avi -b 64k output.avi
+</PRE>
+
+<P>
+* To force the frame rate of the output file to 24 fps:
+
+</P><PRE>ffmpeg -i input.avi -r 24 output.avi
+</PRE>
+
+<P>
+* To force the frame rate of the input file (valid for raw formats only)
+to 1 fps and the frame rate of the output file to 24 fps:
+
+</P><PRE>ffmpeg -r 1 -i input.m2v -r 24 output.avi
+</PRE>
+
+<P>
+The format option may be needed for raw input files.
+
+
+</P><P>
+By default, FFmpeg tries to convert as losslessly as possible: It
+uses the same audio and video parameters for the outputs as the one
+specified for the inputs.
+
+
+
+
+</P><H1><A name="SEC3" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC3">3. Options</A></H1>
+
+<P>
+All the numerical options, if not specified otherwise, accept in input
+a string representing a number, which may contain one of the
+International System number postfixes, for example 'K', 'M', 'G'.
+If 'i' is appended after the postfix, powers of 2 are used instead of
+powers of 10. The 'B' postfix multiplies the value for 8, and can be
+appended after another postfix or used alone. This allows using for
+example 'KB', 'MiB', 'G' and 'B' as postfix.
+
+
+</P><P>
+Options which do not take arguments are boolean options, and set the
+corresponding value to true. They can be set to false by prefixing
+with "no" the option name, for example using "-nofoo" in the
+commandline will set to false the boolean option with name "foo".
+
+
+
+
+</P><H2><A name="SEC4" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC4">3.1 Generic options</A></H2>
+
+<P>
+These options are shared amongst the ff* tools.
+
+
+</P><DL compact="">
+
+<DT><SAMP>`-L'</SAMP>
+</DT><DD>
+Show license.
+
+</DD><DT><SAMP>`-h, -?, -help, --help'</SAMP>
+</DT><DD>
+Show help.
+
+</DD><DT><SAMP>`-version'</SAMP>
+</DT><DD>
+Show version.
+
+</DD><DT><SAMP>`-formats'</SAMP>
+</DT><DD>
+Show available formats.
+
+The fields preceding the format names have the following meanings:
+<DL compact="">
+
+<DT><SAMP>`D'</SAMP>
+</DT><DD>
+Decoding available
+</DD><DT><SAMP>`E'</SAMP>
+</DT><DD>
+Encoding available
+</DD></DL>
+
+</DD><DT><SAMP>`-codecs'</SAMP>
+</DT><DD>
+Show available codecs.
+
+The fields preceding the codec names have the following meanings:
+<DL compact="">
+
+<DT><SAMP>`D'</SAMP>
+</DT><DD>
+Decoding available
+</DD><DT><SAMP>`E'</SAMP>
+</DT><DD>
+Encoding available
+</DD><DT><SAMP>`V/A/S'</SAMP>
+</DT><DD>
+Video/audio/subtitle codec
+</DD><DT><SAMP>`S'</SAMP>
+</DT><DD>
+Codec supports slices
+</DD><DT><SAMP>`D'</SAMP>
+</DT><DD>
+Codec supports direct rendering
+</DD><DT><SAMP>`T'</SAMP>
+</DT><DD>
+Codec can handle input truncated at random locations instead of only at frame boundaries
+</DD></DL>
+
+</DD><DT><SAMP>`-bsfs'</SAMP>
+</DT><DD>
+Show available bitstream filters.
+
+</DD><DT><SAMP>`-protocols'</SAMP>
+</DT><DD>
+Show available protocols.
+
+</DD><DT><SAMP>`-filters'</SAMP>
+</DT><DD>
+Show available libavfilter filters.
+
+</DD><DT><SAMP>`-pix_fmts'</SAMP>
+</DT><DD>
+Show available pixel formats.
+
+</DD><DT><SAMP>`-loglevel <VAR>loglevel</VAR>'</SAMP>
+</DT><DD>
+Set the logging level used by the library.
+<VAR>loglevel</VAR> is a number or a string containing one of the following values:
+<DL compact="">
+
+<DT><SAMP>`quiet'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`panic'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`fatal'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`error'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`warning'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`info'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`verbose'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`debug'</SAMP>
+</DT><DD>
+</DD></DL>
+
+By default the program logs to stderr, if coloring is supported by the
+terminal, colors are used to mark errors and warnings. Log coloring
+can be disabled setting the environment variable @env{NO_COLOR}.
+
+</DD></DL>
+
+
+
+<H2><A name="SEC5" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC5">3.2 Main options</A></H2>
+
+<DL compact="">
+
+<DT><SAMP>`-f <VAR>fmt</VAR>'</SAMP>
+</DT><DD>
+Force format.
+
+</DD><DT><SAMP>`-i <VAR>filename</VAR>'</SAMP>
+</DT><DD>
+input file name
+
+</DD><DT><SAMP>`-y'</SAMP>
+</DT><DD>
+Overwrite output files.
+
+</DD><DT><SAMP>`-t <VAR>duration</VAR>'</SAMP>
+</DT><DD>
+Restrict the transcoded/captured video sequence
+to the duration specified in seconds.
+<CODE>hh:mm:ss[.xxx]</CODE> syntax is also supported.
+
+</DD><DT><SAMP>`-fs <VAR>limit_size</VAR>'</SAMP>
+</DT><DD>
+Set the file size limit.
+
+</DD><DT><SAMP>`-ss <VAR>position</VAR>'</SAMP>
+</DT><DD>
+Seek to given time position in seconds.
+<CODE>hh:mm:ss[.xxx]</CODE> syntax is also supported.
+
+</DD><DT><SAMP>`-itsoffset <VAR>offset</VAR>'</SAMP>
+</DT><DD>
+Set the input time offset in seconds.
+<CODE>[-]hh:mm:ss[.xxx]</CODE> syntax is also supported.
+This option affects all the input files that follow it.
+The offset is added to the timestamps of the input files.
+Specifying a positive offset means that the corresponding
+streams are delayed by 'offset' seconds.
+
+</DD><DT><SAMP>`-timestamp <VAR>time</VAR>'</SAMP>
+</DT><DD>
+Set the recording timestamp in the container.
+The syntax for <VAR>time</VAR> is:
+
+<PRE>now|([(YYYY-MM-DD|YYYYMMDD)[T|t| ]]((HH[:MM[:SS[.m...]]])|(HH[MM[SS[.m...]]]))[Z|z])
+</PRE>
+
+If the value is "now" it takes the current time.
+Time is local time unless 'Z' or 'z' is appended, in which case it is
+interpreted as UTC.
+If the year-month-day part is not specified it takes the current
+year-month-day.
+
+</DD><DT><SAMP>`-metadata <VAR>key</VAR>=<VAR>value</VAR>'</SAMP>
+</DT><DD>
+Set a metadata key/value pair.
+
+For example, for setting the title in the output file:
+
+<PRE>ffmpeg -i in.avi -metadata title="my title" out.flv
+</PRE>
+
+</DD><DT><SAMP>`-v <VAR>number</VAR>'</SAMP>
+</DT><DD>
+Set the logging verbosity level.
+
+</DD><DT><SAMP>`-target <VAR>type</VAR>'</SAMP>
+</DT><DD>
+Specify target file type ("vcd", "svcd", "dvd", "dv", "dv50", "pal-vcd",
+"ntsc-svcd", ... ). All the format options (bitrate, codecs,
+buffer sizes) are then set automatically. You can just type:
+
+
+<PRE>ffmpeg -i myfile.avi -target vcd /tmp/vcd.mpg
+</PRE>
+
+Nevertheless you can specify additional options as long as you know
+they do not conflict with the standard, as in:
+
+
+<PRE>ffmpeg -i myfile.avi -target vcd -bf 2 /tmp/vcd.mpg
+</PRE>
+
+</DD><DT><SAMP>`-dframes <VAR>number</VAR>'</SAMP>
+</DT><DD>
+Set the number of data frames to record.
+
+</DD><DT><SAMP>`-scodec <VAR>codec</VAR>'</SAMP>
+</DT><DD>
+Force subtitle codec ('copy' to copy stream).
+
+</DD><DT><SAMP>`-newsubtitle'</SAMP>
+</DT><DD>
+Add a new subtitle stream to the current output stream.
+
+</DD><DT><SAMP>`-slang <VAR>code</VAR>'</SAMP>
+</DT><DD>
+Set the ISO 639 language code (3 letters) of the current subtitle stream.
+
+</DD></DL>
+
+
+
+<H2><A name="SEC6" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC6">3.3 Video Options</A></H2>
+
+<DL compact="">
+
+<DT><SAMP>`-b <VAR>bitrate</VAR>'</SAMP>
+</DT><DD>
+Set the video bitrate in bit/s (default = 200 kb/s).
+</DD><DT><SAMP>`-vframes <VAR>number</VAR>'</SAMP>
+</DT><DD>
+Set the number of video frames to record.
+</DD><DT><SAMP>`-r <VAR>fps</VAR>'</SAMP>
+</DT><DD>
+Set frame rate (Hz value, fraction or abbreviation), (default = 25).
+</DD><DT><SAMP>`-s <VAR>size</VAR>'</SAMP>
+</DT><DD>
+Set frame size. The format is <SAMP>`wxh'</SAMP> (ffserver default = 160x128, ffmpeg default = same as source).
+The following abbreviations are recognized:
+<DL compact="">
+
+<DT><SAMP>`sqcif'</SAMP>
+</DT><DD>
+128x96
+</DD><DT><SAMP>`qcif'</SAMP>
+</DT><DD>
+176x144
+</DD><DT><SAMP>`cif'</SAMP>
+</DT><DD>
+352x288
+</DD><DT><SAMP>`4cif'</SAMP>
+</DT><DD>
+704x576
+</DD><DT><SAMP>`16cif'</SAMP>
+</DT><DD>
+1408x1152
+</DD><DT><SAMP>`qqvga'</SAMP>
+</DT><DD>
+160x120
+</DD><DT><SAMP>`qvga'</SAMP>
+</DT><DD>
+320x240
+</DD><DT><SAMP>`vga'</SAMP>
+</DT><DD>
+640x480
+</DD><DT><SAMP>`svga'</SAMP>
+</DT><DD>
+800x600
+</DD><DT><SAMP>`xga'</SAMP>
+</DT><DD>
+1024x768
+</DD><DT><SAMP>`uxga'</SAMP>
+</DT><DD>
+1600x1200
+</DD><DT><SAMP>`qxga'</SAMP>
+</DT><DD>
+2048x1536
+</DD><DT><SAMP>`sxga'</SAMP>
+</DT><DD>
+1280x1024
+</DD><DT><SAMP>`qsxga'</SAMP>
+</DT><DD>
+2560x2048
+</DD><DT><SAMP>`hsxga'</SAMP>
+</DT><DD>
+5120x4096
+</DD><DT><SAMP>`wvga'</SAMP>
+</DT><DD>
+852x480
+</DD><DT><SAMP>`wxga'</SAMP>
+</DT><DD>
+1366x768
+</DD><DT><SAMP>`wsxga'</SAMP>
+</DT><DD>
+1600x1024
+</DD><DT><SAMP>`wuxga'</SAMP>
+</DT><DD>
+1920x1200
+</DD><DT><SAMP>`woxga'</SAMP>
+</DT><DD>
+2560x1600
+</DD><DT><SAMP>`wqsxga'</SAMP>
+</DT><DD>
+3200x2048
+</DD><DT><SAMP>`wquxga'</SAMP>
+</DT><DD>
+3840x2400
+</DD><DT><SAMP>`whsxga'</SAMP>
+</DT><DD>
+6400x4096
+</DD><DT><SAMP>`whuxga'</SAMP>
+</DT><DD>
+7680x4800
+</DD><DT><SAMP>`cga'</SAMP>
+</DT><DD>
+320x200
+</DD><DT><SAMP>`ega'</SAMP>
+</DT><DD>
+640x350
+</DD><DT><SAMP>`hd480'</SAMP>
+</DT><DD>
+852x480
+</DD><DT><SAMP>`hd720'</SAMP>
+</DT><DD>
+1280x720
+</DD><DT><SAMP>`hd1080'</SAMP>
+</DT><DD>
+1920x1080
+</DD></DL>
+
+</DD><DT><SAMP>`-aspect <VAR>aspect</VAR>'</SAMP>
+</DT><DD>
+Set aspect ratio (4:3, 16:9 or 1.3333, 1.7777).
+</DD><DT><SAMP>`-croptop <VAR>size</VAR> (deprecated - use -vf crop=x:y:width:height instead)'</SAMP>
+</DT><DD>
+Set top crop band size (in pixels).
+</DD><DT><SAMP>`-cropbottom <VAR>size</VAR> (deprecated - use -vf crop=x:y:width:height instead)'</SAMP>
+</DT><DD>
+Set bottom crop band size (in pixels).
+</DD><DT><SAMP>`-cropleft <VAR>size</VAR> (deprecated - use -vf crop=x:y:width:height instead)'</SAMP>
+</DT><DD>
+Set left crop band size (in pixels).
+</DD><DT><SAMP>`-cropright <VAR>size</VAR> (deprecated - use -vf crop=x:y:width:height instead)'</SAMP>
+</DT><DD>
+Set right crop band size (in pixels).
+</DD><DT><SAMP>`-padtop <VAR>size</VAR>'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`-padbottom <VAR>size</VAR>'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`-padleft <VAR>size</VAR>'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`-padright <VAR>size</VAR>'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`-padcolor <VAR>hex_color</VAR>'</SAMP>
+</DT><DD>
+All the pad options have been removed. Use -vf
+pad=width:height:x:y:color instead.
+</DD><DT><SAMP>`-vn'</SAMP>
+</DT><DD>
+Disable video recording.
+</DD><DT><SAMP>`-bt <VAR>tolerance</VAR>'</SAMP>
+</DT><DD>
+Set video bitrate tolerance (in bits, default 4000k).
+Has a minimum value of: (target_bitrate/target_framerate).
+In 1-pass mode, bitrate tolerance specifies how far ratecontrol is
+willing to deviate from the target average bitrate value. This is
+not related to min/max bitrate. Lowering tolerance too much has
+an adverse effect on quality.
+</DD><DT><SAMP>`-maxrate <VAR>bitrate</VAR>'</SAMP>
+</DT><DD>
+Set max video bitrate (in bit/s).
+Requires -bufsize to be set.
+</DD><DT><SAMP>`-minrate <VAR>bitrate</VAR>'</SAMP>
+</DT><DD>
+Set min video bitrate (in bit/s).
+Most useful in setting up a CBR encode:
+
+<PRE>ffmpeg -i myfile.avi -b 4000k -minrate 4000k -maxrate 4000k -bufsize 1835k out.m2v
+</PRE>
+
+It is of little use elsewise.
+</DD><DT><SAMP>`-bufsize <VAR>size</VAR>'</SAMP>
+</DT><DD>
+Set video buffer verifier buffer size (in bits).
+</DD><DT><SAMP>`-vcodec <VAR>codec</VAR>'</SAMP>
+</DT><DD>
+Force video codec to <VAR>codec</VAR>. Use the <CODE>copy</CODE> special value to
+tell that the raw codec data must be copied as is.
+</DD><DT><SAMP>`-sameq'</SAMP>
+</DT><DD>
+Use same video quality as source (implies VBR).
+
+</DD><DT><SAMP>`-pass <VAR>n</VAR>'</SAMP>
+</DT><DD>
+Select the pass number (1 or 2). It is used to do two-pass
+video encoding. The statistics of the video are recorded in the first
+pass into a log file (see also the option -passlogfile),
+and in the second pass that log file is used to generate the video
+at the exact requested bitrate.
+On pass 1, you may just deactivate audio and set output to null,
+examples for Windows and Unix:
+
+<PRE>ffmpeg -i foo.mov -vcodec libxvid -pass 1 -an -f rawvideo -y NUL
+ffmpeg -i foo.mov -vcodec libxvid -pass 1 -an -f rawvideo -y /dev/null
+</PRE>
+
+</DD><DT><SAMP>`-passlogfile <VAR>prefix</VAR>'</SAMP>
+</DT><DD>
+Set two-pass log file name prefix to <VAR>prefix</VAR>, the default file name
+prefix is "ffmpeg2pass". The complete file name will be
+<TT>`PREFIX-N.log'</TT>, where N is a number specific to the output
+stream.
+
+</DD><DT><SAMP>`-newvideo'</SAMP>
+</DT><DD>
+Add a new video stream to the current output stream.
+
+</DD><DT><SAMP>`-vlang <VAR>code</VAR>'</SAMP>
+</DT><DD>
+Set the ISO 639 language code (3 letters) of the current video stream.
+
+</DD><DT><SAMP>`-vf <VAR>filter_graph</VAR>'</SAMP>
+</DT><DD>
+<VAR>filter_graph</VAR> is a description of the filter graph to apply to
+the input video.
+Use the option "-filters" to show all the available filters (including
+also sources and sinks).
+
+</DD></DL>
+
+
+
+<H2><A name="SEC7" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC7">3.4 Advanced Video Options</A></H2>
+
+<DL compact="">
+
+<DT><SAMP>`-pix_fmt <VAR>format</VAR>'</SAMP>
+</DT><DD>
+Set pixel format. Use 'list' as parameter to show all the supported
+pixel formats.
+</DD><DT><SAMP>`-sws_flags <VAR>flags</VAR>'</SAMP>
+</DT><DD>
+Set SwScaler flags.
+</DD><DT><SAMP>`-g <VAR>gop_size</VAR>'</SAMP>
+</DT><DD>
+Set the group of pictures size.
+</DD><DT><SAMP>`-intra'</SAMP>
+</DT><DD>
+Use only intra frames.
+</DD><DT><SAMP>`-vdt <VAR>n</VAR>'</SAMP>
+</DT><DD>
+Discard threshold.
+</DD><DT><SAMP>`-qscale <VAR>q</VAR>'</SAMP>
+</DT><DD>
+Use fixed video quantizer scale (VBR).
+</DD><DT><SAMP>`-qmin <VAR>q</VAR>'</SAMP>
+</DT><DD>
+minimum video quantizer scale (VBR)
+</DD><DT><SAMP>`-qmax <VAR>q</VAR>'</SAMP>
+</DT><DD>
+maximum video quantizer scale (VBR)
+</DD><DT><SAMP>`-qdiff <VAR>q</VAR>'</SAMP>
+</DT><DD>
+maximum difference between the quantizer scales (VBR)
+</DD><DT><SAMP>`-qblur <VAR>blur</VAR>'</SAMP>
+</DT><DD>
+video quantizer scale blur (VBR) (range 0.0 - 1.0)
+</DD><DT><SAMP>`-qcomp <VAR>compression</VAR>'</SAMP>
+</DT><DD>
+video quantizer scale compression (VBR) (default 0.5).
+Constant of ratecontrol equation. Recommended range for default rc_eq: 0.0-1.0
+
+</DD><DT><SAMP>`-lmin <VAR>lambda</VAR>'</SAMP>
+</DT><DD>
+minimum video lagrange factor (VBR)
+</DD><DT><SAMP>`-lmax <VAR>lambda</VAR>'</SAMP>
+</DT><DD>
+max video lagrange factor (VBR)
+</DD><DT><SAMP>`-mblmin <VAR>lambda</VAR>'</SAMP>
+</DT><DD>
+minimum macroblock quantizer scale (VBR)
+</DD><DT><SAMP>`-mblmax <VAR>lambda</VAR>'</SAMP>
+</DT><DD>
+maximum macroblock quantizer scale (VBR)
+
+These four options (lmin, lmax, mblmin, mblmax) use 'lambda' units,
+but you may use the QP2LAMBDA constant to easily convert from 'q' units:
+
+<PRE>ffmpeg -i src.ext -lmax 21*QP2LAMBDA dst.ext
+</PRE>
+
+</DD><DT><SAMP>`-rc_init_cplx <VAR>complexity</VAR>'</SAMP>
+</DT><DD>
+initial complexity for single pass encoding
+</DD><DT><SAMP>`-b_qfactor <VAR>factor</VAR>'</SAMP>
+</DT><DD>
+qp factor between P- and B-frames
+</DD><DT><SAMP>`-i_qfactor <VAR>factor</VAR>'</SAMP>
+</DT><DD>
+qp factor between P- and I-frames
+</DD><DT><SAMP>`-b_qoffset <VAR>offset</VAR>'</SAMP>
+</DT><DD>
+qp offset between P- and B-frames
+</DD><DT><SAMP>`-i_qoffset <VAR>offset</VAR>'</SAMP>
+</DT><DD>
+qp offset between P- and I-frames
+</DD><DT><SAMP>`-rc_eq <VAR>equation</VAR>'</SAMP>
+</DT><DD>
+Set rate control equation (@xref{FFmpeg formula evaluator}) (default = <CODE>tex^qComp</CODE>).
+</DD><DT><SAMP>`-rc_override <VAR>override</VAR>'</SAMP>
+</DT><DD>
+rate control override for specific intervals
+</DD><DT><SAMP>`-me_method <VAR>method</VAR>'</SAMP>
+</DT><DD>
+Set motion estimation method to <VAR>method</VAR>.
+Available methods are (from lowest to best quality):
+<DL compact="">
+
+<DT><SAMP>`zero'</SAMP>
+</DT><DD>
+Try just the (0, 0) vector.
+</DD><DT><SAMP>`phods'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`log'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`x1'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`hex'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`umh'</SAMP>
+</DT><DD>
+</DD><DT><SAMP>`epzs'</SAMP>
+</DT><DD>
+(default method)
+</DD><DT><SAMP>`full'</SAMP>
+</DT><DD>
+exhaustive search (slow and marginally better than epzs)
+</DD></DL>
+
+</DD><DT><SAMP>`-dct_algo <VAR>algo</VAR>'</SAMP>
+</DT><DD>
+Set DCT algorithm to <VAR>algo</VAR>. Available values are:
+<DL compact="">
+
+<DT><SAMP>`0'</SAMP>
+</DT><DD>
+FF_DCT_AUTO (default)
+</DD><DT><SAMP>`1'</SAMP>
+</DT><DD>
+FF_DCT_FASTINT
+</DD><DT><SAMP>`2'</SAMP>
+</DT><DD>
+FF_DCT_INT
+</DD><DT><SAMP>`3'</SAMP>
+</DT><DD>
+FF_DCT_MMX
+</DD><DT><SAMP>`4'</SAMP>
+</DT><DD>
+FF_DCT_MLIB
+</DD><DT><SAMP>`5'</SAMP>
+</DT><DD>
+FF_DCT_ALTIVEC
+</DD></DL>
+
+</DD><DT><SAMP>`-idct_algo <VAR>algo</VAR>'</SAMP>
+</DT><DD>
+Set IDCT algorithm to <VAR>algo</VAR>. Available values are:
+<DL compact="">
+
+<DT><SAMP>`0'</SAMP>
+</DT><DD>
+FF_IDCT_AUTO (default)
+</DD><DT><SAMP>`1'</SAMP>
+</DT><DD>
+FF_IDCT_INT
+</DD><DT><SAMP>`2'</SAMP>
+</DT><DD>
+FF_IDCT_SIMPLE
+</DD><DT><SAMP>`3'</SAMP>
+</DT><DD>
+FF_IDCT_SIMPLEMMX
+</DD><DT><SAMP>`4'</SAMP>
+</DT><DD>
+FF_IDCT_LIBMPEG2MMX
+</DD><DT><SAMP>`5'</SAMP>
+</DT><DD>
+FF_IDCT_PS2
+</DD><DT><SAMP>`6'</SAMP>
+</DT><DD>
+FF_IDCT_MLIB
+</DD><DT><SAMP>`7'</SAMP>
+</DT><DD>
+FF_IDCT_ARM
+</DD><DT><SAMP>`8'</SAMP>
+</DT><DD>
+FF_IDCT_ALTIVEC
+</DD><DT><SAMP>`9'</SAMP>
+</DT><DD>
+FF_IDCT_SH4
+</DD><DT><SAMP>`10'</SAMP>
+</DT><DD>
+FF_IDCT_SIMPLEARM
+</DD></DL>
+
+</DD><DT><SAMP>`-er <VAR>n</VAR>'</SAMP>
+</DT><DD>
+Set error resilience to <VAR>n</VAR>.
+<DL compact="">
+
+<DT><SAMP>`1'</SAMP>
+</DT><DD>
+FF_ER_CAREFUL (default)
+</DD><DT><SAMP>`2'</SAMP>
+</DT><DD>
+FF_ER_COMPLIANT
+</DD><DT><SAMP>`3'</SAMP>
+</DT><DD>
+FF_ER_AGGRESSIVE
+</DD><DT><SAMP>`4'</SAMP>
+</DT><DD>
+FF_ER_VERY_AGGRESSIVE
+</DD></DL>
+
+</DD><DT><SAMP>`-ec <VAR>bit_mask</VAR>'</SAMP>
+</DT><DD>
+Set error concealment to <VAR>bit_mask</VAR>. <VAR>bit_mask</VAR> is a bit mask of
+the following values:
+<DL compact="">
+
+<DT><SAMP>`1'</SAMP>
+</DT><DD>
+FF_EC_GUESS_MVS (default = enabled)
+</DD><DT><SAMP>`2'</SAMP>
+</DT><DD>
+FF_EC_DEBLOCK (default = enabled)
+</DD></DL>
+
+</DD><DT><SAMP>`-bf <VAR>frames</VAR>'</SAMP>
+</DT><DD>
+Use 'frames' B-frames (supported for MPEG-1, MPEG-2 and MPEG-4).
+</DD><DT><SAMP>`-mbd <VAR>mode</VAR>'</SAMP>
+</DT><DD>
+macroblock decision
+<DL compact="">
+
+<DT><SAMP>`0'</SAMP>
+</DT><DD>
+FF_MB_DECISION_SIMPLE: Use mb_cmp (cannot change it yet in FFmpeg).
+</DD><DT><SAMP>`1'</SAMP>
+</DT><DD>
+FF_MB_DECISION_BITS: Choose the one which needs the fewest bits.
+</DD><DT><SAMP>`2'</SAMP>
+</DT><DD>
+FF_MB_DECISION_RD: rate distortion
+</DD></DL>
+
+</DD><DT><SAMP>`-4mv'</SAMP>
+</DT><DD>
+Use four motion vector by macroblock (MPEG-4 only).
+</DD><DT><SAMP>`-part'</SAMP>
+</DT><DD>
+Use data partitioning (MPEG-4 only).
+</DD><DT><SAMP>`-bug <VAR>param</VAR>'</SAMP>
+</DT><DD>
+Work around encoder bugs that are not auto-detected.
+</DD><DT><SAMP>`-strict <VAR>strictness</VAR>'</SAMP>
+</DT><DD>
+How strictly to follow the standards.
+</DD><DT><SAMP>`-aic'</SAMP>
+</DT><DD>
+Enable Advanced intra coding (h263+).
+</DD><DT><SAMP>`-umv'</SAMP>
+</DT><DD>
+Enable Unlimited Motion Vector (h263+)
+
+</DD><DT><SAMP>`-deinterlace'</SAMP>
+</DT><DD>
+Deinterlace pictures.
+</DD><DT><SAMP>`-ilme'</SAMP>
+</DT><DD>
+Force interlacing support in encoder (MPEG-2 and MPEG-4 only).
+Use this option if your input file is interlaced and you want
+to keep the interlaced format for minimum losses.
+The alternative is to deinterlace the input stream with
+<SAMP>`-deinterlace'</SAMP>, but deinterlacing introduces losses.
+</DD><DT><SAMP>`-psnr'</SAMP>
+</DT><DD>
+Calculate PSNR of compressed frames.
+</DD><DT><SAMP>`-vstats'</SAMP>
+</DT><DD>
+Dump video coding statistics to <TT>`vstats_HHMMSS.log'</TT>.
+</DD><DT><SAMP>`-vstats_file <VAR>file</VAR>'</SAMP>
+</DT><DD>
+Dump video coding statistics to <VAR>file</VAR>.
+</DD><DT><SAMP>`-top <VAR>n</VAR>'</SAMP>
+</DT><DD>
+top=1/bottom=0/auto=-1 field first
+</DD><DT><SAMP>`-dc <VAR>precision</VAR>'</SAMP>
+</DT><DD>
+Intra_dc_precision.
+</DD><DT><SAMP>`-vtag <VAR>fourcc/tag</VAR>'</SAMP>
+</DT><DD>
+Force video tag/fourcc.
+</DD><DT><SAMP>`-qphist'</SAMP>
+</DT><DD>
+Show QP histogram.
+</DD><DT><SAMP>`-vbsf <VAR>bitstream_filter</VAR>'</SAMP>
+</DT><DD>
+Bitstream filters available are "dump_extra", "remove_extra", "noise", "h264_mp4toannexb", "imxdump", "mjpegadump".
+
+<PRE>ffmpeg -i h264.mp4 -vcodec copy -vbsf h264_mp4toannexb -an out.h264
+</PRE>
+
+</DD></DL>
+
+
+
+<H2><A name="SEC8" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC8">3.5 Audio Options</A></H2>
+
+<DL compact="">
+
+<DT><SAMP>`-aframes <VAR>number</VAR>'</SAMP>
+</DT><DD>
+Set the number of audio frames to record.
+</DD><DT><SAMP>`-ar <VAR>freq</VAR>'</SAMP>
+</DT><DD>
+Set the audio sampling frequency (default = 44100 Hz).
+</DD><DT><SAMP>`-ab <VAR>bitrate</VAR>'</SAMP>
+</DT><DD>
+Set the audio bitrate in bit/s (default = 64k).
+</DD><DT><SAMP>`-aq <VAR>q</VAR>'</SAMP>
+</DT><DD>
+Set the audio quality (codec-specific, VBR).
+</DD><DT><SAMP>`-ac <VAR>channels</VAR>'</SAMP>
+</DT><DD>
+Set the number of audio channels (default = 1).
+</DD><DT><SAMP>`-an'</SAMP>
+</DT><DD>
+Disable audio recording.
+</DD><DT><SAMP>`-acodec <VAR>codec</VAR>'</SAMP>
+</DT><DD>
+Force audio codec to <VAR>codec</VAR>. Use the <CODE>copy</CODE> special value to
+specify that the raw codec data must be copied as is.
+</DD><DT><SAMP>`-newaudio'</SAMP>
+</DT><DD>
+Add a new audio track to the output file. If you want to specify parameters,
+do so before <CODE>-newaudio</CODE> (<CODE>-acodec</CODE>, <CODE>-ab</CODE>, etc..).
+
+Mapping will be done automatically, if the number of output streams is equal to
+the number of input streams, else it will pick the first one that matches. You
+can override the mapping using <CODE>-map</CODE> as usual.
+
+Example:
+
+<PRE>ffmpeg -i file.mpg -vcodec copy -acodec ac3 -ab 384k test.mpg -acodec mp2 -ab 192k -newaudio
+</PRE>
+
+</DD><DT><SAMP>`-alang <VAR>code</VAR>'</SAMP>
+</DT><DD>
+Set the ISO 639 language code (3 letters) of the current audio stream.
+</DD></DL>
+
+
+
+<H2><A name="SEC9" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC9">3.6 Advanced Audio options:</A></H2>
+
+<DL compact="">
+
+<DT><SAMP>`-atag <VAR>fourcc/tag</VAR>'</SAMP>
+</DT><DD>
+Force audio tag/fourcc.
+</DD><DT><SAMP>`-absf <VAR>bitstream_filter</VAR>'</SAMP>
+</DT><DD>
+Bitstream filters available are "dump_extra", "remove_extra", "noise", "mp3comp", "mp3decomp".
+</DD></DL>
+
+
+
+<H2><A name="SEC10" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC10">3.7 Subtitle options:</A></H2>
+
+<DL compact="">
+
+<DT><SAMP>`-scodec <VAR>codec</VAR>'</SAMP>
+</DT><DD>
+Force subtitle codec ('copy' to copy stream).
+</DD><DT><SAMP>`-newsubtitle'</SAMP>
+</DT><DD>
+Add a new subtitle stream to the current output stream.
+</DD><DT><SAMP>`-slang <VAR>code</VAR>'</SAMP>
+</DT><DD>
+Set the ISO 639 language code (3 letters) of the current subtitle stream.
+</DD><DT><SAMP>`-sn'</SAMP>
+</DT><DD>
+Disable subtitle recording.
+</DD><DT><SAMP>`-sbsf <VAR>bitstream_filter</VAR>'</SAMP>
+</DT><DD>
+Bitstream filters available are "mov2textsub", "text2movsub".
+
+<PRE>ffmpeg -i file.mov -an -vn -sbsf mov2textsub -scodec copy -f rawvideo sub.txt
+</PRE>
+
+</DD></DL>
+
+
+
+<H2><A name="SEC11" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC11">3.8 Audio/Video grab options</A></H2>
+
+<DL compact="">
+
+<DT><SAMP>`-vc <VAR>channel</VAR>'</SAMP>
+</DT><DD>
+Set video grab channel (DV1394 only).
+</DD><DT><SAMP>`-tvstd <VAR>standard</VAR>'</SAMP>
+</DT><DD>
+Set television standard (NTSC, PAL (SECAM)).
+</DD><DT><SAMP>`-isync'</SAMP>
+</DT><DD>
+Synchronize read on input.
+</DD></DL>
+
+
+
+<H2><A name="SEC12" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC12">3.9 Advanced options</A></H2>
+
+<DL compact="">
+
+<DT><SAMP>`-map <VAR>input_stream_id</VAR>[:<VAR>sync_stream_id</VAR>]'</SAMP>
+</DT><DD>
+Set stream mapping from input streams to output streams.
+Just enumerate the input streams in the order you want them in the output.
+<VAR>sync_stream_id</VAR> if specified sets the input stream to sync
+against.
+</DD><DT><SAMP>`-map_meta_data <VAR>outfile</VAR>:<VAR>infile</VAR>'</SAMP>
+</DT><DD>
+Set meta data information of <VAR>outfile</VAR> from <VAR>infile</VAR>.
+</DD><DT><SAMP>`-debug'</SAMP>
+</DT><DD>
+Print specific debug info.
+</DD><DT><SAMP>`-benchmark'</SAMP>
+</DT><DD>
+Show benchmarking information at the end of an encode.
+Shows CPU time used and maximum memory consumption.
+Maximum memory consumption is not supported on all systems,
+it will usually display as 0 if not supported.
+</DD><DT><SAMP>`-dump'</SAMP>
+</DT><DD>
+Dump each input packet.
+</DD><DT><SAMP>`-hex'</SAMP>
+</DT><DD>
+When dumping packets, also dump the payload.
+</DD><DT><SAMP>`-bitexact'</SAMP>
+</DT><DD>
+Only use bit exact algorithms (for codec testing).
+</DD><DT><SAMP>`-ps <VAR>size</VAR>'</SAMP>
+</DT><DD>
+Set RTP payload size in bytes.
+</DD><DT><SAMP>`-re'</SAMP>
+</DT><DD>
+Read input at native frame rate. Mainly used to simulate a grab device.
+</DD><DT><SAMP>`-loop_input'</SAMP>
+</DT><DD>
+Loop over the input stream. Currently it works only for image
+streams. This option is used for automatic FFserver testing.
+</DD><DT><SAMP>`-loop_output <VAR>number_of_times</VAR>'</SAMP>
+</DT><DD>
+Repeatedly loop output for formats that support looping such as animated GIF
+(0 will loop the output infinitely).
+</DD><DT><SAMP>`-threads <VAR>count</VAR>'</SAMP>
+</DT><DD>
+Thread count.
+</DD><DT><SAMP>`-vsync <VAR>parameter</VAR>'</SAMP>
+</DT><DD>
+Video sync method.
+0   Each frame is passed with its timestamp from the demuxer to the muxer
+1   Frames will be duplicated and dropped to achieve exactly the requested
+    constant framerate.
+2   Frames are passed through with their timestamp or dropped so as to prevent
+    2 frames from having the same timestamp
+-1  Chooses between 1 and 2 depending on muxer capabilities. This is the default method.
+
+With -map you can select from
+which stream the timestamps should be taken. You can leave either video or
+audio unchanged and sync the remaining stream(s) to the unchanged one.
+</DD><DT><SAMP>`-async <VAR>samples_per_second</VAR>'</SAMP>
+</DT><DD>
+Audio sync method. "Stretches/squeezes" the audio stream to match the timestamps,
+the parameter is the maximum samples per second by which the audio is changed.
+-async 1 is a special case where only the start of the audio stream is corrected
+without any later correction.
+</DD><DT><SAMP>`-copyts'</SAMP>
+</DT><DD>
+Copy timestamps from input to output.
+</DD><DT><SAMP>`-shortest'</SAMP>
+</DT><DD>
+Finish encoding when the shortest input stream ends.
+</DD><DT><SAMP>`-dts_delta_threshold'</SAMP>
+</DT><DD>
+Timestamp discontinuity delta threshold.
+</DD><DT><SAMP>`-muxdelay <VAR>seconds</VAR>'</SAMP>
+</DT><DD>
+Set the maximum demux-decode delay.
+</DD><DT><SAMP>`-muxpreload <VAR>seconds</VAR>'</SAMP>
+</DT><DD>
+Set the initial demux-decode delay.
+</DD><DT><SAMP>`-streamid <VAR>output-stream-index</VAR>:<VAR>new-value</VAR>'</SAMP>
+</DT><DD>
+Assign a new value to a stream's stream-id field in the next output file.
+All stream-id fields are reset to default for each output file.
+
+For example, to set the stream 0 PID to 33 and the stream 1 PID to 36 for
+an output mpegts file:
+
+<PRE>ffmpeg -i infile -streamid 0:33 -streamid 1:36 out.ts
+</PRE>
+
+</DD></DL>
+
+
+
+<H2><A name="SEC13" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC13">3.10 Preset files</A></H2>
+
+<P>
+A preset file contains a sequence of <VAR>option</VAR>=<VAR>value</VAR> pairs,
+one for each line, specifying a sequence of options which would be
+awkward to specify on the command line. Lines starting with the hash
+('#') character are ignored and are used to provide comments. Check
+the <TT>`ffpresets'</TT> directory in the FFmpeg source tree for examples.
+
+
+</P><P>
+Preset files are specified with the <CODE>vpre</CODE>, <CODE>apre</CODE>,
+<CODE>spre</CODE>, and <CODE>fpre</CODE> options. The <CODE>fpre</CODE> option takes the
+filename of the preset instead of a preset name as input and can be
+used for any kind of codec. For the <CODE>vpre</CODE>, <CODE>apre</CODE>, and
+<CODE>spre</CODE> options, the options specified in a preset file are
+applied to the currently selected codec of the same type as the preset
+option.
+
+
+</P><P>
+The argument passed to the <CODE>vpre</CODE>, <CODE>apre</CODE>, and <CODE>spre</CODE>
+preset options identifies the preset file to use according to the
+following rules:
+
+
+</P><P>
+First ffmpeg searches for a file named <VAR>arg</VAR>.ffpreset in the
+directories <TT>`$FFMPEG_DATADIR'</TT> (if set), and <TT>`$HOME/.ffmpeg'</TT>, and in
+the datadir defined at configuration time (usually <TT>`PREFIX/share/ffmpeg'</TT>)
+in that order. For example, if the argument is <CODE>libx264-max</CODE>, it will
+search for the file <TT>`libx264-max.ffpreset'</TT>.
+
+
+</P><P>
+If no such file is found, then ffmpeg will search for a file named
+<VAR>codec_name</VAR>-<VAR>arg</VAR>.ffpreset in the above-mentioned
+directories, where <VAR>codec_name</VAR> is the name of the codec to which
+the preset file options will be applied. For example, if you select
+the video codec with <CODE>-vcodec libx264</CODE> and use <CODE>-vpre max</CODE>,
+then it will search for the file <TT>`libx264-max.ffpreset'</TT>.
+
+
+</P><P>
+@anchor{FFmpeg formula evaluator}
+
+
+</P><H2><A name="SEC14" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC14">3.11 FFmpeg formula evaluator</A></H2>
+
+<P>
+When evaluating a rate control string, FFmpeg uses an internal formula
+evaluator.
+
+
+</P><P>
+The following binary operators are available: <CODE>+</CODE>, <CODE>-</CODE>,
+<CODE>*</CODE>, <CODE>/</CODE>, <CODE>^</CODE>.
+
+
+</P><P>
+The following unary operators are available: <CODE>+</CODE>, <CODE>-</CODE>,
+<CODE>(...)</CODE>.
+
+
+</P><P>
+The following statements are available: <CODE>ld</CODE>, <CODE>st</CODE>,
+<CODE>while</CODE>.
+
+
+</P><P>
+The following functions are available:
+</P><DL compact="">
+
+<DT><VAR>sinh(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>cosh(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>tanh(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>sin(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>cos(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>tan(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>atan(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>asin(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>acos(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>exp(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>log(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>abs(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>squish(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>gauss(x)</VAR>
+</DT><DD>
+</DD><DT><VAR>mod(x, y)</VAR>
+</DT><DD>
+</DD><DT><VAR>max(x, y)</VAR>
+</DT><DD>
+</DD><DT><VAR>min(x, y)</VAR>
+</DT><DD>
+</DD><DT><VAR>eq(x, y)</VAR>
+</DT><DD>
+</DD><DT><VAR>gte(x, y)</VAR>
+</DT><DD>
+</DD><DT><VAR>gt(x, y)</VAR>
+</DT><DD>
+</DD><DT><VAR>lte(x, y)</VAR>
+</DT><DD>
+</DD><DT><VAR>lt(x, y)</VAR>
+</DT><DD>
+</DD><DT><VAR>bits2qp(bits)</VAR>
+</DT><DD>
+</DD><DT><VAR>qp2bits(qp)</VAR>
+</DT><DD>
+</DD></DL>
+
+<P>
+The following constants are available:
+</P><DL compact="">
+
+<DT><VAR>PI</VAR>
+</DT><DD>
+</DD><DT><VAR>E</VAR>
+</DT><DD>
+</DD><DT><VAR>iTex</VAR>
+</DT><DD>
+</DD><DT><VAR>pTex</VAR>
+</DT><DD>
+</DD><DT><VAR>tex</VAR>
+</DT><DD>
+</DD><DT><VAR>mv</VAR>
+</DT><DD>
+</DD><DT><VAR>fCode</VAR>
+</DT><DD>
+</DD><DT><VAR>iCount</VAR>
+</DT><DD>
+</DD><DT><VAR>mcVar</VAR>
+</DT><DD>
+</DD><DT><VAR>var</VAR>
+</DT><DD>
+</DD><DT><VAR>isI</VAR>
+</DT><DD>
+</DD><DT><VAR>isP</VAR>
+</DT><DD>
+</DD><DT><VAR>isB</VAR>
+</DT><DD>
+</DD><DT><VAR>avgQP</VAR>
+</DT><DD>
+</DD><DT><VAR>qComp</VAR>
+</DT><DD>
+</DD><DT><VAR>avgIITex</VAR>
+</DT><DD>
+</DD><DT><VAR>avgPITex</VAR>
+</DT><DD>
+</DD><DT><VAR>avgPPTex</VAR>
+</DT><DD>
+</DD><DT><VAR>avgBPTex</VAR>
+</DT><DD>
+</DD><DT><VAR>avgTex</VAR>
+</DT><DD>
+</DD></DL>
+
+
+
+<H2><A name="SEC15" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC15">3.12 Protocols</A></H2>
+
+<P>
+The file name can be <TT>`-'</TT> to read from standard input or to write
+to standard output.
+
+
+</P><P>
+FFmpeg also handles many protocols specified with an URL syntax.
+
+
+</P><P>
+Use 'ffmpeg -protocols' to see a list of the supported protocols.
+
+
+</P><P>
+The protocol <CODE>http:</CODE> is currently used only to communicate with
+FFserver (see the FFserver documentation). When FFmpeg will be a
+video player it will also be used for streaming :-)
+
+
+
+
+</P><H1><A name="SEC16" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC16">4. Tips</A></H1>
+
+
+<UL>
+<LI>
+
+For streaming at very low bitrate application, use a low frame rate
+and a small GOP size. This is especially true for RealVideo where
+the Linux player does not seem to be very fast, so it can miss
+frames. An example is:
+
+
+<PRE>ffmpeg -g 3 -r 3 -t 10 -b 50k -s qcif -f rv10 /tmp/b.rm
+</PRE>
+
+</LI><LI>
+
+The parameter 'q' which is displayed while encoding is the current
+quantizer. The value 1 indicates that a very good quality could
+be achieved. The value 31 indicates the worst quality. If q=31 appears
+too often, it means that the encoder cannot compress enough to meet
+your bitrate. You must either increase the bitrate, decrease the
+frame rate or decrease the frame size.
+
+</LI><LI>
+
+If your computer is not fast enough, you can speed up the
+compression at the expense of the compression ratio. You can use
+'-me zero' to speed up motion estimation, and '-intra' to disable
+motion estimation completely (you have only I-frames, which means it
+is about as good as JPEG compression).
+
+</LI><LI>
+
+To have very low audio bitrates, reduce the sampling frequency
+(down to 22050 Hz for MPEG audio, 22050 or 11025 for AC-3).
+
+</LI><LI>
+
+To have a constant quality (but a variable bitrate), use the option
+'-qscale n' when 'n' is between 1 (excellent quality) and 31 (worst
+quality).
+
+</LI><LI>
+
+When converting video files, you can use the '-sameq' option which
+uses the same quality factor in the encoder as in the decoder.
+It allows almost lossless encoding.
+
+</LI></UL>
+
+
+
+<H1><A name="SEC17" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC17">5. Examples</A></H1>
+
+
+
+<H2><A name="SEC18" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC18">5.1 Video and Audio grabbing</A></H2>
+
+<P>
+FFmpeg can grab video and audio from devices given that you specify the input
+format and device.
+
+
+
+</P><PRE>ffmpeg -f oss -i /dev/dsp -f video4linux2 -i /dev/video0 /tmp/out.mpg
+</PRE>
+
+<P>
+Note that you must activate the right video source and channel before
+launching FFmpeg with any TV viewer such as xawtv
+(<A href="http://linux.bytesex.org/xawtv/">http://linux.bytesex.org/xawtv/</A>) by Gerd Knorr. You also
+have to set the audio recording levels correctly with a
+standard mixer.
+
+
+
+
+</P><H2><A name="SEC19" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC19">5.2 X11 grabbing</A></H2>
+
+<P>
+FFmpeg can grab the X11 display.
+
+
+
+</P><PRE>ffmpeg -f x11grab -s cif -i :0.0 /tmp/out.mpg
+</PRE>
+
+<P>
+0.0 is display.screen number of your X11 server, same as
+the DISPLAY environment variable.
+
+
+
+</P><PRE>ffmpeg -f x11grab -s cif -i :0.0+10,20 /tmp/out.mpg
+</PRE>
+
+<P>
+0.0 is display.screen number of your X11 server, same as the DISPLAY environment
+variable. 10 is the x-offset and 20 the y-offset for the grabbing.
+
+
+
+
+</P><H2><A name="SEC20" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC20">5.3 Video and Audio file format conversion</A></H2>
+
+<P>
+* FFmpeg can use any supported file format and protocol as input:
+
+
+</P><P>
+Examples:
+
+
+</P><P>
+* You can use YUV files as input:
+
+
+
+</P><PRE>ffmpeg -i /tmp/test%d.Y /tmp/out.mpg
+</PRE>
+
+<P>
+It will use the files:
+
+</P><PRE>/tmp/test0.Y, /tmp/test0.U, /tmp/test0.V,
+/tmp/test1.Y, /tmp/test1.U, /tmp/test1.V, etc...
+</PRE>
+
+<P>
+The Y files use twice the resolution of the U and V files. They are
+raw files, without header. They can be generated by all decent video
+decoders. You must specify the size of the image with the <SAMP>`-s'</SAMP> option
+if FFmpeg cannot guess it.
+
+
+</P><P>
+* You can input from a raw YUV420P file:
+
+
+
+</P><PRE>ffmpeg -i /tmp/test.yuv /tmp/out.avi
+</PRE>
+
+<P>
+test.yuv is a file containing raw YUV planar data. Each frame is composed
+of the Y plane followed by the U and V planes at half vertical and
+horizontal resolution.
+
+
+</P><P>
+* You can output to a raw YUV420P file:
+
+
+
+</P><PRE>ffmpeg -i mydivx.avi hugefile.yuv
+</PRE>
+
+<P>
+* You can set several input files and output files:
+
+
+
+</P><PRE>ffmpeg -i /tmp/a.wav -s 640x480 -i /tmp/a.yuv /tmp/a.mpg
+</PRE>
+
+<P>
+Converts the audio file a.wav and the raw YUV video file a.yuv
+to MPEG file a.mpg.
+
+
+</P><P>
+* You can also do audio and video conversions at the same time:
+
+
+
+</P><PRE>ffmpeg -i /tmp/a.wav -ar 22050 /tmp/a.mp2
+</PRE>
+
+<P>
+Converts a.wav to MPEG audio at 22050 Hz sample rate.
+
+
+</P><P>
+* You can encode to several formats at the same time and define a
+mapping from input stream to output streams:
+
+
+
+</P><PRE>ffmpeg -i /tmp/a.wav -ab 64k /tmp/a.mp2 -ab 128k /tmp/b.mp2 -map 0:0 -map 0:0
+</PRE>
+
+<P>
+Converts a.wav to a.mp2 at 64 kbits and to b.mp2 at 128 kbits. '-map
+file:index' specifies which input stream is used for each output
+stream, in the order of the definition of output streams.
+
+
+</P><P>
+* You can transcode decrypted VOBs:
+
+
+
+</P><PRE>ffmpeg -i snatch_1.vob -f avi -vcodec mpeg4 -b 800k -g 300 -bf 2 -acodec libmp3lame -ab 128k snatch.avi
+</PRE>
+
+<P>
+This is a typical DVD ripping example; the input is a VOB file, the
+output an AVI file with MPEG-4 video and MP3 audio. Note that in this
+command we use B-frames so the MPEG-4 stream is DivX5 compatible, and
+GOP size is 300 which means one intra frame every 10 seconds for 29.97fps
+input video. Furthermore, the audio stream is MP3-encoded so you need
+to enable LAME support by passing <CODE>--enable-libmp3lame</CODE> to configure.
+The mapping is particularly useful for DVD transcoding
+to get the desired audio language.
+
+
+</P><P>
+NOTE: To see the supported input formats, use <CODE>ffmpeg -formats</CODE>.
+
+
+</P><P>
+* You can extract images from a video, or create a video from many images:
+
+
+</P><P>
+For extracting images from a video:
+
+</P><PRE>ffmpeg -i foo.avi -r 1 -s WxH -f image2 foo-%03d.jpeg
+</PRE>
+
+<P>
+This will extract one video frame per second from the video and will
+output them in files named <TT>`foo-001.jpeg'</TT>, <TT>`foo-002.jpeg'</TT>,
+etc. Images will be rescaled to fit the new WxH values.
+
+
+</P><P>
+If you want to extract just a limited number of frames, you can use the
+above command in combination with the -vframes or -t option, or in
+combination with -ss to start extracting from a certain point in time.
+
+
+</P><P>
+For creating a video from many images:
+
+</P><PRE>ffmpeg -f image2 -i foo-%03d.jpeg -r 12 -s WxH foo.avi
+</PRE>
+
+<P>
+The syntax <CODE>foo-%03d.jpeg</CODE> specifies to use a decimal number
+composed of three digits padded with zeroes to express the sequence
+number. It is the same syntax supported by the C printf function, but
+only formats accepting a normal integer are suitable.
+
+
+</P><P>
+* You can put many streams of the same type in the output:
+
+
+
+</P><PRE>ffmpeg -i test1.avi -i test2.avi -vcodec copy -acodec copy -vcodec copy -acodec copy test12.avi -newvideo -newaudio
+</PRE>
+
+<P>
+In addition to the first video and audio streams, the resulting
+output file <TT>`test12.avi'</TT> will contain the second video
+and the second audio stream found in the input streams list.
+
+
+</P><P>
+The <CODE>-newvideo</CODE>, <CODE>-newaudio</CODE> and <CODE>-newsubtitle</CODE>
+options have to be specified immediately after the name of the output
+file to which you want to add them.
+
+
+
+
+</P><H1><A name="SEC21" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC21">6. Video Filters</A></H1>
+
+<P>
+When you configure your FFmpeg build, you can disable any of the
+existing filters using --disable-filters.
+The configure output will show the video filters included in your
+build.
+
+
+</P><P>
+Below is a description of the currently available video filters.
+
+
+
+
+</P><H2><A name="SEC22" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC22">6.1 crop</A></H2>
+
+<P>
+Crop the input video to <VAR>x</VAR>:<VAR>y</VAR>:<VAR>width</VAR>:<VAR>height</VAR>.
+
+
+
+</P><PRE>./ffmpeg -i in.avi -vf "crop=0:0:0:240" out.avi
+</PRE>
+
+<P>
+<VAR>x</VAR> and <VAR>y</VAR> specify the position of the top-left corner of the
+output (non-cropped) area.
+
+
+</P><P>
+The default value of <VAR>x</VAR> and <VAR>y</VAR> is 0.
+
+
+</P><P>
+The <VAR>width</VAR> and <VAR>height</VAR> parameters specify the width and height
+of the output (non-cropped) area.
+
+
+</P><P>
+A value of 0 is interpreted as the maximum possible size contained in
+the area delimited by the top-left corner at position x:y.
+
+
+</P><P>
+For example the parameters:
+
+
+
+</P><PRE>"crop=100:100:0:0"
+</PRE>
+
+<P>
+will delimit the rectangle with the top-left corner placed at position
+100:100 and the right-bottom corner corresponding to the right-bottom
+corner of the input image.
+
+
+</P><P>
+The default value of <VAR>width</VAR> and <VAR>height</VAR> is 0.
+
+
+
+
+</P><H2><A name="SEC23" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC23">6.2 format</A></H2>
+
+<P>
+Convert the input video to one of the specified pixel formats.
+Libavfilter will try to pick one that is supported for the input to
+the next filter.
+
+
+</P><P>
+The filter accepts a list of pixel format names, separated by ":",
+for example "yuv420p:monow:rgb24".
+
+
+</P><P>
+The following command:
+
+
+
+</P><PRE>./ffmpeg -i in.avi -vf "format=yuv420p" out.avi
+</PRE>
+
+<P>
+will convert the input video to the format "yuv420p".
+
+
+
+
+</P><H2><A name="SEC24" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC24">6.3 noformat</A></H2>
+
+<P>
+Force libavfilter not to use any of the specified pixel formats for the
+input to the next filter.
+
+
+</P><P>
+The filter accepts a list of pixel format names, separated by ":",
+for example "yuv420p:monow:rgb24".
+
+
+</P><P>
+The following command:
+
+
+
+</P><PRE>./ffmpeg -i in.avi -vf "noformat=yuv420p, vflip" out.avi
+</PRE>
+
+<P>
+will make libavfilter use a format different from "yuv420p" for the
+input to the vflip filter.
+
+
+
+
+</P><H2><A name="SEC25" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC25">6.4 null</A></H2>
+
+<P>
+Pass the source unchanged to the output.
+
+
+
+
+</P><H2><A name="SEC26" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC26">6.5 pad</A></H2>
+
+<P>
+Add paddings to the input image, and places the original input at the
+given coordinates <VAR>x</VAR>, <VAR>y</VAR>.
+
+
+</P><P>
+It accepts the following parameters:
+<VAR>width</VAR>:<VAR>height</VAR>:<VAR>x</VAR>:<VAR>y</VAR>:<VAR>color</VAR>.
+
+
+</P><P>
+Follows the description of the accepted parameters.
+
+
+</P><DL compact="">
+
+<DT><SAMP>`width, height'</SAMP>
+</DT><DD>
+Specify the size of the output image with the paddings added. If the
+value for <VAR>width</VAR> or <VAR>height</VAR> is 0, the corresponding input size
+is used for the output.
+
+The default value of <VAR>width</VAR> and <VAR>height</VAR> is 0.
+
+</DD><DT><SAMP>`x, y'</SAMP>
+</DT><DD>
+Specify the offsets where to place the input image in the padded area
+with respect to the top/left border of the output image.
+
+The default value of <VAR>x</VAR> and <VAR>y</VAR> is 0.
+
+</DD><DT><SAMP>`color'</SAMP>
+</DT><DD>
+Specify the color of the padded area, it can be the name of a color
+(case insensitive match) or a 0xRRGGBB[AA] sequence.
+
+The default value of <VAR>color</VAR> is "black".
+
+</DD></DL>
+
+
+
+<H2><A name="SEC27" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC27">6.6 pixdesctest</A></H2>
+
+<P>
+Pixel format descriptor test filter, mainly useful for internal
+testing. The output video should be equal to the input video.
+
+
+</P><P>
+For example:
+
+</P><PRE>format=monow, pixdesctest
+</PRE>
+
+<P>
+can be used to test the monowhite pixel format descriptor definition.
+
+
+
+
+</P><H2><A name="SEC28" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC28">6.7 scale</A></H2>
+
+<P>
+Scale the input video to <VAR>width</VAR>:<VAR>height</VAR> and/or convert the image format.
+
+
+</P><P>
+For example the command:
+
+
+
+</P><PRE>./ffmpeg -i in.avi -vf "scale=200:100" out.avi
+</PRE>
+
+<P>
+will scale the input video to a size of 200x100.
+
+
+</P><P>
+If the input image format is different from the format requested by
+the next filter, the scale filter will convert the input to the
+requested format.
+
+
+</P><P>
+If the value for <VAR>width</VAR> or <VAR>height</VAR> is 0, the respective input
+size is used for the output.
+
+
+</P><P>
+If the value for <VAR>width</VAR> or <VAR>height</VAR> is -1, the scale filter will
+use, for the respective output size, a value that maintains the aspect
+ratio of the input image.
+
+
+</P><P>
+The default value of <VAR>width</VAR> and <VAR>height</VAR> is 0.
+
+
+
+
+</P><H2><A name="SEC29" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC29">6.8 slicify</A></H2>
+
+<P>
+Pass the images of input video on to next video filter as multiple
+slices.
+
+
+
+</P><PRE>./ffmpeg -i in.avi -vf "slicify=32" out.avi
+</PRE>
+
+<P>
+The filter accepts the slice height as parameter. If the parameter is
+not specified it will use the default value of 16.
+
+
+</P><P>
+Adding this in the beginning of filter chains should make filtering
+faster due to better use of the memory cache.
+
+
+
+
+</P><H2><A name="SEC30" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC30">6.9 unsharp</A></H2>
+
+<P>
+Sharpen or blur the input video.
+
+
+</P><P>
+It accepts the following parameters:
+<VAR>luma_msize_x</VAR>:<VAR>luma_msize_y</VAR>:<VAR>luma_amount</VAR>:<VAR>chroma_msize_x</VAR>:<VAR>chroma_msize_y</VAR>:<VAR>chroma_amount</VAR>
+
+
+</P><P>
+Negative values for the amount will blur the input video, while positive
+values will sharpen. All parameters are optional and default to the
+equivalent of the string '5:5:1.0:0:0:0.0'.
+
+
+</P><DL compact="">
+
+<DT><SAMP>`luma_msize_x'</SAMP>
+</DT><DD>
+Set the luma matrix horizontal size. It can be an integer between 3
+and 13, default value is 5.
+
+</DD><DT><SAMP>`luma_msize_y'</SAMP>
+</DT><DD>
+Set the luma matrix vertical size. It can be an integer between 3
+and 13, default value is 5.
+
+</DD><DT><SAMP>`luma_amount'</SAMP>
+</DT><DD>
+Set the luma effect strength. It can be a float number between -2.0
+and 5.0, default value is 1.0.
+
+</DD><DT><SAMP>`chroma_msize_x'</SAMP>
+</DT><DD>
+Set the chroma matrix horizontal size. It can be an integer between 3
+and 13, default value is 0.
+
+</DD><DT><SAMP>`chroma_msize_y'</SAMP>
+</DT><DD>
+Set the chroma matrix vertical size. It can be an integer between 3
+and 13, default value is 0.
+
+</DD><DT><SAMP>`luma_amount'</SAMP>
+</DT><DD>
+Set the chroma effect strength. It can be a float number between -2.0
+and 5.0, default value is 0.0.
+
+</DD></DL>
+
+
+<PRE># Strong luma sharpen effect parameters
+unsharp=7:7:2.5
+
+# Strong blur of both luma and chroma parameters
+unsharp=7:7:-2:7:7:-2
+
+# Use the default values with <CODE>ffmpeg</CODE>
+./ffmpeg -i in.avi -vf "unsharp" out.mp4
+</PRE>
+
+
+
+<H2><A name="SEC31" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC31">6.10 vflip</A></H2>
+
+<P>
+Flip the input video vertically.
+
+
+
+</P><PRE>./ffmpeg -i in.avi -vf "vflip" out.avi
+</PRE>
+
+
+
+<H1><A name="SEC32" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC32">7. Video Sources</A></H1>
+
+<P>
+Below is a description of the currently available video sources.
+
+
+
+
+</P><H2><A name="SEC33" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC33">7.1 buffer</A></H2>
+
+<P>
+Buffer video frames, and make them available to the filter chain.
+
+
+</P><P>
+This source is mainly intended for a programmatic use, in particular
+through the interface defined in <TT>`libavfilter/vsrc_buffer.h'</TT>.
+
+
+</P><P>
+It accepts the following parameters:
+<VAR>width</VAR>:<VAR>height</VAR>:<VAR>pix_fmt_string</VAR>
+
+
+</P><P>
+All the parameters need to be explicitely defined.
+
+
+</P><P>
+Follows the list of the accepted parameters.
+
+
+</P><DL compact="">
+
+<DT><SAMP>`width, height'</SAMP>
+</DT><DD>
+Specify the width and height of the buffered video frames.
+
+</DD><DT><SAMP>`pix_fmt_string'</SAMP>
+</DT><DD>
+A string representing the pixel format of the buffered video frames.
+It may be a number corresponding to a pixel format, or a pixel format
+name.
+
+</DD></DL>
+
+<P>
+For example:
+
+</P><PRE>buffer=320:240:yuv410p
+</PRE>
+
+<P>
+will instruct the source to accept video frames with size 320x240 and
+with format "yuv410p". Since the pixel format with name "yuv410p"
+corresponds to the number 6 (check the enum PixelFormat definition in
+<TT>`libavutil/pixfmt.h'</TT>), this example corresponds to:
+
+</P><PRE>buffer=320:240:6
+</PRE>
+
+
+
+<H2><A name="SEC34" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC34">7.2 color</A></H2>
+
+<P>
+Provide an uniformly colored input.
+
+
+</P><P>
+It accepts the following parameters:
+<VAR>color</VAR>:<VAR>frame_size</VAR>:<VAR>frame_rate</VAR>
+
+
+</P><P>
+Follows the description of the accepted parameters.
+
+
+</P><DL compact="">
+
+<DT><SAMP>`color'</SAMP>
+</DT><DD>
+Specify the color of the source. It can be the name of a color (case
+insensitive match) or a 0xRRGGBB[AA] sequence, possibly followed by an
+alpha specifier. The default value is "black".
+
+</DD><DT><SAMP>`frame_size'</SAMP>
+</DT><DD>
+Specify the size of the sourced video, it may be a string of the form
+<VAR>width</VAR>x<VAR>heigth</VAR>, or the name of a size abbreviation. The
+default value is "320x240".
+
+</DD><DT><SAMP>`frame_rate'</SAMP>
+</DT><DD>
+Specify the frame rate of the sourced video, as the number of frames
+generated per second. It has to be a string in the format
+<VAR>frame_rate_num</VAR>/<VAR>frame_rate_den</VAR>, an integer number, a float
+number or a valid video frame rate abbreviation. The default value is
+"25".
+
+</DD></DL>
+
+<P>
+For example the following graph description will generate a red source
+with an opacity of 0.2, with size "qcif" and a frame rate of 10
+frames per second, which will be overlayed over the source connected
+to the pad with identifier "in".
+
+
+
+</P><PRE>"color=red@0.2:qcif:10 [color]; [in][color] overlay [out]"
+</PRE>
+
+
+
+<H2><A name="SEC35" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC35">7.3 nullsrc</A></H2>
+
+<P>
+Null video source, never return images. It is mainly useful as a
+template and to be employed in analysis / debugging tools.
+
+
+</P><P>
+It accepts as optional parameter a string of the form
+<VAR>width</VAR>:<VAR>height</VAR>, where <VAR>width</VAR> and <VAR>height</VAR> specify the size of
+the configured source.
+
+
+</P><P>
+The default values of <VAR>width</VAR> and <VAR>height</VAR> are respectively 352
+and 288 (corresponding to the CIF size format).
+
+
+
+
+</P><H1><A name="SEC36" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC36">8. Video Sinks</A></H1>
+
+<P>
+Below is a description of the currently available video sinks.
+
+
+
+
+</P><H2><A name="SEC37" href="http://www.ffmpeg.org/ffmpeg-doc.html#TOC37">8.1 nullsink</A></H2>
+
+<P>
+Null video sink, do absolutely nothing with the input video. It is
+mainly useful as a template and to be employed in analysis / debugging
+tools.
+
+
+</P><P></P><HR><P>
+This document was generated on 26 July 2010 using
+<A href="http://wwwinfo.cern.ch/dis/texi2html/">texi2html</A>&nbsp;1.56k.
+
+
+</P></BODY></HTML>

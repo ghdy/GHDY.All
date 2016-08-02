@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{068CF4B6-15FB-4519-A638-D569A024F598}</ProjectGuid>
+    <ProjectTypeGuids>{32f31d43-81cc-4c15-9de6-3fc5453562b6};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GHDY.Workflow</RootNamespace>
+    <AssemblyName>GHDY.Workflow</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SharpEntropy">
+      <HintPath>..\dll\SharpEntropy.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.Speech" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BookmarkActivity.cs" />
+    <Compile Include="BookmarkActivityDesigner.xaml.cs">
+      <DependentUpon>BookmarkActivityDesigner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BookmarkResultActivity.cs" />
+    <Compile Include="BookmarkResultActivityDesigner.xaml.cs">
+      <DependentUpon>BookmarkResultActivityDesigner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Download\DownloadEpisodeWebPageActivity.cs" />
+    <Compile Include="Download\DownloadFileActivity.cs" />
+    <Compile Include="GetValueFromContextActivity.cs" />
+    <Compile Include="Recognize\Interface\ActualPronounce.cs" />
+    <Compile Include="Recognize\Interface\INotifySyncCompleted.cs" />
+    <Compile Include="Recognize\Interface\INotifyDictationProgress.cs" />
+    <Compile Include="Recognize\Interface\INotifyInitialize.cs" />
+    <Compile Include="Recognize\Interface\INotifyPronunciationMarkup.cs" />
+    <Compile Include="Recognize\Interface\INotifyReferenceSoundMarkup.cs" />
+    <Compile Include="Recognize\Interface\INotifySyncEpisode.cs" />
+    <Compile Include="Recognize\Interface\INotifyRecognizeStateChanged.cs" />
+    <Compile Include="Recognize\Interface\INotifyParagraphSplited.cs" />
+    <Compile Include="Recognize\Interface\INotifySetSentenceTimeline.cs" />
+    <Compile Include="Recognize\Interface\RefSentence.cs" />
+    <Compile Include="Recognize\Interface\SplitedDocument.cs" />
+    <Compile Include="Recognize\Interface\SplitedParagraph.cs" />
+    <Compile Include="Download\Interface\INotifyEpisodeContentDownloadState.cs" />
+    <Compile Include="Download\Interface\IResourceReceiver.cs" />
+    <Compile Include="Recognize\CreateDocumentModelActivity.cs" />
+    <Compile Include="Recognize\DictationActivity.cs" />
+    <Compile Include="LocalEpisodeLoaderActivity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recognize\InitializeActivity.cs" />
+    <Compile Include="Recognize\MergeRefSentence2DocumentActivity.cs" />
+    <Compile Include="Recognize\PronunciationMarkupActivity.cs" />
+    <Compile Include="Recognize\RecognizeConfig.cs" />
+    <Compile Include="Recognize\RecognizeStateChangedActivity.cs" />
+    <Compile Include="Recognize\RecognizeTransition.cs" />
+    <Compile Include="Recognize\ReferenceSoundMarkupActivity.cs" />
+    <Compile Include="Recognize\ReloadDMDocumentActivity.cs" />
+    <Compile Include="Recognize\SetSentenceTimelineActivity.cs" />
+    <Compile Include="Recognize\SoundInformation.cs" />
+    <Compile Include="Recognize\SplitEpisodeActivity.cs" />
+    <Compile Include="SetDocumentTimelineActivity.cs" />
+    <Compile Include="Split2SentencesActivity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GHDY.Core.LearningContentProvider.VOA\GHDY.Core.LearningContentProvider.VOA.csproj">
+      <Project>{c61949c4-9c22-4635-80ed-6466fe99f49d}</Project>
+      <Name>GHDY.Core.LearningContentProvider.VOA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GHDY.Core\GHDY.Core.csproj">
+      <Project>{dac671c4-d0fd-4107-bcfc-452b7fcf1e07}</Project>
+      <Name>GHDY.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GHDY.NLP\GHDY.NLP.csproj">
+      <Project>{35637e2d-b130-4e21-bbd4-641a53d923fa}</Project>
+      <Name>GHDY.NLP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GHDY.SyncEngine\GHDY.SyncEngine.csproj">
+      <Project>{b138e0b7-00ab-4a0a-b7bc-1f0250f7c1d4}</Project>
+      <Name>GHDY.SyncEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <XamlAppDef Include="Download\ActivityDownloadEpisodeContent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
+  </ItemGroup>
+  <ItemGroup>
+    <XamlAppDef Include="Download\ActivityDownloadEpisode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
+  </ItemGroup>
+  <ItemGroup>
+    <XamlAppDef Include="Recognize\ActivityRecognizeEpisodeStateMachine.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\Recognize32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="BookmarkActivityDesigner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BookmarkResultActivityDesigner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <XamlAppDef Include="Download\ActivityAutoDownloadAlbum.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\Bookmark32.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

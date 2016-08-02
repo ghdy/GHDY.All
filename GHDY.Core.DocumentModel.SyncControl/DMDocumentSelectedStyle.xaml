@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dm="schema:GHDY.Core.DocumentModel">
+    <Style TargetType="{x:Type dm:SyncableWord}">
+        <Style.Triggers>
+            <Trigger Property="dm:SyncExtension.IsCurrent" Value="True">
+                <Setter Property="Foreground" Value="Red"/>
+            </Trigger>
+            <!--<Trigger Property="dm:SyncExtension.IsCurrent" Value="False">
+                <Setter Property="Foreground" Value="Black"/>
+            </Trigger>-->
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type dm:DMSentence}">
+        <Style.Triggers>
+            <Trigger Property="dm:SyncExtension.IsCurrent" Value="True">
+                <Setter Property="Foreground" Value="Blue"/>
+            </Trigger>
+            <Trigger Property="dm:SyncExtension.IsQuate" Value="True">
+                <Setter Property="Background" Value="LightGray"/>
+                <Setter Property="FontStyle" Value="Italic"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="TextDecorations" Value="underline"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+
+            <Trigger Property="Selector.IsSelected" Value="true">
+                <Setter Property="Background" Value="Pink"/>
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
+
+    <!--<Style TargetType="{x:Type dm:DMParagraph}">
+        <Style.Triggers>
+            <Trigger Property="dm:SyncExtension.IsCurrent" Value="True">
+                <Setter Property="Background" Value="LightYellow"/>
+                <Setter Property="BorderBrush" Value="DarkGray"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>-->
+</ResourceDictionary>

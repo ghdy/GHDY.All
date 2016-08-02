@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DAC671C4-D0FD-4107-BCFC-452B7FCF1E07}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GHDY.Core</RootNamespace>
+    <AssemblyName>GHDY.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DifferenceEngine">
+      <HintPath>..\dll\DifferenceEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AsyncAutoResetEvent.cs" />
+    <Compile Include="AudioPlayer\AudioPlayerBase.cs" />
+    <Compile Include="AudioPlayer\AudioUtilities.cs" />
+    <Compile Include="AudioPlayer\DShowAudioPlayer.cs" />
+    <Compile Include="AudioPlayer\MediaPlayer.cs" />
+    <Compile Include="AudioPlayer\Interop\DirectShow\DirectShow.API.cs" />
+    <Compile Include="AudioPlayer\Interop\DirectShow\DirectShow.Wrappers.cs" />
+    <Compile Include="AutoFontSizeUserControl.cs" />
+    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="DiffHelper.cs" />
+    <Compile Include="DocumentModel\DMDocument.cs" />
+    <Compile Include="DocumentModel\DMParagraph.cs" />
+    <Compile Include="DocumentModel\DMPhrase.cs" />
+    <Compile Include="DocumentModel\DMSentence.cs" />
+    <Compile Include="DocumentModel\ExtendMethods.cs" />
+    <Compile Include="DocumentModel\ISyncable.cs" />
+    <Compile Include="DocumentModel\ISyncableCollection.cs" />
+    <Compile Include="DocumentModel\Speaker.cs" />
+    <Compile Include="DocumentModel\SyncableWord.cs" />
+    <Compile Include="DocumentModel\SyncExtension.cs" />
+    <Compile Include="DownloadClient.cs" />
+    <Compile Include="Episode\IEpisode.cs" />
+    <Compile Include="Episode\IEpisodeProvider.cs" />
+    <Compile Include="Episode\LocalEpisode.cs" />
+    <Compile Include="Episode\LocalEpisodeProvider.cs" />
+    <Compile Include="Language.cs" />
+    <Compile Include="LearningContentProvider\BaseLogin.cs" />
+    <Compile Include="LearningContentProvider\BaseReader.cs" />
+    <Compile Include="LearningContentProvider\BaseTarget.cs" />
+    <Compile Include="EpisodeContent.cs" />
+    <Compile Include="EpisodeFileTypes.cs" />
+    <Compile Include="EpisodeImage.cs" />
+    <Compile Include="LearningContentProvider\HttpHelper.cs" />
+    <Compile Include="LearningContentProvider\XAlbum.cs" />
+    <Compile Include="LearningContentProvider\XEpisode.cs" />
+    <Compile Include="LearningContentProvider\XPage.cs" />
+    <Compile Include="LearningContentProvider\XTarget.cs" />
+    <Compile Include="Lyrics.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetDocumentByLyricsUserControl.xaml.cs">
+      <DependentUpon>SetDocumentByLyricsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TimeSpanHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Download.png" />
+    <Resource Include="Images\Translate.png" />
+    <Resource Include="Images\Recognize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Shell32">
+      <Guid>{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GHDY.NLP\GHDY.NLP.csproj">
+      <Project>{35637e2d-b130-4e21-bbd4-641a53d923fa}</Project>
+      <Name>GHDY.NLP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="SetDocumentByLyricsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

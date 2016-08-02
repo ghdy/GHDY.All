@@ -1,0 +1,99 @@
+﻿<Window x:Class="GHDY.Core.DocumentModel.SyncControl.Dialog.DialogSentenceTimeRangeEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dialog="clr-namespace:GHDY.Core.DocumentModel.SyncControl.Dialog"
+        Title="F1 => PlayBegin ; F2 => PlayEnd" 
+        Height="480" 
+        Width="800"
+        Loaded="Window_Loaded">
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding CmdPlayBegin}"/>
+        <KeyBinding Key="F2" Command="{Binding CmdPlayEnd}"/>
+    </Window.InputBindings>
+    <Window.Resources>
+        <SolidColorBrush x:Key="beginColor" Color="DarkGreen"/>
+        <SolidColorBrush x:Key="endColor" Color="DarkRed"/>
+        
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="LightYellow"/>
+            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        
+        <Style TargetType="GroupBox">
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel LastChildFill="True"
+                   Grid.Row="0" Grid.Column="0">
+            <GroupBox Header="Sentence Setter:"
+                      DockPanel.Dock="Right">
+                <StackPanel VerticalAlignment="Center">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="FontSize" Value="16"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <Button x:Name="btn_AutoFind" Content="AutoFind"
+                            Click="btn_AutoFind_Click"
+                            />
+                    <Button Content="SetBegin" 
+                            Foreground="{StaticResource beginColor}"
+                            Command="{Binding CmdSetBegin}"/>
+                    <Button Content="SetEnd"  
+                            Foreground="{StaticResource endColor}"
+                            Command="{Binding CmdSetEnd}"/>
+                </StackPanel>
+            </GroupBox>
+            
+            <GroupBox x:Name="selectorContainer" 
+                      Header="TimeLine Selector:">
+                
+            </GroupBox>
+        </DockPanel>
+
+        <TextBox Grid.Column="0" 
+                 Grid.Row="1" 
+                 Text="{Binding Sentence.Text, Mode=OneWay}"></TextBox>
+
+        <dialog:TimeRangeEditor x:Name="timeRangeEditor"
+                                Grid.Column="0" Grid.Row="2"
+                                Background="AliceBlue"/>
+        
+        <WrapPanel Grid.Row="3" 
+                   HorizontalAlignment="Center">
+            <WrapPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="80,5"/>
+                    <Setter Property="Height" Value="36"/>
+                    <Setter Property="Width" Value="160"/>
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Style>
+            </WrapPanel.Resources>
+            <Button Content="Confirm" 
+                    Foreground="{StaticResource beginColor}"
+                    Command="{Binding CmdConfirm}"
+                    />
+            <Button Content="Cancel" 
+                    Foreground="{StaticResource endColor}"
+                    Command="{Binding CmdCancel}"
+                    />
+        </WrapPanel>
+    </Grid>
+</Window>

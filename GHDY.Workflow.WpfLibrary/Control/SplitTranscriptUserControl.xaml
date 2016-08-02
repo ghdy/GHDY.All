@@ -1,0 +1,96 @@
+﻿<core:AutoFontSizeUserControl 
+    xmlns:core="clr-namespace:GHDY.Core;assembly=GHDY.Core" 
+    x:Class="GHDY.Workflow.WpfLibrary.Control.SplitTranscriptUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:converters="clr-namespace:GHDY.Workflow.WpfLibrary.Converters"
+    mc:Ignorable="d" 
+    Width="Auto"
+    Height="Auto"
+    FontFamily="Consolas"
+    d:DesignHeight="480" d:DesignWidth="800"
+    Loaded="AutoFontSizeUserControl_Loaded">
+    <FrameworkElement.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="MinWidth" Value="100"/>
+        </Style>
+        
+        <converters:Warning2ColorConverter x:Key="warning2ColorConverter"/>
+    </FrameworkElement.Resources>
+    <Grid Background="LightYellow">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="6*"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.Column="0" Grid.RowSpan="3" Header="Paragraph:" Margin="3" DockPanel.Dock="Left">
+            <ListBox x:Name="list_Paragraph" 
+                     ItemsSource="{Binding SplitedParagraphs}" 
+                     SelectedIndex="{Binding SelectedParagraphIndex,Mode=TwoWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                            <TextBlock Margin="5,10" 
+                                       FontSize="14"
+                                       TextWrapping="Wrap"
+                                       Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}, Path=ActualWidth}"
+                                       Background="{Binding HasWarning,Converter={StaticResource ResourceKey=warning2ColorConverter}}">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="[{0}] : {1}">
+                                        <Binding Path="Sentences.Count" />
+                                        <Binding Path="Transcript"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        <!--<Separator Width="1" 
+                   Background="LightGray" 
+                   Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />-->
+        <ListBox x:Name="list_Sentence" Grid.Column="1" Grid.Row="0" Margin="5" 
+                     ItemsSource="{Binding CurrentParagraph.Sentences}"
+                     SelectedIndex="{Binding SelectedSentenceIndex,Mode=OneWayToSource}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBox TextWrapping="Wrap"
+                             Margin="5"
+                             Foreground="Blue"
+                             Background="LightGoldenrodYellow"
+                             Text="{Binding Mode=OneWay}"
+                             Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}, Path=ActualWidth}"
+                             GotFocus="TextBox_GotFocus">
+
+                    </TextBox>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+        <TextBox Grid.Column="1" Grid.Row="1"
+                 x:Name="txt_Paragraph"
+                 Margin="5"
+                 DockPanel.Dock="Bottom"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 Text="{Binding CurrentParagraph.Transcript, Mode=OneWay}"/>
+        <WrapPanel Grid.Column="1" Grid.Row="2" Margin="5"
+                   DockPanel.Dock="Bottom"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center">
+            <Button Content="Split" Command="{Binding CmdManualSplitParagraph}" CommandParameter="{Binding ElementName=txt_Paragraph,Path=Text}"/>
+            <Button x:Name="btn_Reload" Content="Reload" Click="btn_Reload_Click"/>
+            <Button Content="Delete" Command="{Binding CmdDeleteParagraph}" CommandParameter="{Binding ElementName=list_Paragraph}"/>
+        </WrapPanel>
+    </Grid>
+</core:AutoFontSizeUserControl>
