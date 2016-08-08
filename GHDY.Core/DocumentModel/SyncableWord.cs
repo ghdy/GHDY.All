@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Windows.Documents;
 using System.Windows;
+using System.Web;
 
 namespace GHDY.Core.DocumentModel
 {
     public class SyncableWord : Run, ISyncable, ICloneable
     {
         public SyncableWord(string text)
-            : base(text)
+            : base(HttpUtility.HtmlEncode(text))
         {
-
+            
         }
 
         public SyncableWord()
