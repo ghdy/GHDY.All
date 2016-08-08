@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
 using GHDY.Core.DocumentModel;
+using System.Web;
 
 namespace GHDY.Core
 {
@@ -127,7 +128,8 @@ namespace GHDY.Core
             foreach (var line in lines)
             {
                 Regex regex = new Regex("\\[[a-z]+?:.+?\\]");
-                Match match = regex.Match(line.Trim());
+                var formated = HttpUtility.HtmlEncode(line.Trim());
+                Match match = regex.Match(formated);
 
                 if (match.Success == true)
                 {
