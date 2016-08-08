@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Documents;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Web;
 
 namespace GHDY.Core.DocumentModel
 {
@@ -153,7 +154,9 @@ namespace GHDY.Core.DocumentModel
         {
             this.Inlines.Clear();
             char[] chars = new char[] { ' ' };
-            var array = sentenceText.Split(chars, StringSplitOptions.RemoveEmptyEntries);
+
+            var formated = HttpUtility.HtmlEncode(sentenceText.Trim());
+            var array = formated.Split(chars, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var text in array)
             {
