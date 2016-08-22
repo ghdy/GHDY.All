@@ -14,7 +14,7 @@ using OpenNLP.Tools.Parser;
 
 namespace GHDY.NLP
 {
-    public static class TextUtility
+    public static class NlpUtilities
     {
         public static string mModelPath { get; private set; }
 
@@ -24,7 +24,7 @@ namespace GHDY.NLP
             private set;
         }
 
-        static TextUtility()
+        static NlpUtilities()
         {
             mModelPath = Path.Combine(Environment.CurrentDirectory, "OpenNLP", "Models");
             NameModels = new string[] { "date", "location", "money", "organization", "percentage", "person", "time" };

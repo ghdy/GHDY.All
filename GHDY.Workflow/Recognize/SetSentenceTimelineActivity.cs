@@ -38,7 +38,7 @@ namespace GHDY.Workflow.Recognize
             if (File.Exists(localEpisode.SubtitleFilePath) == true)
             {
                 var transcript = localEpisode.Lrc.Transcript;
-                var sentenceArray = TextUtility.DetectSentences(transcript);
+                var sentenceArray = NlpUtilities.DetectSentences(transcript);
                 var newLrcFilePath = localEpisode.SubtitleFilePath + ".sentences";
 
                 var newLrc = localEpisode.Lrc.ToSentenceLyrics(sentenceArray);

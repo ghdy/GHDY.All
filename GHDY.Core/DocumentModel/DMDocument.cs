@@ -99,7 +99,7 @@ namespace GHDY.Core.DocumentModel
 
             var lrcTranscript = lrc.Transcript;
 
-            var textArray = TextUtility.DetectSentences(lrcTranscript);
+            var textArray = NlpUtilities.DetectSentences(lrcTranscript);
             var sentenceArray = this.Sentences.ToArray();
             if (textArray.Length == sentenceArray.Length)
             {

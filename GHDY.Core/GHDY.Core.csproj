@@ -90,6 +90,7 @@
     <Compile Include="SetDocumentByLyricsUserControl.xaml.cs">
       <DependentUpon>SetDocumentByLyricsUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TextUtilities.cs" />
     <Compile Include="TimeSpanHelper.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -36,7 +36,7 @@ namespace GHDY.Workflow.Recognize
             var pIndex = 0;
             foreach (var para in content.Paragraphs)
             {
-                var sentences = TextUtility.DetectSentences(para);
+                var sentences = NlpUtilities.DetectSentences(para);
                 try
                 {
                     notifyParaSplited.NotifyParagraphSplited(new SplitedParagraph(para,sentences));

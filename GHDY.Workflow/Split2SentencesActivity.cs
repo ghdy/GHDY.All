@@ -28,7 +28,7 @@ namespace GHDY.Workflow
             String transcript = context.GetValue(this.Transcript);
 
             // TODO : Code this activity
-            var sentenceArray = TextUtility.DetectSentences(transcript);
+            var sentenceArray = NlpUtilities.DetectSentences(transcript);
             Console.WriteLine("Split 2 Sentences:" + sentenceArray.Length.ToString());
 
             // Return value
