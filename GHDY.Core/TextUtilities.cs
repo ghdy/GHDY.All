@@ -30,5 +30,7 @@ namespace GHDY.Core
 
             return regex.Matches(text).OfType<Match>();
         }
+
+
     }
 }

@@ -15,6 +15,8 @@ using System.Windows.Input;
 using System.Windows.Data;
 using System.Windows.Controls.Primitives;
 using GHDY.Core;
+using System.Collections.ObjectModel;
+using System.Windows.Documents;
 
 namespace GHDY.Workflow.WpfLibrary.Control
 {
@@ -56,10 +58,20 @@ namespace GHDY.Workflow.WpfLibrary.Control
                 {
                     para.Sentences.ToList().ForEach((sentence) =>
                     {
+                        int index = 0;
                         sentence.Syncables.ToList().ForEach((syncable) =>
                         {
                             var text = syncable.ToString();
-                            TextUtilities.IsMatch();
+                            if (TextUtilities.IsMatch(text, "\\W") == false)
+                            {
+                                var count = TextUtilities.Matches(text, "[A-Z]")?.Count()??0;
+                                if (index == 0 && count >1)
+                                {
+                                    sentence.SetValue(Selector.IsSelectedProperty, true);
+                                }
+                            }
+
+                            index += 1;
                         });
                     });
                 });
@@ -80,43 +92,43 @@ namespace GHDY.Workflow.WpfLibrary.Control
         private void CmdSetSpecialPronounce_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
-            var collection = e.Parameter as ObservableCollection<TextElement>;
+            //var collection = e.Parameter as ObservableCollection<TextElement>;
 
-            var sentence = collection.First() as DMSentence;
-            if ((bool)sentence.GetValue(SyncExtension.IsQuateProperty) == true)
-            {
-                sentence.SetValue(SyncExtension.IsQuateProperty, false);
-                return;
-            }
+            //var sentence = collection.First() as DMSentence;
+            //if ((bool)sentence.GetValue(SyncExtension.IsQuateProperty) == true)
+            //{
+            //    sentence.SetValue(SyncExtension.IsQuateProperty, false);
+            //    return;
+            //}
 
-            ITimelineSelector selector = null;
-            if (this.Lyrics != null)
-            {
-                var lrcSelector = new LyricsTimelineSelector();
-                lrcSelector.Lyrics = this.Lyrics;
-                selector = lrcSelector;
-            }
-            else if (this.Dictation != null)
-            {
-                var dictationSelector = new DictationTimeLineSelector();
-                dictationSelector.Dictation = this.Dictation;
-                selector = dictationSelector;
-            }
+            //ITimelineSelector selector = null;
+            //if (this.Lyrics != null)
+            //{
+            //    var lrcSelector = new LyricsTimelineSelector();
+            //    lrcSelector.Lyrics = this.Lyrics;
+            //    selector = lrcSelector;
+            //}
+            //else if (this.Dictation != null)
+            //{
+            //    var dictationSelector = new DictationTimeLineSelector();
+            //    dictationSelector.Dictation = this.Dictation;
+            //    selector = dictationSelector;
+            //}
 
-            DialogSentenceTimeRangeEditor editor = new DialogSentenceTimeRangeEditor(this.AudioPlayer, selector)
-            {
-                Sentence = sentence,
-                WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner
-            };
+            //DialogSentenceTimeRangeEditor editor = new DialogSentenceTimeRangeEditor(this.AudioPlayer, selector)
+            //{
+            //    Sentence = sentence,
+            //    WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner
+            //};
 
-            sentence.SetValue(SyncExtension.IsQuateProperty, true);
+            //sentence.SetValue(SyncExtension.IsQuateProperty, true);
 
-            sentence.SetValue(Selector.IsSelectedProperty, false);
+            //sentence.SetValue(Selector.IsSelectedProperty, false);
 
-            //CompositionContainer container = new CompositionContainer();
-            //container.ComposeParts(editor, selector, this.AudioPlayer);
+            ////CompositionContainer container = new CompositionContainer();
+            ////container.ComposeParts(editor, selector, this.AudioPlayer);
 
-            editor.ShowDialog();
+            //editor.ShowDialog();
         }
         #endregion
 
