@@ -156,7 +156,15 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
         protected override void Initialize()
         {
+            this.CmdFindSpecialPronounce = new RoutedUICommand();
+            this.ParentWindow.CommandBindings.Add(new CommandBinding(this.CmdFindSpecialPronounce, this.CmdFindSpecialPronounce_Executed));
 
+            this.CmdSetSpecialPronounce = new RoutedUICommand();
+            this.ParentWindow.CommandBindings.Add(new CommandBinding(this.CmdSetSpecialPronounce, this.CmdSetSpecialPronounce_Executed, this.CmdSetSpecialPronounce_CanExecute));
+
+
+            this.NotifyPropertyChanged("CmdFindSpecialPronounce");
+            this.NotifyPropertyChanged("CmdSetSpecialPronounce");
         }
         #endregion
 

@@ -1,10 +1,10 @@
 ﻿<core:AutoFontSizeUserControl x:Class="GHDY.Workflow.WpfLibrary.Control.PronunciationMarkupUserControl"
                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                              xmlns:SyncControl="clr-namespace:GHDY.Core.DocumentModel.SyncControl;assembly=GHDY.Core.DocumentModel.SyncControl"
-                              xmlns:core="clr-namespace:GHDY.Core;assembly=GHDY.Core"
                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:SyncControl="clr-namespace:GHDY.Core.DocumentModel.SyncControl;assembly=GHDY.Core.DocumentModel.SyncControl"
+                              xmlns:core="clr-namespace:GHDY.Core;assembly=GHDY.Core"
                               Width="Auto"
                               Height="Auto"
                               d:DesignHeight="480"
@@ -34,7 +34,7 @@
                     <Setter Property="Margin" Value="50,5" />
                 </Style>
             </WrapPanel.Resources>
-            <Button Content="Find Special"/>
+            <Button Content="Find Special" Command="{Binding CmdFindSpecialPronounce}"/>
         </WrapPanel>
     </Grid>
     <!--<DockPanel LastChildFill="True">
