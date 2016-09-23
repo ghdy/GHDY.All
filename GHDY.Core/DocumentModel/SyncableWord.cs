@@ -11,7 +11,7 @@ namespace GHDY.Core.DocumentModel
     public class SyncableWord : Run, ISyncable, ICloneable
     {
         public SyncableWord(string text)
-            : base(HttpUtility.HtmlEncode(text))
+            : base(text)
         {
             
         }

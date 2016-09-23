@@ -155,7 +155,7 @@ namespace GHDY.Core.DocumentModel
             this.Inlines.Clear();
             char[] chars = new char[] { ' ' };
 
-            var formated = HttpUtility.HtmlEncode(sentenceText.Trim());
+            var formated = HttpUtility.HtmlDecode(sentenceText.Trim());
             var array = formated.Split(chars, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var text in array)

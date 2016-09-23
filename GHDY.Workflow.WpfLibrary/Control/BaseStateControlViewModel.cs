@@ -113,6 +113,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
         public virtual void StateCompleted()
         {
+            this.AudioPlayer?.Stop();
             this.ResumeBookmatk(this.State.ToString(), null);
         }
 

@@ -62,14 +62,14 @@ namespace GHDY.Workflow.WpfLibrary.Control
                         sentence.Syncables.ToList().ForEach((syncable) =>
                         {
                             var text = syncable.ToString();
-                            if (TextUtilities.IsMatch(text, "\\W") == false)
-                            {
+                            //if (TextUtilities.IsMatch(text, "\\W") == false)
+                            //{
                                 var count = TextUtilities.Matches(text, "[A-Z]")?.Count()??0;
                                 if (index == 0 && count >1)
                                 {
                                     sentence.SetValue(Selector.IsSelectedProperty, true);
                                 }
-                            }
+                            //}
 
                             index += 1;
                         });
@@ -174,14 +174,14 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
             this.ParentWindow.Dispatcher.Invoke(() =>
             {
-                DMDocument doc = DMDocument.Load(filePath);
-                this.DocumentChangedAction(doc);
+                this.Document = DMDocument.Load(filePath);
+                this.DocumentChangedAction(this.Document);
 
                 using (CompositionContainer container = new CompositionContainer())
                 {
                     KaraokeHighlightService karaokeService = new KaraokeHighlightService();
 
-                    container.ComposeParts(this.AudioPlayer, doc, karaokeService);
+                    container.ComposeParts(this.AudioPlayer, this.Document, karaokeService);
                 }
             });
         }
