@@ -59,20 +59,18 @@ namespace GHDY.Workflow.WpfLibrary.Control
                     para.Sentences.ToList().ForEach((sentence) =>
                     {
                         int index = 0;
-                        sentence.Syncables.ToList().ForEach((syncable) =>
+                        foreach (var syncable in sentence.Syncables)
                         {
                             var text = syncable.ToString();
-                            //if (TextUtilities.IsMatch(text, "\\W") == false)
-                            //{
-                                var count = TextUtilities.Matches(text, "[A-Z]")?.Count()??0;
-                                if (index == 0 && count >1)
-                                {
-                                    sentence.SetValue(Selector.IsSelectedProperty, true);
-                                }
-                            //}
+                            var isSpecialPronunciation = text.IsSpecialPronunciation(index == 0);
 
+                            if (isSpecialPronunciation == true)
+                            {
+                                sentence.SetValue(Selector.IsSelectedProperty, true);
+                                break;
+                            }
                             index += 1;
-                        });
+                        }
                     });
                 });
         }
