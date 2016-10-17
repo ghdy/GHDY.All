@@ -89,6 +89,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
         private void CmdSetSpecialPronounce_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            
             var collection = e.Parameter as ObservableCollection<TextElement>;
 
             //var sentence = collection.First() as DMSentence;

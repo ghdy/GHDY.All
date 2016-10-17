@@ -12,16 +12,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace GHDY.Core.DocumentModel.SyncControl
+namespace GHDY.Core.DocumentModel.SyncControl.Dialog
 {
     /// <summary>
-    /// Interaction logic for AutoSetDMDocumentByLrcWindow.xaml
+    /// DialogSpeechTextEditor.xaml 的交互逻辑
     /// </summary>
-    public partial class AutoSetDMDocumentByLrcWindow : Window
+    public partial class DialogSpeechTextEditor : Window
     {
-        public AutoSetDMDocumentByLrcWindow()
+        public DialogSpeechTextEditor()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

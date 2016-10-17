@@ -57,11 +57,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoSetDMDocumentByLrcWindow.xaml.cs">
-      <DependentUpon>AutoSetDMDocumentByLrcWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialog\DialogSentenceTimeRangeEditor.xaml.cs">
       <DependentUpon>DialogSentenceTimeRangeEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\DialogSpeechTextEditor.xaml.cs">
+      <DependentUpon>DialogSpeechTextEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialog\DialogTextEditor.xaml.cs">
       <DependentUpon>DialogTextEditor.xaml</DependentUpon>
@@ -110,11 +110,11 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="AutoSetDMDocumentByLrcWindow.xaml">
+    <Page Include="Dialog\DialogSentenceTimeRangeEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialog\DialogSentenceTimeRangeEditor.xaml">
+    <Page Include="Dialog\DialogSpeechTextEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
