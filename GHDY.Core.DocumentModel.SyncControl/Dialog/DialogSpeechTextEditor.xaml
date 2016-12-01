@@ -24,16 +24,19 @@
                VerticalAlignment="Center" 
                HorizontalAlignment="Center"/>
 
-        <TextBlock Grid.Row="1"
-                 Background="LightYellow"
-                 FontSize="18"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Center"/>
+        <GroupBox Grid.Row="1" Header="Transcript">
+            <WebBrowser/>
+        </GroupBox>
 
         <TextBox Grid.Row="2"
                  Background="LightYellow"
                  FontSize="18"
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Center"/>
+
+        <WrapPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button Content="Confirm" Margin="20,10" Width="80" Height="32"/>
+            <Button Content="Cancel" Margin="20,10" Width="80" Height="32"/>
+        </WrapPanel>
     </Grid>
 </Window>
