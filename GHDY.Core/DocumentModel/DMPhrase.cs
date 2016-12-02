@@ -97,6 +97,11 @@ namespace GHDY.Core.DocumentModel
             return result.Trim();
         }
 
+        public override string ToString()
+        {
+            
+        }
+
         #endregion
 
         #region ISyncableCollection

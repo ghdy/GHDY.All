@@ -13,10 +13,10 @@
         WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0"
                Content="Speech Text Editor" 
@@ -25,18 +25,19 @@
                HorizontalAlignment="Center"/>
 
         <GroupBox Grid.Row="1" Header="Transcript">
-            <WebBrowser/>
+            <WebBrowser x:Name="webTranscript"/>
         </GroupBox>
 
         <TextBox Grid.Row="2"
+                 Margin="5"
                  Background="LightYellow"
                  FontSize="18"
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Center"/>
 
         <WrapPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Content="Confirm" Margin="20,10" Width="80" Height="32"/>
-            <Button Content="Cancel" Margin="20,10" Width="80" Height="32"/>
+            <Button Content="Confirm" Margin="20,5" Width="80" Height="32"/>
+            <Button Content="Cancel" Margin="20,5" Width="80" Height="32"/>
         </WrapPanel>
     </Grid>
 </Window>
