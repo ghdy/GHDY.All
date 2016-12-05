@@ -99,7 +99,13 @@ namespace GHDY.Core.DocumentModel
 
         public override string ToString()
         {
-            
+            string result = "";
+            foreach (var word in this.Words)
+            {
+                result += word.Text + " ";
+            }
+
+            return result.Trim();
         }
 
         #endregion

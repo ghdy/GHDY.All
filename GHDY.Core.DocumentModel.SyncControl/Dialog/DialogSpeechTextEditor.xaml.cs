@@ -20,7 +20,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
     /// </summary>
     public partial class DialogSpeechTextEditor : Window
     {
-        public DMSentence CurrentSentence { get;private  set; }
+        public DMSentence CurrentSentence { get; private set; }
 
         public DialogSpeechTextEditor(DMSentence sentence)
         {
@@ -31,17 +31,22 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var words = this.CurrentSentence.Syncables.Where((syncable) => {
-                var dpo = syncable as DependencyObject;
-                if (dpo != null && (bool)dpo.GetValue(Selector.IsSelectedProperty) == true)
-                    return true;
-                else
-                    return false;
-            });
+            string html = BUildSentenceHtml(this.CurrentSentence);
+            webTranscript.NavigateToString(html);
+        }
 
-            DMPhrase phrase = new DMPhrase();
-            phrase.Inlines.AddRange(words.ToList());
-            MessageBox.Show(phrase.ToSpeechText());
+        private string BUildSentenceHtml(DMSentence sentence)
+        {
+            var sb = new StringBuilder();
+            foreach (var syncable in sentence.Syncables.Cast<DependencyObject>())
+            {
+                if ((bool)syncable.GetValue(Selector.IsSelectedProperty) == true)
+                    sb.AppendLine(string.Format("<b style='color:blue;'>{0}</b>",syncable.ToString()));
+                else
+                    sb.AppendLine(string.Format("<a>{0}</a>", syncable.ToString()));
+            }
+
+            return sb.ToString();
         }
     }
 }
