@@ -22,11 +22,28 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
     {
         public DMSentence CurrentSentence { get; private set; }
 
-        public DialogSpeechTextEditor(DMSentence sentence)
+        public Action<string> SetSpeechTextCallback { get;private set; }
+
+
+
+        public string SpeechText
+        {
+            get { return (string)GetValue(SpeechTextProperty); }
+            set { SetValue(SpeechTextProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SpeechText.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SpeechTextProperty =
+            DependencyProperty.Register("SpeechText", typeof(string), typeof(DialogSpeechTextEditor), new PropertyMetadata(""));
+
+
+
+        public DialogSpeechTextEditor(DMSentence sentence, Action<string> setSpeechTextCallback)
         {
             InitializeComponent();
 
             this.CurrentSentence = sentence;
+            this.SetSpeechTextCallback = setSpeechTextCallback;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -48,5 +65,35 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
 
             return sb.ToString();
         }
+
+
+        #region Commands
+        public DelegateCommand CmdConfirm
+        {
+            get
+            {
+                return new DelegateCommand(new Action<object>((sender) =>
+                {
+                    this.SetSpeechTextCallback(this.SpeechText);
+                    this.Close();
+
+                }));
+            }
+        }
+
+        public DelegateCommand CmdCancel
+        {
+            get
+            {
+                return new DelegateCommand(new Action<object>((sender) =>
+                {
+                    this.SetSpeechTextCallback(string.Empty);
+                    this.Close();
+                }));
+            }
+        }
+        #endregion
+
+
     }
 }

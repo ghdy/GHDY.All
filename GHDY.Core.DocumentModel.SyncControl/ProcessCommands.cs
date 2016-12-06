@@ -13,6 +13,7 @@ namespace GHDY.Core.DocumentModel.SyncControl
     public static class ProcessCommands
     {
         const string keySentenceTextEditor = "SentenceTextEditor";
+
         #region CMD MergeWords
         public static readonly RoutedUICommand MergeWords = new RoutedUICommand(
             "Merge",

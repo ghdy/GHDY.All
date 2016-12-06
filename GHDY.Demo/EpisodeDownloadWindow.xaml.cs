@@ -70,7 +70,9 @@ namespace GHDY.Demo
             word = new SyncableWord("English.");
             sentence.Inlines.Add(word);
 
-            DialogSpeechTextEditor editor = new DialogSpeechTextEditor(sentence);
+            
+
+            DialogSpeechTextEditor editor = new DialogSpeechTextEditor(sentence,(speechText)=> { MessageBox.Show(speechText); });
             editor.Show();
         }
 
