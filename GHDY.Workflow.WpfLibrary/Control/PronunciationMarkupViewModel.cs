@@ -92,41 +92,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
             
             var collection = e.Parameter as ObservableCollection<TextElement>;
 
-            //var sentence = collection.First() as DMSentence;
-            //if ((bool)sentence.GetValue(SyncExtension.IsQuateProperty) == true)
-            //{
-            //    sentence.SetValue(SyncExtension.IsQuateProperty, false);
-            //    return;
-            //}
-
-            //ITimelineSelector selector = null;
-            //if (this.Lyrics != null)
-            //{
-            //    var lrcSelector = new LyricsTimelineSelector();
-            //    lrcSelector.Lyrics = this.Lyrics;
-            //    selector = lrcSelector;
-            //}
-            //else if (this.Dictation != null)
-            //{
-            //    var dictationSelector = new DictationTimeLineSelector();
-            //    dictationSelector.Dictation = this.Dictation;
-            //    selector = dictationSelector;
-            //}
-
-            //DialogSentenceTimeRangeEditor editor = new DialogSentenceTimeRangeEditor(this.AudioPlayer, selector)
-            //{
-            //    Sentence = sentence,
-            //    WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner
-            //};
-
-            //sentence.SetValue(SyncExtension.IsQuateProperty, true);
-
-            //sentence.SetValue(Selector.IsSelectedProperty, false);
-
-            ////CompositionContainer container = new CompositionContainer();
-            ////container.ComposeParts(editor, selector, this.AudioPlayer);
-
-            //editor.ShowDialog();
+            
         }
         #endregion
 

@@ -22,10 +22,10 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
     {
         public DMSentence CurrentSentence { get; private set; }
 
-        public Action<string> SetSpeechTextCallback { get;private set; }
+        public Action<string> SetSpeechTextCallback { get; private set; }
 
 
-
+        #region DP:SpeechText
         public string SpeechText
         {
             get { return (string)GetValue(SpeechTextProperty); }
@@ -36,7 +36,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
         public static readonly DependencyProperty SpeechTextProperty =
             DependencyProperty.Register("SpeechText", typeof(string), typeof(DialogSpeechTextEditor), new PropertyMetadata(""));
 
-
+        #endregion
 
         public DialogSpeechTextEditor(DMSentence sentence, Action<string> setSpeechTextCallback)
         {
@@ -50,6 +50,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
         {
             string html = BUildSentenceHtml(this.CurrentSentence);
             webTranscript.NavigateToString(html);
+            this.DataContext = this;
         }
 
         private string BUildSentenceHtml(DMSentence sentence)
@@ -58,15 +59,14 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
             foreach (var syncable in sentence.Syncables.Cast<DependencyObject>())
             {
                 if ((bool)syncable.GetValue(Selector.IsSelectedProperty) == true)
-                    sb.AppendLine(string.Format("<b style='color:blue;'>{0}</b>",syncable.ToString()));
+                    sb.AppendLine(string.Format("<b style='color:blue;'>{0}</b>", syncable.ToString()));
                 else
                     sb.AppendLine(string.Format("<a>{0}</a>", syncable.ToString()));
             }
 
             return sb.ToString();
         }
-
-
+        
         #region Commands
         public DelegateCommand CmdConfirm
         {

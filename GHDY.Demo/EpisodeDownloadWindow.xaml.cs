@@ -46,34 +46,6 @@ namespace GHDY.Demo
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.SelectAll,CmdAutoDownloadAlbum_Executed,CmdAutoDownloadAlbum_CanExecute));
 
             this.DataContext = this.ViewModel;
-
-            var sentence = new DMSentence();
-            SyncableWord word = null;
-
-            word = new SyncableWord("This");
-            sentence.Inlines.Add(word);
-
-            word = new SyncableWord("is");
-            sentence.Inlines.Add(word);
-
-            word = new SyncableWord("the");
-            sentence.Inlines.Add(word);
-
-            word = new SyncableWord("VOA");
-            word.SetValue(Selector.IsSelectedProperty, true);
-            sentence.Inlines.Add(word);
-
-            word = new SyncableWord("Special");
-            word.SetValue(Selector.IsSelectedProperty,true);
-            sentence.Inlines.Add(word);
-
-            word = new SyncableWord("English.");
-            sentence.Inlines.Add(word);
-
-            
-
-            DialogSpeechTextEditor editor = new DialogSpeechTextEditor(sentence,(speechText)=> { MessageBox.Show(speechText); });
-            editor.Show();
         }
 
         #region commands
@@ -134,7 +106,8 @@ namespace GHDY.Demo
 
         #endregion commands
 
-        private void selector_Album_SelectionChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void selector_Album_SelectionChanged(object 
+            sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var album = e.NewValue as XAlbum;
             if (album != null)

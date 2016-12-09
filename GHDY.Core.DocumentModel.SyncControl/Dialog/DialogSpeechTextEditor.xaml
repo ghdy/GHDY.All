@@ -33,11 +33,14 @@
                  Background="LightYellow"
                  FontSize="18"
                  HorizontalContentAlignment="Center"
-                 VerticalContentAlignment="Center"/>
+                 VerticalContentAlignment="Center"
+                 Text="{Binding SpeechText}"/>
 
         <WrapPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Content="Confirm" Margin="20,5" Width="80" Height="32"/>
-            <Button Content="Cancel" Margin="20,5" Width="80" Height="32"/>
+            <Button Content="Confirm" Margin="20,5" Width="80" Height="32"
+                    Command="{Binding CmdConfirm}"/>
+            <Button Content="Cancel" Margin="20,5" Width="80" Height="32"
+                    Command="{Binding CmdCancel}"/>
         </WrapPanel>
     </Grid>
 </Window>
