@@ -34,9 +34,10 @@ namespace GHDY.Workflow.WpfLibrary.Control
         {
             get
             {
-                if (this._parentWindow == null)
-                    this._parentWindow = this.View.GetParent<Window>();
-                return this._parentWindow;
+                return this._parentWindow?? this.View.GetParent<Window>();
+                //if (this._parentWindow == null)
+                //    this._parentWindow = this.View.GetParent<Window>();
+                //return this._parentWindow;
             }
             private set
             {
@@ -123,10 +124,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
         protected void ResumeBookmatk(string bookmark, object value)
         {
-            if (this.WorkflowApp != null)
-            {
-                this.WorkflowApp.ResumeBookmark(bookmark, value);
-            }
+                this.WorkflowApp?.ResumeBookmark(bookmark, value);
         }
 
         #region INotifyPropertyChanged

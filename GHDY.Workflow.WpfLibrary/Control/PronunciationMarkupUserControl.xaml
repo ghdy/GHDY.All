@@ -35,6 +35,7 @@
                 </Style>
             </WrapPanel.Resources>
             <Button Content="Find Special" Command="{Binding CmdFindSpecialPronounce}"/>
+            <Button Content="Find Special" Command="{Binding CmdSetSpecialPronounce}"/>
         </WrapPanel>
     </Grid>
     <!--<DockPanel LastChildFill="True">
