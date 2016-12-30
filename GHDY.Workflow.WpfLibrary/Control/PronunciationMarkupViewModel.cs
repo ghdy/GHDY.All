@@ -17,6 +17,9 @@ using System.Windows.Controls.Primitives;
 using GHDY.Core;
 using System.Collections.ObjectModel;
 using System.Windows.Documents;
+using GHDY.Core.DocumentModel.SyncControl;
+using GHDY.Core.DocumentModel.SyncControl.Dialog;
+using System.Windows;
 
 namespace GHDY.Workflow.WpfLibrary.Control
 {
@@ -80,19 +83,34 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
         private void CmdSetSpecialPronounce_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            var collection = e.Parameter as ObservableCollection<TextElement>;
-            if (collection.Count == 1 && collection.First() is DMSentence)
+            e.CanExecute = false;
+
+            var viewer = e.Parameter as DMDocumentScrollViewer;
+            if (viewer == null) return;
+
+            var collection = viewer.SelectedElements;
+
+            if (collection.Count == 1 && collection.First() is ISyncable)
                 e.CanExecute = true;
-            else
-                e.CanExecute = false;
         }
 
         private void CmdSetSpecialPronounce_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            
-            var collection = e.Parameter as ObservableCollection<TextElement>;
 
-            
+            var viewer = e.Parameter as DMDocumentScrollViewer;
+            if (viewer == null) return;
+
+            var syncable = viewer.SelectedElements.First() as ISyncable;
+            var dpoSync = syncable as DependencyObject;
+            var sentence = syncable.GetParent<DMSentence>();
+
+            DialogSpeechTextEditor editorDialog = new DialogSpeechTextEditor(sentence,
+                new Action<string>(
+                    (speechText) =>
+                    {
+                        
+                    }));
+
         }
         #endregion
 

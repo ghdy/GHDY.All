@@ -35,7 +35,7 @@
                 </Style>
             </WrapPanel.Resources>
             <Button Content="Find Special" Command="{Binding CmdFindSpecialPronounce}"/>
-            <Button Content="Find Special" Command="{Binding CmdSetSpecialPronounce}"/>
+            <Button Content="Set Pronounce" Command="{Binding CmdSetSpecialPronounce}" CommandParameter="{Binding ElementName=docScrollViewer}"/>
         </WrapPanel>
     </Grid>
     <!--<DockPanel LastChildFill="True">
