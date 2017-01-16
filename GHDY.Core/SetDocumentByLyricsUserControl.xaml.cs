@@ -85,7 +85,20 @@ namespace GHDY.Core
             sv1.ScrollChanged += new ScrollChangedEventHandler(sv1_ScrollChanged);
             sv2.ScrollChanged += new ScrollChangedEventHandler(sv2_ScrollChanged);
 
+            this.list_LyricsSentence.SelectionChanged += List_LyricsSentence_SelectionChanged;
+            this.list_Sentences.SelectionChanged += List_Sentences_SelectionChanged;
         }
+
+        private void List_Sentences_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.list_LyricsSentence.SelectedIndex = -1;
+        }
+
+        private void List_LyricsSentence_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.list_Sentences.SelectedIndex = -1;
+        }
+
         void sv1_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             sv2.ScrollToVerticalOffset(sv1.VerticalOffset);
@@ -103,12 +116,48 @@ namespace GHDY.Core
 
         private void CmdProcessCollection_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            string cmd = e.Parameter.ToString().Trim();
             ListBox target = e.Source as ListBox;
             var selectedLP = this.list_LyricsSentence.SelectedItem as LyricsPhrase;
+            if (selectedLP != null)
+                ProcessLyrics(cmd, selectedLP);
+            else
+            {
+                var selectedSentence = this.list_Sentences.SelectedItem as DMSentence;
 
+                if (selectedSentence != null)
+                    ProcessSentence(cmd,selectedSentence);
+            }
+        }
+
+        private void ProcessSentence(string cmd, DMSentence selectedSentence)
+        {
+            var newSentence = new DMSentence();
+            newSentence.Initialize("(New Sentences)");
+
+            switch (cmd)
+            {
+                case "Before":
+                    newSentence.BeginTime = selectedSentence.BeginTime;
+                    newSentence.EndTime = selectedSentence.BeginTime;
+                    this.Document.Insert(this.list_LyricsSentence.SelectedIndex, newLP);
+                    break;
+                case "Behind":
+                    newSentence.BeginTime = selectedSentence.EndTime;
+                    newSentence.EndTime = selectedSentence.EndTime;
+                    this.SentencePhrases.Insert(this.list_LyricsSentence.SelectedIndex + 1, newLP);
+                    break;
+                case "Delete":
+                    this.SentencePhrases.RemoveAt(this.list_LyricsSentence.SelectedIndex);
+                    break;
+            }
+        }
+
+        private void ProcessLyrics(string cmd, LyricsPhrase selectedLP)
+        {
             var newLP = new LyricsPhrase() { Text = "(Lyrics Phrase)" };
 
-            switch (e.Parameter.ToString())
+            switch (cmd)
             {
                 case "Before":
                     newLP.BeginTime = selectedLP.BeginTime;
@@ -125,7 +174,7 @@ namespace GHDY.Core
                     break;
             }
             if (this.OnLyricsChanged != null)
-                this.OnLyricsChanged(this,new EventArgs());
+                this.OnLyricsChanged(this, new EventArgs());
         }
     }
 }
