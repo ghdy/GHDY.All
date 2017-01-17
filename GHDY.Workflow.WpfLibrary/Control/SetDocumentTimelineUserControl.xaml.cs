@@ -36,10 +36,18 @@ namespace GHDY.Workflow.WpfLibrary.Control
         {
             this.setDocByLrcUserControl.Document = doc;
             this.setDocByLrcUserControl.SentencePhrases = phraseCollection;
+
+            this.setDocByLrcUserControl.OnLyricsChanged += SetDocByLrcUserControl_OnLyricsChanged;
+        }
+
+        private void SetDocByLrcUserControl_OnLyricsChanged(object sender, SyncableSelectedEventArgs e)
+        {
+            this.ViewModel.AudioPlayer?.PlayRange(e.BeginTime,e.EndTime);
         }
 
         private void AutoFontSizeUserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            
         }
     }
 }

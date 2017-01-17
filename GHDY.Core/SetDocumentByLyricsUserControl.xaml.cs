@@ -17,6 +17,19 @@ using System.Windows.Shapes;
 
 namespace GHDY.Core
 {
+    public class SyncableSelectedEventArgs : EventArgs
+    {
+        public TimeSpan BeginTime { get; set; }
+
+        public TimeSpan EndTime { get; set; }
+
+        public SyncableSelectedEventArgs(TimeSpan begin, TimeSpan end)
+        {
+            this.BeginTime = begin;
+            this.EndTime = end;
+        }
+    }
+
     /// <summary>
     /// Interaction logic for SetDocumentByLyricsUserControl.xaml
     /// </summary>
@@ -24,7 +37,7 @@ namespace GHDY.Core
     {
         ScrollViewer sv1, sv2;
 
-        public event EventHandler OnLyricsChanged = null;
+        public event EventHandler<SyncableSelectedEventArgs> OnLyricsChanged = null;
 
         #region DP:Document
 
@@ -52,6 +65,19 @@ namespace GHDY.Core
         // Using a DependencyProperty as the backing store for SentencePhrases.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SentencePhrasesProperty =
             DependencyProperty.Register("SentencePhrases", typeof(ObservableCollection<LyricsPhrase>), typeof(SetDocumentByLyricsUserControl), new PropertyMetadata(null));
+
+        #endregion
+
+        #region DP:Message
+        public string Message
+        {
+            get { return (string)GetValue(MessageProperty); }
+            set { SetValue(MessageProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Message.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MessageProperty =
+            DependencyProperty.Register("Message", typeof(string), typeof(SetDocumentByLyricsUserControl), new PropertyMetadata(""));
 
         #endregion
 
@@ -89,15 +115,6 @@ namespace GHDY.Core
             this.list_Sentences.SelectionChanged += List_Sentences_SelectionChanged;
         }
 
-        private void List_Sentences_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            this.list_LyricsSentence.SelectedIndex = -1;
-        }
-
-        private void List_LyricsSentence_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            this.list_Sentences.SelectedIndex = -1;
-        }
 
         void sv1_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
@@ -126,12 +143,13 @@ namespace GHDY.Core
                 var selectedSentence = this.list_Sentences.SelectedItem as DMSentence;
 
                 if (selectedSentence != null)
-                    ProcessSentence(cmd,selectedSentence);
+                    ProcessSentence(cmd, selectedSentence);
             }
         }
 
         private void ProcessSentence(string cmd, DMSentence selectedSentence)
         {
+            var paragraph = selectedSentence.Paragraph;
             var newSentence = new DMSentence();
             newSentence.Initialize("(New Sentences)");
 
@@ -140,15 +158,18 @@ namespace GHDY.Core
                 case "Before":
                     newSentence.BeginTime = selectedSentence.BeginTime;
                     newSentence.EndTime = selectedSentence.BeginTime;
-                    this.Document.Insert(this.list_LyricsSentence.SelectedIndex, newLP);
+                    //this.Document.Insert(this.list_LyricsSentence.SelectedIndex, newLP);
+                    paragraph.Inlines.InsertBefore(selectedSentence, newSentence);
                     break;
                 case "Behind":
                     newSentence.BeginTime = selectedSentence.EndTime;
                     newSentence.EndTime = selectedSentence.EndTime;
-                    this.SentencePhrases.Insert(this.list_LyricsSentence.SelectedIndex + 1, newLP);
+                    //this.SentencePhrases.Insert(this.list_LyricsSentence.SelectedIndex + 1, newLP);
+                    paragraph.Inlines.InsertAfter(selectedSentence, newSentence);
                     break;
                 case "Delete":
-                    this.SentencePhrases.RemoveAt(this.list_LyricsSentence.SelectedIndex);
+                    //this.SentencePhrases.RemoveAt(this.list_LyricsSentence.SelectedIndex);
+                    paragraph.Inlines.Remove(selectedSentence);
                     break;
             }
         }
@@ -173,8 +194,34 @@ namespace GHDY.Core
                     this.SentencePhrases.RemoveAt(this.list_LyricsSentence.SelectedIndex);
                     break;
             }
-            if (this.OnLyricsChanged != null)
-                this.OnLyricsChanged(this, new EventArgs());
         }
+        
+        #region On 2 List of Sentence SelectedChanged
+        private void List_Sentences_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            this.list_LyricsSentence.SelectionChanged -= List_LyricsSentence_SelectionChanged;
+            this.list_LyricsSentence.SelectedIndex = -1;
+            this.list_LyricsSentence.SelectionChanged += List_LyricsSentence_SelectionChanged;
+
+            var sentence = this.list_Sentences.SelectedItem as DMSentence;
+            this.Message = string.Format("[Transcript] index:{0}", sentence.Index);
+        }
+
+        private void List_LyricsSentence_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            this.list_Sentences.SelectionChanged -= List_Sentences_SelectionChanged;
+            this.list_Sentences.SelectedIndex = -1;
+            this.list_Sentences.SelectionChanged += List_Sentences_SelectionChanged;
+
+            var lrcPhrase = this.list_LyricsSentence.SelectedItem as LyricsPhrase;
+            this.Message = string.Format("[Lyrics] << {0} ={2}= {1} >>", lrcPhrase.Begin.ToString("F2"), lrcPhrase.End.ToString("F2"), lrcPhrase.Duration.ToString("F2"));
+
+
+            if (this.OnLyricsChanged != null)
+                this.OnLyricsChanged(this, new SyncableSelectedEventArgs(lrcPhrase.BeginTime,lrcPhrase.EndTime));
+        }
+        #endregion
     }
 }
