@@ -108,8 +108,12 @@ namespace GHDY.Workflow.WpfLibrary.Control
                 new Action<string>(
                     (speechText) =>
                     {
-                        
+                        var dpo = syncable as DependencyObject;
+                        if (dpo != null)
+                            SyncExtension.SetSpeechText(dpo, speechText);
                     }));
+
+            editorDialog.ShowDialog();
 
         }
         #endregion
