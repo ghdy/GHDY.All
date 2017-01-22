@@ -138,7 +138,10 @@ namespace GHDY.Core.DocumentModel.SyncControl
         public void Selection_Changed(object sender, EventArgs e)
         {
             //this.Dely(200);
-
+            this.SelectedElements.Cast<DependencyObject>().ToList().ForEach(
+                (dpo) => {
+                    SyncExtension.SetIsCurrent(dpo, false);
+                });
             this.SelectedElements.Clear();
 
             var selection = this.flowDocumentViewer.Selection;
@@ -199,6 +202,11 @@ namespace GHDY.Core.DocumentModel.SyncControl
 
             if (this.SelectionChanged != null)
                 this.SelectionChanged(this, new EventArgs());
+
+            this.SelectedElements.Cast<DependencyObject>().ToList().ForEach(
+                (dpo) => {
+                    SyncExtension.SetIsCurrent(dpo, true);
+                });
         }
 
         public ObservableCollection<TextElement> SelectedElements { get; private set; }

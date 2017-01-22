@@ -58,7 +58,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
             var sb = new StringBuilder();
             foreach (var syncable in sentence.Syncables.Cast<DependencyObject>())
             {
-                if ((bool)syncable.GetValue(Selector.IsSelectedProperty) == true)
+                if ((bool)syncable.GetValue(SyncExtension.IsCurrentProperty) == true)
                     sb.AppendLine(string.Format("<b style='color:blue;'>{0}</b>", syncable.ToString()));
                 else
                     sb.AppendLine(string.Format("<a>{0}</a>", syncable.ToString()));
