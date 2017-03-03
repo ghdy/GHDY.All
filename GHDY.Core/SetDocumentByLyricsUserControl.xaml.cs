@@ -216,11 +216,14 @@ namespace GHDY.Core
             this.list_Sentences.SelectionChanged += List_Sentences_SelectionChanged;
 
             var lrcPhrase = this.list_LyricsSentence.SelectedItem as LyricsPhrase;
-            this.Message = string.Format("[Lyrics] << {0} ={2}= {1} >>", lrcPhrase.Begin.ToString("F2"), lrcPhrase.End.ToString("F2"), lrcPhrase.Duration.ToString("F2"));
 
+            if (lrcPhrase != null)
+            {
+                this.Message = string.Format("[Lyrics] << {0} ={2}= {1} >>", lrcPhrase.Begin.ToString("F2"), lrcPhrase.End.ToString("F2"), lrcPhrase.Duration.ToString("F2"));
 
-            if (this.OnLyricsChanged != null)
-                this.OnLyricsChanged(this, new SyncableSelectedEventArgs(lrcPhrase.BeginTime,lrcPhrase.EndTime));
+                if (this.OnLyricsChanged != null)
+                    this.OnLyricsChanged(this, new SyncableSelectedEventArgs(lrcPhrase.BeginTime, lrcPhrase.EndTime));
+            }
         }
         #endregion
     }
