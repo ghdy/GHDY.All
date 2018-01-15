@@ -23,7 +23,7 @@ namespace GHDY.Workflow.Recognize
         [RequiredArgument]
         public InArgument<BaseTarget> Target { get; set; }
 
-        private INotifyInitialize _notifyInitialize = null;
+        private INotifyInitialize _notifyInitialize;
 
         /// <summary>
         /// Execute
@@ -33,8 +33,8 @@ namespace GHDY.Workflow.Recognize
         protected override void Execute(NativeActivityContext context)
         {
             // Obtain the runtime value of the Text input argument
-            XEpisode episode = context.GetValue(this.Episode);
-            BaseTarget target = context.GetValue(this.Target);
+            var episode = context.GetValue(this.Episode);
+            var target = context.GetValue(this.Target);
 
             // TODO : Code this activity
             var episodeID = episode.ID;
@@ -62,7 +62,7 @@ namespace GHDY.Workflow.Recognize
             else
                 this._notifyInitialize.NotifyMessage("1.EpisodeContent is [OK].");
 
-            if (File.Exists(localEpisode.AudioFilePath) == true)
+            if (File.Exists(localEpisode.AudioFilePath))
                 this._notifyInitialize.NotifyMessage("2.Audio is [OK].");
             else
                 this._notifyInitialize.NotifyMessage("2.Audio [not] Found.");
@@ -81,7 +81,7 @@ namespace GHDY.Workflow.Recognize
             metadata.RequireExtension<INotifyInitialize>();
 
             // Register In arguments
-            RuntimeArgument episodeArg = new RuntimeArgument("Episode", typeof(XEpisode), ArgumentDirection.In);
+            var episodeArg = new RuntimeArgument(nameof(Episode), typeof(XEpisode), ArgumentDirection.In);
             metadata.AddArgument(episodeArg);
             metadata.Bind(this.Episode, episodeArg);
 
@@ -92,10 +92,10 @@ namespace GHDY.Workflow.Recognize
                     new System.Activities.Validation.ValidationError(
                         "[Episode] argument must be set!",
                         false,
-                        "Episode"));
+                        nameof(Episode)));
             }
 
-            RuntimeArgument targetArg = new RuntimeArgument("Target", typeof(BaseTarget), ArgumentDirection.In);
+            var targetArg = new RuntimeArgument(nameof(Target), typeof(BaseTarget), ArgumentDirection.In);
             metadata.AddArgument(targetArg);
             metadata.Bind(this.Target, targetArg);
 
@@ -106,12 +106,12 @@ namespace GHDY.Workflow.Recognize
                     new System.Activities.Validation.ValidationError(
                         "[Target] argument must be set!",
                         false,
-                        "Target"));
+                        nameof(Target)));
             }
 
 
             // Register Out arguments
-            RuntimeArgument resultArg = new RuntimeArgument("Result", typeof(LocalEpisode), ArgumentDirection.Out);
+            var resultArg = new RuntimeArgument("Result", typeof(LocalEpisode), ArgumentDirection.Out);
             metadata.AddArgument(resultArg);
             metadata.Bind(this.Result, resultArg);
 

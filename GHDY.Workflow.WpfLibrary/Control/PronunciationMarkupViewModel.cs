@@ -28,18 +28,20 @@ namespace GHDY.Workflow.WpfLibrary.Control
         public Action<DMDocument> DocumentChangedAction { get; set; }
 
 
-        DMDocument _document = null;
+        DMDocument _document;
         public DMDocument Document
         {
             get { return this._document; }
             set
             {
                 this._document = value;
-                this.NotifyPropertyChanged("Document");
+                this.NotifyPropertyChanged(nameof(Document));
                 //this._document.FontSize = this.View.FontSize;
 
-                Binding binding = new Binding("FontSize");
-                binding.Source = this.View;
+                var binding = new Binding("FontSize")
+                {
+                    Source = this.View
+                };
                 this._document.SetBinding(DMDocument.FontSizeProperty, binding);
             }
         }
@@ -61,13 +63,13 @@ namespace GHDY.Workflow.WpfLibrary.Control
                 {
                     para.Sentences.ToList().ForEach((sentence) =>
                     {
-                        int index = 0;
+                        var index = 0;
                         foreach (var syncable in sentence.Syncables)
                         {
                             var text = syncable.ToString();
                             var isSpecialPronunciation = text.IsSpecialPronunciation(index == 0);
 
-                            if (isSpecialPronunciation == true)
+                            if (isSpecialPronunciation)
                             {
                                 sentence.SetValue(Selector.IsSelectedProperty, true);
                                 break;
@@ -81,7 +83,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
         public RoutedUICommand CmdSetSpecialPronounce { get; set; }
 
-        private void CmdSetSpecialPronounce_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private static void CmdSetSpecialPronounce_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = false;
 
@@ -94,7 +96,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
                 e.CanExecute = true;
         }
 
-        private void CmdSetSpecialPronounce_Executed(object sender, ExecutedRoutedEventArgs e)
+        private static void CmdSetSpecialPronounce_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
             var viewer = e.Parameter as DMDocumentScrollViewer;
@@ -104,7 +106,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
             var dpoSync = syncable as DependencyObject;
             var sentence = syncable.GetParent<DMSentence>();
 
-            DialogSpeechTextEditor editorDialog = new DialogSpeechTextEditor(sentence,
+            var editorDialog = new DialogSpeechTextEditor(sentence,
                 new Action<string>(
                     (speechText) =>
                     {
@@ -146,11 +148,11 @@ namespace GHDY.Workflow.WpfLibrary.Control
             this.ParentWindow.CommandBindings.Add(new CommandBinding(this.CmdFindSpecialPronounce, this.CmdFindSpecialPronounce_Executed));
 
             this.CmdSetSpecialPronounce = new RoutedUICommand();
-            this.ParentWindow.CommandBindings.Add(new CommandBinding(this.CmdSetSpecialPronounce, this.CmdSetSpecialPronounce_Executed, this.CmdSetSpecialPronounce_CanExecute));
+            this.ParentWindow.CommandBindings.Add(new CommandBinding(this.CmdSetSpecialPronounce, CmdSetSpecialPronounce_Executed, CmdSetSpecialPronounce_CanExecute));
 
 
-            this.NotifyPropertyChanged("CmdFindSpecialPronounce");
-            this.NotifyPropertyChanged("CmdSetSpecialPronounce");
+            this.NotifyPropertyChanged(nameof(CmdFindSpecialPronounce));
+            this.NotifyPropertyChanged(nameof(CmdSetSpecialPronounce));
         }
         #endregion
 
@@ -165,7 +167,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
                 using (CompositionContainer container = new CompositionContainer())
                 {
-                    KaraokeHighlightService karaokeService = new KaraokeHighlightService();
+                    var karaokeService = new KaraokeHighlightService();
 
                     container.ComposeParts(this.AudioPlayer, this.Document, karaokeService);
                 }

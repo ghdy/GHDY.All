@@ -66,7 +66,7 @@ namespace GHDY.Demo
         }
 
 
-        private void CmdAutoDownloadAlbum_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private static void CmdAutoDownloadAlbum_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             var album = e.Parameter as XAlbum;
             e.CanExecute = album != null;
@@ -76,7 +76,7 @@ namespace GHDY.Demo
         {
             var album = e.Parameter as XAlbum;
 
-            ActivityAutoDownloadAlbum activity = new ActivityAutoDownloadAlbum();
+            var activity = new ActivityAutoDownloadAlbum();
 
             IDictionary<string, object> dictionary = new Dictionary<string, object>();
 
@@ -106,7 +106,7 @@ namespace GHDY.Demo
 
         #endregion commands
 
-        private void selector_Album_SelectionChanged(object 
+        private void selector_Album_SelectionChanged(object
             sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var album = e.NewValue as XAlbum;

@@ -29,8 +29,8 @@ namespace GHDY.Workflow.WpfLibrary.Control
             set
             {
                 this._selectedParagraphIndex = value;
-                this.NotifyPropertyChanged("SelectedParagraphIndex");
-                this.NotifyPropertyChanged("CurrentParagraph");
+                this.NotifyPropertyChanged(nameof(SelectedParagraphIndex));
+                this.NotifyPropertyChanged(nameof(CurrentParagraph));
             }
         }
 
@@ -38,22 +38,10 @@ namespace GHDY.Workflow.WpfLibrary.Control
         {
             get
             {
-                if (this.SelectedParagraphIndex >= 0 && this.SelectedParagraphIndex < this.SplitedParagraphs.Count)
-                    return this.SplitedParagraphs[this.SelectedParagraphIndex];
-                else
-                    return null;
+                return this.SelectedParagraphIndex >= 0 && this.SelectedParagraphIndex < this.SplitedParagraphs.Count ? this.SplitedParagraphs[this.SelectedParagraphIndex] : null;
             }
         }
-
-        private int _selectedSentenceIndex = -1;
-        public int SelectedSentenceIndex
-        {
-            get { return this._selectedSentenceIndex; }
-            set
-            {
-                this._selectedSentenceIndex = value;
-            }
-        }
+        public int SelectedSentenceIndex { get; set; } = -1;
 
         public SplitTranscriptViewModel(UserControl uControl)
             : base(uControl)
@@ -66,18 +54,18 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
         void SplitedParagraphs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            this.NotifyPropertyChanged("SplitedParagraphs");
+            this.NotifyPropertyChanged(nameof(SplitedParagraphs));
         }
 
         #region Commands
         //CmdManualSplitParagraph
-        RoutedUICommand _cmdManualSplitParagraph = new RoutedUICommand();
+        readonly RoutedUICommand _cmdManualSplitParagraph = new RoutedUICommand();
         public RoutedUICommand CmdManualSplitParagraph { get { return this._cmdManualSplitParagraph; } }
 
-        private void CmdManualSplitParagraph_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private static void CmdManualSplitParagraph_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             var text = e.Parameter.ToString();
-            if (string.IsNullOrEmpty(text) == false)
+            if (string.IsNullOrEmpty(text))
                 e.CanExecute = true;
             else
                 e.CanExecute = false;
@@ -96,10 +84,10 @@ namespace GHDY.Workflow.WpfLibrary.Control
         }
 
         //CmdDeleteParagraph
-        RoutedUICommand _cmdDeleteParagraph = new RoutedUICommand();
+        readonly RoutedUICommand _cmdDeleteParagraph = new RoutedUICommand();
         public RoutedUICommand CmdDeleteParagraph { get { return this._cmdDeleteParagraph; } }
 
-        private void CmdDeleteParagraph_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private static void CmdDeleteParagraph_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             var paragraphList = e.Parameter as ListBox;
             if (paragraphList?.SelectedIndex >= 0)
@@ -151,7 +139,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
         protected override void Initialize()
         {
             //Refresh UI to display SplitedParagraphs.
-            this.NotifyPropertyChanged("SplitedParagraphs");
+            this.NotifyPropertyChanged(nameof(SplitedParagraphs));
 
             //AddCommandBindings
             this.ParentWindow.CommandBindings.Add(new CommandBinding(
@@ -173,7 +161,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
         public override void StateCompleted()
         {
-            SplitedDocument result = new SplitedDocument();
+            var result = new SplitedDocument();
             foreach (var sPara in this.SplitedParagraphs)
             {
                 result.Paragraphs = this.SplitedParagraphs;

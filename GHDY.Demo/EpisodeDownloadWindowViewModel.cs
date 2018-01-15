@@ -39,13 +39,13 @@ namespace GHDY.Demo
             set
             {
                 this._message = value;
-                this.NotifyPropertyChanged("Message");
+                this.NotifyPropertyChanged(nameof(Message));
             }
         }
 
         public Window CurrentWindow { get;private set; }
 
-        CompositionContainer _container = null;
+        CompositionContainer _container;
 
         public EpisodeDownloadWindowViewModel(BaseTarget target, Window win)
         {
@@ -83,12 +83,12 @@ namespace GHDY.Demo
 
         #region Commands
 
-        RoutedUICommand _cmdDownloadContent = new RoutedUICommand();
+        readonly RoutedUICommand _cmdDownloadContent = new RoutedUICommand();
         public RoutedUICommand CmdDownloadContent { get { return _cmdDownloadContent; } }
 
         private void CmdDownloadContent_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            bool result = false;
+            var result = false;
             //var episode = e.Parameter as XEpisode;
             //if (episode != null)
             //    result = episode.IsContentDownloaded == false;
@@ -115,19 +115,19 @@ namespace GHDY.Demo
             //});
             this.DownloadInfoCollection.Clear();
 
-            ActivityDownloadEpisode activity = new ActivityDownloadEpisode();
+            var activity = new ActivityDownloadEpisode();
 
             IDictionary<string, object> dictionary = new Dictionary<string, object>();
 
             dictionary.Add("target", this.CurrentTarget);
-            dictionary.Add("episode", episode);
+            dictionary.Add(nameof(episode), episode);
 
             this.WorkFlowApp = new WorkflowApplication(activity, dictionary)
             {
                 Completed = new Action<WorkflowApplicationCompletedEventArgs>((args) =>
                 {
-                    var key = "result";
-                    if (args.Outputs.ContainsKey(key) == true)
+                    const string key = "result";
+                    if (args.Outputs.ContainsKey(key))
                     {
                         var result = args.Outputs[key].ToString();
                         this.Message = "Download Episode Completed! Result:" + result;
@@ -159,15 +159,15 @@ namespace GHDY.Demo
         //----------------------------------------------------------------------------------------
 
 
-        RoutedUICommand _cmdCreateDocumentModel = new RoutedUICommand();
+        readonly RoutedUICommand _cmdCreateDocumentModel = new RoutedUICommand();
         public RoutedUICommand CmdCreateDocumentModel { get { return _cmdCreateDocumentModel; } }
 
         private void CmdCreateDocumentModel_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            bool result = false;
+            var result = false;
             var episode = e.Parameter as XEpisode;
             if (episode != null)
-                result = episode.IsContentDownloaded == true;
+                result = episode.IsContentDownloaded;
 
             if (this.WorkFlowApp != null)
                 result = false;
@@ -184,17 +184,17 @@ namespace GHDY.Demo
                 return;
             }
 
-            RecognizeEpisodeWizardWindow wizardWindow = new RecognizeEpisodeWizardWindow(this.CurrentTarget, episode);
+            var wizardWindow = new RecognizeEpisodeWizardWindow(this.CurrentTarget, episode);
 
-            InitUserControl initUC = new InitUserControl();
-            SplitTranscriptUserControl splitUC = new SplitTranscriptUserControl();
-            DictationUserControl dictationUC = new DictationUserControl();
-            ReferenceSoundMarkupUserControl refSoundMarkupUC = new ReferenceSoundMarkupUserControl();
-            SetDocumentTimelineUserControl setDocTimelineUC = new SetDocumentTimelineUserControl();
-            PronunciationMarkupUserControl pronunciationMarkupUC = new PronunciationMarkupUserControl();
-            SyncEpisodeUserControl syncEpisodeUC = new SyncEpisodeUserControl();
+            var initUC = new InitUserControl();
+            var splitUC = new SplitTranscriptUserControl();
+            var dictationUC = new DictationUserControl();
+            var refSoundMarkupUC = new ReferenceSoundMarkupUserControl();
+            var setDocTimelineUC = new SetDocumentTimelineUserControl();
+            var pronunciationMarkupUC = new PronunciationMarkupUserControl();
+            var syncEpisodeUC = new SyncEpisodeUserControl();
 
-            //KaraokeHighlightService karaokeService = new KaraokeHighlightService();
+            var karaokeService = new KaraokeHighlightService();
 
 
             if (this._container != null)
@@ -205,13 +205,13 @@ namespace GHDY.Demo
             this._container = new CompositionContainer();
 
             this._container.ComposeParts(
-                wizardWindow.ViewModel, 
+                wizardWindow.ViewModel,
 
                 //UserControl
-                initUC.ViewModel, 
-                splitUC.ViewModel, 
+                initUC.ViewModel,
+                splitUC.ViewModel,
                 dictationUC.ViewModel,
-                setDocTimelineUC.ViewModel, 
+                setDocTimelineUC.ViewModel,
                 refSoundMarkupUC.ViewModel,
                 pronunciationMarkupUC.ViewModel,
                 syncEpisodeUC.ViewModel
@@ -229,19 +229,19 @@ namespace GHDY.Demo
         public void Receive(IEnumerable<XEpisode> episodes)
         {
             this.Episodes = episodes;
-            this.NotifyPropertyChanged("Episodes");
+            this.NotifyPropertyChanged(nameof(Episodes));
         }
 
         public void Receive(IEnumerable<XAlbum> albums)
         {
             this.Albums = albums;
-            this.NotifyPropertyChanged("Albums");
+            this.NotifyPropertyChanged(nameof(Albums));
         }
 
         public void Receive(IEnumerable<XPage> pages)
         {
             this.Pages = pages;
-            this.NotifyPropertyChanged("Pages");
+            this.NotifyPropertyChanged(nameof(Pages));
         }
 
         #endregion
@@ -251,8 +251,7 @@ namespace GHDY.Demo
 
         public void NotifyPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
 
@@ -293,10 +292,7 @@ namespace GHDY.Demo
         {
             var downloadInfo = this.DownloadInfoCollection.Single((info) =>
             {
-                if (info.FileName == fileName)
-                    return true;
-                else
-                    return false;
+                return info.FileName == fileName ? true : false;
             });
             return downloadInfo;
         }

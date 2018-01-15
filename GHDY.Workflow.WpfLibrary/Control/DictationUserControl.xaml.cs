@@ -32,7 +32,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
             this.ViewModel.Action_Complete = new Action(AddSelectionEvent);
 
             this.SizeChanged += DictationUserControl_SizeChanged;
-            
+
             //this.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("pack://application:,,,/GHDY.Core.DocumentModel.SyncControl;component/DMDocumentSelectedStyle.xaml") });
 
             InitializeComponent();
@@ -91,13 +91,13 @@ namespace GHDY.Workflow.WpfLibrary.Control
             DMSentence sentence = null;
             switch (sender.GetType().Name)
             {
-                case "DMSentence":
+                case nameof(DMSentence):
                     sentence = sender as DMSentence;
                     break;
-                case "SyncableWord":
+                case nameof(SyncableWord):
                     sentence = (sender as SyncableWord).Sentence;
                     break;
-                case "DMParagraph":
+                case nameof(DMParagraph):
                     sentence = (sender as DMParagraph).Sentences.First();
                     break;
                 default:

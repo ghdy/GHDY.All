@@ -18,7 +18,7 @@ namespace GHDY.Demo
             this.DispatcherUnhandledException += App_DispatcherUnhandledException;
         }
 
-        void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        static void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             throw new NotImplementedException("UnhandledException", e.Exception);
         }

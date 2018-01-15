@@ -29,8 +29,8 @@ namespace GHDY.Workflow.Recognize
         protected override void Execute(CodeActivityContext context)
         {
             // Obtain the runtime value of the Text input argument
-            IEnumerable<RefSentence> sentences = context.GetValue(this.RefSentences);
-            LocalEpisode localEpisode = context.GetValue(this.LocalEpisode);
+            var sentences = context.GetValue(this.RefSentences);
+            var localEpisode = context.GetValue(this.LocalEpisode);
 
             // TODO : Code this activity
             var dmDoc = DMDocument.Load(localEpisode.SyncDocumentFilePath);
@@ -38,9 +38,7 @@ namespace GHDY.Workflow.Recognize
             foreach (var refSentence in sentences)
             {
                 var dmSentence = dmDoc.Sentences.Single((sentence) => {
-                    if (sentence.Index == refSentence.Index)
-                        return true;
-                    else return false;
+                    return sentence.Index == refSentence.Index ? true : false;
                 });
 
                 dmSentence.BeginTime = refSentence.Begin;
@@ -59,7 +57,7 @@ namespace GHDY.Workflow.Recognize
         protected override void CacheMetadata(CodeActivityMetadata metadata)
         {
             // Register In arguments
-            RuntimeArgument refSentencesArg = new RuntimeArgument("RefSentences", typeof(IEnumerable<RefSentence>), ArgumentDirection.In);
+            var refSentencesArg = new RuntimeArgument(nameof(RefSentences), typeof(IEnumerable<RefSentence>), ArgumentDirection.In);
             metadata.AddArgument(refSentencesArg);
             metadata.Bind(this.RefSentences, refSentencesArg);
 
@@ -70,10 +68,10 @@ namespace GHDY.Workflow.Recognize
                     new System.Activities.Validation.ValidationError(
                         "[RefSentences] argument must be set!",
                         false,
-                        "RefSentences"));
+                        nameof(RefSentences)));
             }
 
-            RuntimeArgument localEpisodeArg = new RuntimeArgument("LocalEpisode", typeof(LocalEpisode), ArgumentDirection.In);
+            var localEpisodeArg = new RuntimeArgument(nameof(LocalEpisode), typeof(LocalEpisode), ArgumentDirection.In);
             metadata.AddArgument(localEpisodeArg);
             metadata.Bind(this.LocalEpisode, localEpisodeArg);
 
@@ -84,7 +82,7 @@ namespace GHDY.Workflow.Recognize
                     new System.Activities.Validation.ValidationError(
                         "[LocalEpisode] argument must be set!",
                         false,
-                        "LocalEpisode"));
+                        nameof(LocalEpisode)));
             }
 
             // TODO : Add arguments ... etc ...

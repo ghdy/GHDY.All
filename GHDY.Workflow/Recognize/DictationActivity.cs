@@ -19,9 +19,9 @@ namespace GHDY.Workflow.Recognize
     /// <summary>
     /// Activity based on CodeActivity<TResult>
     /// </summary>
-    public sealed class DictationActivity : CodeActivity<DMDocument>
+    public sealed class DictationActivity : CodeActivity<DMDocument>, IDisposable
     {
-        AutoResetEvent myResetEvent = new AutoResetEvent(false);
+        readonly AutoResetEvent myResetEvent = new AutoResetEvent(false);
         DMDocument myDocument = new DMDocument();
 
         // Define an activity input argument of type string
@@ -34,8 +34,8 @@ namespace GHDY.Workflow.Recognize
 
         public static DictationSyncEngine SyncEngine { get; set; }
 
-        private INotifyDictationProgress _notifyDictationProgress = null;
-        private int _sentenceIndex = 0;
+        private INotifyDictationProgress _notifyDictationProgress;
+        private int _sentenceIndex;
 
         /// <summary>
         /// Execute
@@ -47,12 +47,12 @@ namespace GHDY.Workflow.Recognize
             this._notifyDictationProgress = context.GetExtension<INotifyDictationProgress>();
 
             // Obtain the runtime value of the Text input argument
-            String audioFilePath = context.GetValue(this.AudioFilePath);
-            string cultureName = context.GetValue(this.CultureName);
+            var audioFilePath = context.GetValue(this.AudioFilePath);
+            var cultureName = context.GetValue(this.CultureName);
 
-            string dictationDocumentPath = EpisodeFileTypes.DictationFile.ToFileName(audioFilePath.Substring(0, audioFilePath.Length - 4));
+            var dictationDocumentPath = EpisodeFileTypes.DictationFile.ToFileName(audioFilePath.Substring(0, audioFilePath.Length - 4));
 
-            if (File.Exists(dictationDocumentPath) == true)
+            if (File.Exists(dictationDocumentPath))
             {
                 Console.WriteLine("Dictation Doc Exists!");
                 using (Stream stream = new FileStream(dictationDocumentPath, FileMode.Open))
@@ -77,22 +77,22 @@ namespace GHDY.Workflow.Recognize
                 }
                 else
                 {
-                    while (SyncEngine.IsBusy == true)
+                    while (SyncEngine.IsBusy)
                     {
                         Thread.Sleep(500);
                     }
                 }
 
-                if (audioFilePath.EndsWith(EpisodeFileTypes.WaveFile.ToExt()) == false)
+                if (audioFilePath.EndsWith(EpisodeFileTypes.WaveFile.ToExt()))
                     audioFilePath = EpisodeFileTypes.WaveFile.ToFileName(audioFilePath.Substring(0, audioFilePath.Length - 4));
 
                 SyncEngine.Process(audioFilePath);
                 myResetEvent.WaitOne();
 
                 myDocument.Dispatcher.Invoke(new Action(
-                    delegate()
+                    delegate ()
                     {
-                        string xamlString = XamlWriter.Save(myDocument);
+                        var xamlString = XamlWriter.Save(myDocument);
                         File.WriteAllText(dictationDocumentPath, xamlString);
                     }
                 ));
@@ -104,10 +104,7 @@ namespace GHDY.Workflow.Recognize
 
         void SyncEngine_SentenceRecognized(object sender, SentenceRecognizedEventArgs e)
         {
-            var message = string.Format("Recognized: [{0}, {1} [{2}]]",
-                e.Sentence.Begin.TotalSeconds.ToString("F2"),
-                e.Sentence.End.TotalSeconds.ToString("F2"),
-                e.Sentence.Text);
+            var message = $"Recognized: [{e.Sentence.Begin.TotalSeconds.ToString("F2")}, {e.Sentence.End.TotalSeconds.ToString("F2")} [{e.Sentence.Text}]]";
 
             Console.WriteLine(message);
             DMSentence sentence = null;
@@ -153,7 +150,7 @@ namespace GHDY.Workflow.Recognize
         protected override void CacheMetadata(CodeActivityMetadata metadata)
         {
             // Register In arguments
-            RuntimeArgument audioFilePathArg = new RuntimeArgument("AudioFilePath", typeof(String), ArgumentDirection.In);
+            var audioFilePathArg = new RuntimeArgument(nameof(AudioFilePath), typeof(String), ArgumentDirection.In);
             metadata.AddArgument(audioFilePathArg);
             metadata.Bind(this.AudioFilePath, audioFilePathArg);
 
@@ -164,14 +161,19 @@ namespace GHDY.Workflow.Recognize
                     new System.Activities.Validation.ValidationError(
                         "[AudioFilePath] argument must be set!",
                         false,
-                        "AudioFilePath"));
+                        nameof(AudioFilePath)));
             }
 
-            RuntimeArgument cultureNameArg = new RuntimeArgument("CultureName", typeof(String), ArgumentDirection.In);
+            var cultureNameArg = new RuntimeArgument(nameof(CultureName), typeof(String), ArgumentDirection.In);
             metadata.AddArgument(cultureNameArg);
             metadata.Bind(this.CultureName, cultureNameArg);
 
             // TODO : Add arguments ... etc ...
+        }
+
+        public void Dispose()
+        {
+            myResetEvent.Dispose();
         }
     }
 }
