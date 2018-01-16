@@ -13,9 +13,6 @@ namespace GHDY.Workflow
     public sealed class GetValueFromContextActivity<TResult> : NativeActivity<TResult> where TResult : class
     {
         // Define an activity input argument of Type String
-        //[RequiredArgument]
-        //[DefaultValue(null)]
-        //public InArgument<String> Text { get; set; }
 
         /// <summary>
         /// Execute
@@ -25,7 +22,6 @@ namespace GHDY.Workflow
         protected override void Execute(NativeActivityContext context)
         {
             // Obtain the runtime value of the Text input argument
-            //String text = context.GetValue(this.Text);
 
             // TODO : Code this activity
             var result = context.GetExtension<TResult>();
@@ -42,12 +38,12 @@ namespace GHDY.Workflow
         {
             metadata.RequireExtension<TResult>();
 
-            //// Register In arguments
+            // Register In arguments
             //RuntimeArgument textArg = new RuntimeArgument("Text", typeof(String), ArgumentDirection.In);
             //metadata.AddArgument(textArg);
             //metadata.Bind(this.Text, textArg);
 
-            //// [Text] Argument must be set
+            // [Text] Argument must be set
             //if (this.Text == null)
             //{
             //    metadata.AddValidationError(
@@ -58,7 +54,7 @@ namespace GHDY.Workflow
             //}
 
             // Register Out arguments
-            RuntimeArgument resultArg = new RuntimeArgument("Result", typeof(TResult), ArgumentDirection.Out);
+            var resultArg = new RuntimeArgument("Result", typeof(TResult), ArgumentDirection.Out);
             metadata.AddArgument(resultArg);
             metadata.Bind(this.Result, resultArg);
 

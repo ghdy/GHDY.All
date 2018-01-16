@@ -26,8 +26,8 @@ namespace GHDY.Workflow
         protected override void Execute(NativeActivityContext context)
         {
             // Obtain the runtime value of the Text input argument
-            String bookmarkName = context.GetValue(this.BookmarkName);
-            
+            var bookmarkName = context.GetValue(this.BookmarkName);
+
             // TODO : Code this activity
             context.CreateBookmark(bookmarkName);
         }
@@ -47,7 +47,7 @@ namespace GHDY.Workflow
         protected override void CacheMetadata(NativeActivityMetadata metadata)
         {
             // Register In arguments
-            RuntimeArgument bookmarkArg = new RuntimeArgument("BookmarkName", typeof(String), ArgumentDirection.In);
+            var bookmarkArg = new RuntimeArgument(nameof(BookmarkName), typeof(String), ArgumentDirection.In);
             metadata.AddArgument(bookmarkArg);
             metadata.Bind(this.BookmarkName, bookmarkArg);
 
@@ -58,7 +58,7 @@ namespace GHDY.Workflow
                     new System.Activities.Validation.ValidationError(
                         "[BookmarkName] argument must be set!",
                         false,
-                        "BookmarkName"));
+                        nameof(BookmarkName)));
             }
 
             // TODO : Add arguments ... etc ...

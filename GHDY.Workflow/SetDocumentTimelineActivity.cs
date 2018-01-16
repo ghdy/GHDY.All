@@ -48,14 +48,14 @@ namespace GHDY.Workflow
             var needload = context.GetValue(this.NeedLoadDocument);
 
             // TODO : Code this activity
-            if (needload == true)
+            if (needload)
                 doc = DMDocument.Load(filePath);
 
-            bool result = false;
+            var result = false;
 
             if (doc == null)
             {
-                if (File.Exists(filePath) == true)
+                if (File.Exists(filePath))
                 {
                     doc = DMDocument.Load(filePath);
 
@@ -65,7 +65,7 @@ namespace GHDY.Workflow
                     }
                     else
                     {
-                        int index = 0;
+                        var index = 0;
                         foreach (var sentence in doc.Sentences)
                         {
                             var phrase = lrc.Phrases[index];
@@ -81,15 +81,9 @@ namespace GHDY.Workflow
                     doc = BuildDocument(lrc);
                 result = true;
             }
-
-            try
             {
-                if (result == true && needSave == true)
+                if (result && needSave)
                     doc.Save(filePath);
-            }
-            catch
-            { 
-            
             }
             // Return value
             this.Result.Set(context, result);
@@ -98,8 +92,8 @@ namespace GHDY.Workflow
         private static DMDocument BuildDocument(Core.Lyrics lrc)
         {
             var doc = new DMDocument();
-            DMParagraph para = new DMParagraph();
-            int index = 0;
+            var para = new DMParagraph();
+            var index = 0;
             foreach (var phrase in lrc.Phrases)
             {
                 var sentence = new DMSentence(index)
@@ -124,7 +118,7 @@ namespace GHDY.Workflow
         protected override void CacheMetadata(NativeActivityMetadata metadata)
         {
             // Register In arguments
-            RuntimeArgument lrcArg = new RuntimeArgument("Lyrics", typeof(Lyrics), ArgumentDirection.In);
+            var lrcArg = new RuntimeArgument(nameof(Lyrics), typeof(Lyrics), ArgumentDirection.In);
             metadata.AddArgument(lrcArg);
             metadata.Bind(this.Lyrics, lrcArg);
 
@@ -135,10 +129,10 @@ namespace GHDY.Workflow
                     new System.Activities.Validation.ValidationError(
                         "[Lyrics] argument must be set!",
                         false,
-                        "Lyrics"));
+                        nameof(Lyrics)));
             }
 
-            RuntimeArgument docPathArg = new RuntimeArgument("DocumentFilePath", typeof(string), ArgumentDirection.In);
+            var docPathArg = new RuntimeArgument(nameof(DocumentFilePath), typeof(string), ArgumentDirection.In);
             metadata.AddArgument(docPathArg);
             metadata.Bind(this.DocumentFilePath, docPathArg);
 
@@ -149,26 +143,26 @@ namespace GHDY.Workflow
                     new System.Activities.Validation.ValidationError(
                         "[DocumentFilePath] argument must be set!",
                         false,
-                        "DocumentFilePath"));
+                        nameof(DocumentFilePath)));
             }
 
 
-            RuntimeArgument needLoadArg = new RuntimeArgument("NeedLoadDocument", typeof(bool), ArgumentDirection.In);
+            var needLoadArg = new RuntimeArgument(nameof(NeedLoadDocument), typeof(bool), ArgumentDirection.In);
             metadata.AddArgument(needLoadArg);
             metadata.Bind(this.NeedLoadDocument, needLoadArg);
 
 
-            RuntimeArgument needSaveArg = new RuntimeArgument("NeedSaveDocument", typeof(bool), ArgumentDirection.In);
+            var needSaveArg = new RuntimeArgument(nameof(NeedSaveDocument), typeof(bool), ArgumentDirection.In);
             metadata.AddArgument(needSaveArg);
             metadata.Bind(this.NeedSaveDocument, needSaveArg);
 
-            RuntimeArgument docArg = new RuntimeArgument("Document", typeof(DMDocument), ArgumentDirection.In);
+            var docArg = new RuntimeArgument(nameof(Document), typeof(DMDocument), ArgumentDirection.In);
             metadata.AddArgument(docArg);
             metadata.Bind(this.Document, docArg);
 
 
             // Register Out arguments
-            RuntimeArgument resultArg = new RuntimeArgument("Result", typeof(bool), ArgumentDirection.Out);
+            var resultArg = new RuntimeArgument("Result", typeof(bool), ArgumentDirection.Out);
             metadata.AddArgument(resultArg);
             metadata.Bind(this.Result, resultArg);
 

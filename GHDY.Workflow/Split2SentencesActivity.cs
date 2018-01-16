@@ -25,7 +25,7 @@ namespace GHDY.Workflow
         protected override void Execute(NativeActivityContext context)
         {
             // Obtain the runtime value of the Text input argument
-            String transcript = context.GetValue(this.Transcript);
+            var transcript = context.GetValue(this.Transcript);
 
             // TODO : Code this activity
             var sentenceArray = NlpUtilities.DetectSentences(transcript);
@@ -42,12 +42,12 @@ namespace GHDY.Workflow
         protected override void CacheMetadata(NativeActivityMetadata metadata)
         {
             // Register In arguments
-            RuntimeArgument textArg = new RuntimeArgument("Transcript", typeof(String), ArgumentDirection.In);
+            var textArg = new RuntimeArgument(nameof(Transcript), typeof(string), ArgumentDirection.In);
             metadata.AddArgument(textArg);
             metadata.Bind(this.Transcript, textArg);
 
             // [Text] Argument must be set
-            if (this.Transcript == null)
+            if (Transcript == null)
             {
                 metadata.AddValidationError(
                     new System.Activities.Validation.ValidationError(

@@ -27,7 +27,7 @@ namespace GHDY.Workflow
         protected override LocalEpisodeProvider Execute(CodeActivityContext context)
         {
             // Obtain the runtime value of the Text input argument
-            String folder = context.GetValue(this.Folder);
+            var folder = context.GetValue(this.Folder);
 
             // TODO : Code this activity
             //this.EpisodeProvider = new OutArgument<LocalEpisodeProvider>();
@@ -43,7 +43,7 @@ namespace GHDY.Workflow
         protected override void CacheMetadata(CodeActivityMetadata metadata)
         {
             // Register In arguments
-            RuntimeArgument folderArg = new RuntimeArgument("Folder", typeof(String), ArgumentDirection.In);
+            var folderArg = new RuntimeArgument(nameof(Folder), typeof(String), ArgumentDirection.In);
             metadata.AddArgument(folderArg);
             metadata.Bind(this.Folder, folderArg);
 
@@ -54,20 +54,20 @@ namespace GHDY.Workflow
                     new System.Activities.Validation.ValidationError(
                         "[Folder] argument must be set!",
                         false,
-                        "Folder"));
+                        nameof(Folder)));
             }
 
             // TODO : Add arguments ... etc ...
 
-            RuntimeArgument epArg = new RuntimeArgument("Result", typeof(LocalEpisodeProvider), ArgumentDirection.Out);
+            var epArg = new RuntimeArgument("Result", typeof(LocalEpisodeProvider), ArgumentDirection.Out);
             metadata.AddArgument(epArg);
             metadata.Bind(this.Result, epArg);
 
             if (this.Result == null)
             {
                 metadata.AddValidationError(new System.Activities.Validation.ValidationError(
-                    "[Result] argument must be set!", 
-                    false, 
+                    "[Result] argument must be set!",
+                    false,
                     "Result"));
             }
         }
