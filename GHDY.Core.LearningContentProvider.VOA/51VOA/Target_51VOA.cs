@@ -111,6 +111,10 @@ namespace GHDY.Core.LearningContentProvider.VOA._51VOA
             htmlDoc.LoadHtml(html);
 
             var listNode = htmlDoc.GetElementbyId("list");
+
+            if (listNode == null)
+                listNode = htmlDoc.DocumentNode.SelectSingleNode(@"//div[@class='list']");
+
             if (listNode != null)
             {
                 var liCollection = listNode.SelectNodes("ul/li");
