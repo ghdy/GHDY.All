@@ -41,10 +41,9 @@ namespace GHDY.Core.DocumentModel
 
         private static void IsQuateProperty_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            var sentence = sender as DMSentence;
 
-            if (sentence != null)
-                CheckSentenceTimeRange(sentence);
+            if (sender as DMSentence != null)
+                CheckSentenceTimeRange(sender as DMSentence);
         }
 
         public static void CheckSentenceTimeRange(DMSentence sentence)
@@ -83,10 +82,9 @@ namespace GHDY.Core.DocumentModel
 
         private static void SpeechTextProperty_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            var run = sender as Run;
             var strikethrough = TextDecorations.Strikethrough;
 
-            if (run != null)
+            if (sender is Run run)
             {
                 var newText = e.NewValue.ToString();
 

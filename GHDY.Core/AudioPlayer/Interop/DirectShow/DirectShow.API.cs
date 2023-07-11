@@ -902,11 +902,11 @@ namespace GHDY.Core.AudioPlayer.Interops.DirectShow
 
         [PreserveSig,
         Obsolete("Automation interface, for pre-.NET VB.  Use IFilterGraph::EnumFilters instead", false)]
-        int get_FilterCollection([Out, MarshalAs(UnmanagedType.IDispatch)] out object ppUnk);
+        int Get_FilterCollection([Out, MarshalAs(UnmanagedType.IDispatch)] out object ppUnk);
 
         [PreserveSig,
         Obsolete("Automation interface, for pre-.NET VB.  Use IFilterMapper2::EnumMatchingFilters instead", false)]
-        int get_RegFilterCollection([Out, MarshalAs(UnmanagedType.IDispatch)] out object ppUnk);
+        int Get_RegFilterCollection([Out, MarshalAs(UnmanagedType.IDispatch)] out object ppUnk);
 
         [PreserveSig]
         int StopWhenReady();
@@ -1252,7 +1252,7 @@ namespace GHDY.Core.AudioPlayer.Interops.DirectShow
     [StructLayout(LayoutKind.Sequential)]
     public class DsLong
     {
-        private long Value;
+        private readonly long Value;
 
         /// <summary>
         /// Constructor

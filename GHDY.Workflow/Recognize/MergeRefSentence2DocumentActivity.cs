@@ -38,7 +38,7 @@ namespace GHDY.Workflow.Recognize
             foreach (var refSentence in sentences)
             {
                 var dmSentence = dmDoc.Sentences.Single((sentence) => {
-                    return sentence.Index == refSentence.Index ? true : false;
+                    return sentence.Index == refSentence.Index;
                 });
 
                 dmSentence.BeginTime = refSentence.Begin;

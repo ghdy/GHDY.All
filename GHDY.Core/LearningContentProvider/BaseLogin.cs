@@ -29,7 +29,7 @@ namespace GHDY.Core.LearningContentProviderCore
             }
         }
 
-        private static List<BaseLogin> _Logins = new List<BaseLogin>();
+        private static readonly List<BaseLogin> _Logins = new List<BaseLogin>();
         public static BaseLogin GetLogin(string id)
         {
             //if (_Logins.Count < 1)
@@ -71,7 +71,7 @@ namespace GHDY.Core.LearningContentProviderCore
 
             ASCIIEncoding encoding = new ASCIIEncoding();
             byte[] postDataByte = encoding.GetBytes(postData);
-            var postDataEncodedString = encoding.GetString(postDataByte);
+            //var postDataEncodedString = encoding.GetString(postDataByte);
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this.LoginUrl);
             request.Method = "Post";
@@ -80,6 +80,7 @@ namespace GHDY.Core.LearningContentProviderCore
             request.KeepAlive = true;
             request.CookieContainer = this.CookieContainer;
             request.AllowAutoRedirect = audioRedirect;
+            
 
             using (Stream requestStream = request.GetRequestStream())
             {

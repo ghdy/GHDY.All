@@ -12,8 +12,8 @@ namespace GHDY.Core.AudioPlayer
 {
     public class MediaAudioPlayer : AudioPlayerBase
     {
-        MediaPlayer _player = new MediaPlayer();
-        Dispatcher _dispatcher = Dispatcher.CurrentDispatcher;
+        readonly MediaPlayer _player = new MediaPlayer();
+        readonly Dispatcher _dispatcher = Dispatcher.CurrentDispatcher;
         double stopSeconds = 0;
 
         public MediaAudioPlayer()
@@ -45,7 +45,7 @@ namespace GHDY.Core.AudioPlayer
             }
             catch (Exception ex)
             {
-                throw ex.InnerException == null ? ex : ex.InnerException;
+                throw ex.InnerException ?? ex;
             }
         }
 

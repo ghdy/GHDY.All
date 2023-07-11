@@ -101,8 +101,7 @@ namespace GHDY.Demo
 
         private void CmdDownloadContent_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var episode = e.Parameter as XEpisode;
-            if (episode == null)
+            if (!(e.Parameter is XEpisode episode))
             {
                 MessageBox.Show("Error Episode is NULL!");
                 return;
@@ -117,10 +116,11 @@ namespace GHDY.Demo
 
             var activity = new ActivityDownloadEpisode();
 
-            IDictionary<string, object> dictionary = new Dictionary<string, object>();
-
-            dictionary.Add("target", this.CurrentTarget);
-            dictionary.Add(nameof(episode), episode);
+            IDictionary<string, object> dictionary = new Dictionary<string, object>
+            {
+                { "target", this.CurrentTarget },
+                { nameof(episode), episode }
+            };
 
             this.WorkFlowApp = new WorkflowApplication(activity, dictionary)
             {
@@ -165,8 +165,7 @@ namespace GHDY.Demo
         private void CmdCreateDocumentModel_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             var result = false;
-            var episode = e.Parameter as XEpisode;
-            if (episode != null)
+            if (e.Parameter is XEpisode episode)
                 result = episode.IsContentDownloaded;
 
             if (this.WorkFlowApp != null)
@@ -177,8 +176,7 @@ namespace GHDY.Demo
 
         private void CmdCreateDocumentModel_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            var episode = e.Parameter as XEpisode;
-            if (episode == null)
+            if (!(e.Parameter is XEpisode episode))
             {
                 MessageBox.Show("Error Episode is NULL!");
                 return;
@@ -194,7 +192,7 @@ namespace GHDY.Demo
             var pronunciationMarkupUC = new PronunciationMarkupUserControl();
             var syncEpisodeUC = new SyncEpisodeUserControl();
 
-            var karaokeService = new KaraokeHighlightService();
+            //var karaokeService = new KaraokeHighlightService();
 
 
             if (this._container != null)
@@ -292,7 +290,7 @@ namespace GHDY.Demo
         {
             var downloadInfo = this.DownloadInfoCollection.Single((info) =>
             {
-                return info.FileName == fileName ? true : false;
+                return info.FileName == fileName;
             });
             return downloadInfo;
         }

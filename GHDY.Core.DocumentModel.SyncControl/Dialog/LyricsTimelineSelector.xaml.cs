@@ -58,7 +58,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
         void SelectedCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             this.ViewModel.SelectedCollection.CollectionChanged -= SelectedCollection_CollectionChanged;
-            this.lb_LrcList.SelectionChanged -= lb_LrcList_SelectionChanged;
+            this.lb_LrcList.SelectionChanged -= Lb_LrcList_SelectionChanged;
 
             if (this.ViewModel.SelectedCollection.Count < 1)
             {
@@ -76,11 +76,11 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
 
 
             this.ViewModel.SelectedCollection.CollectionChanged += SelectedCollection_CollectionChanged;
-            this.lb_LrcList.SelectionChanged += lb_LrcList_SelectionChanged;
+            this.lb_LrcList.SelectionChanged += Lb_LrcList_SelectionChanged;
 
         }
 
-        private void lb_LrcList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Lb_LrcList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.ViewModel.SelectedCollection.CollectionChanged -= SelectedCollection_CollectionChanged;
             this.ViewModel.SelectedCollection.Clear();
@@ -147,7 +147,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
                 if (phrase.Text.Length < length)
                     length = phrase.Text.Length;
 
-                var result = DiffHelper.matchString(transcript, phrase.Text);
+                var result = DiffHelper.MatchString(transcript, phrase.Text);
                 var percent = Utility.GetPercent(result.Same - result.Replace, length);
                 if (percent > 0.8)
                 {

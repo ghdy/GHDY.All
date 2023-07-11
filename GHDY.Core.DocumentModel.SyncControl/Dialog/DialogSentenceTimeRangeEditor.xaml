@@ -50,7 +50,7 @@
                         </Style>
                     </StackPanel.Resources>
                     <Button x:Name="btn_AutoFind" Content="AutoFind"
-                            Click="btn_AutoFind_Click"
+                            Click="Btn_AutoFind_Click"
                             />
                     <Button Content="SetBegin" 
                             Foreground="{StaticResource beginColor}"

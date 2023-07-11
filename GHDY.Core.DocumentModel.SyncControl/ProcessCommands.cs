@@ -12,7 +12,7 @@ namespace GHDY.Core.DocumentModel.SyncControl
 {
     public static class ProcessCommands
     {
-        const string keySentenceTextEditor = "SentenceTextEditor";
+        //const string keySentenceTextEditor = "SentenceTextEditor";
 
         #region CMD MergeWords
         public static readonly RoutedUICommand MergeWords = new RoutedUICommand(
@@ -23,9 +23,8 @@ namespace GHDY.Core.DocumentModel.SyncControl
         public static void CommandBinding_MergeWords_CanExecuted(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
-            var viewer = sender as DMDocumentScrollViewer;
 
-            if (viewer != null && viewer.SelectedElements != null && viewer.SelectedElements.Count > 0)
+            if (sender is DMDocumentScrollViewer viewer && viewer.SelectedElements != null && viewer.SelectedElements.Count > 0)
             {
                 object parent = null;
                 foreach (var item in viewer.SelectedElements)
@@ -96,9 +95,8 @@ namespace GHDY.Core.DocumentModel.SyncControl
         public static void CommandBinding_SplitPhrase_CanExecuted(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = false;
-            var viewer = sender as DMDocumentScrollViewer;
 
-            if (viewer != null && viewer.SelectedElements != null && viewer.SelectedElements.Count == 1)
+            if (sender is DMDocumentScrollViewer viewer && viewer.SelectedElements != null && viewer.SelectedElements.Count == 1)
             {
                 if (viewer.SelectedElements.First() is DMPhrase)
                 {
@@ -155,10 +153,9 @@ namespace GHDY.Core.DocumentModel.SyncControl
         {
             e.CanExecute = false;
 
-            var viewer = sender as DMDocumentScrollViewer;
 
-            if (viewer != null && 
-                viewer.SelectedElements != null && 
+            if (sender is DMDocumentScrollViewer viewer &&
+                viewer.SelectedElements != null &&
                 viewer.SelectedElements.Count == 1)
             {
                 var selectedItem = viewer.SelectedElements.First();

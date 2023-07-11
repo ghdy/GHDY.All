@@ -77,8 +77,9 @@ namespace GHDY.Workflow.WpfLibrary.Control
         {
             this.ParentWindow.Dispatcher.Invoke(new Action(() =>
             {
-                if (this.Action_Complete != null)
-                    this.Action_Complete();
+                //if (this.Action_Complete != null)
+                //    this.Action_Complete();
+                this.Action_Complete?.Invoke();
             }));
         }
 
@@ -92,8 +93,9 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
                 this.Document = document;
 
-                if (this.Action_Complete != null)
-                    this.Action_Complete();
+                //if (this.Action_Complete != null)
+                //    this.Action_Complete();
+                this.Action_Complete.Invoke();
             }));
         }
         #endregion

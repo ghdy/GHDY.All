@@ -86,8 +86,7 @@ namespace GHDY.Core.DocumentModel
         {
             get
             {
-                var sentence = this.Parent as DMSentence;
-                if (sentence == null)
+                if (!(this.Parent is DMSentence sentence))
                     sentence = this.Phrase.Sentence;
 
                 return sentence;
@@ -117,10 +116,12 @@ namespace GHDY.Core.DocumentModel
 
         public object Clone()
         {
-            SyncableWord word = new SyncableWord(this.Text);
-            word.BeginTime = this.BeginTime;
-            word.EndTime = this.EndTime;
-            word.Confidence = this.Confidence;
+            SyncableWord word = new SyncableWord(this.Text)
+            {
+                BeginTime = this.BeginTime,
+                EndTime = this.EndTime,
+                Confidence = this.Confidence
+            };
 
             return word;
         }

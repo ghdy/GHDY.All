@@ -76,9 +76,9 @@ namespace GHDY.Core.LearningContentProvider.VOA._51VOA
         [Export(typeof(Func<XAlbum, IEnumerable<XPage>>))]
         public override IEnumerable<XPage> GetPages(XAlbum album)
         {
-            var folderPath = this.GetAlbumFolderPath(album.ID);
+            //var folderPath = this.GetAlbumFolderPath(album.ID);
 
-            var albumHtml = "";
+            string albumHtml;
             var albumHtmlFilePath = Path.Combine(this.SourceFolderPath, album.ID + ".html");
 
             var hasNew = album.HasNewModify;
@@ -102,7 +102,6 @@ namespace GHDY.Core.LearningContentProvider.VOA._51VOA
         [Export(typeof(Func<XPage, IEnumerable<XEpisode>>))]
         public override IEnumerable<XEpisode> GetEpisodes(XPage page)
         {
-            DateTime newDT = DateTime.MinValue;
             var html = BaseTarget.SaveAndReturn(page.URL,
                 Path.Combine(this.GetAlbumFolderPath(page.AlbumID), page.Index.ToString() + ".html"),
                 this.Encoding);
@@ -129,8 +128,6 @@ namespace GHDY.Core.LearningContentProvider.VOA._51VOA
 
                     #region Find and Check Date
 
-                    DateTime date = DateTime.MinValue;
-
                     var match = GetRegexResult("\\d+-\\d+-\\d+", li.InnerHtml);
                     var dateString = match.Value.Trim();
 
@@ -143,13 +140,10 @@ namespace GHDY.Core.LearningContentProvider.VOA._51VOA
                         year += 2000;
 
                     //Only Return Episodes these after 2012
+
                     if (year < FromYear)
                         break;
-                    if (VOAUtilities.ChackEpisodeDate(page.AlbumID, year, month, day, out date) == true)
-                    {
-                        date = new DateTime(year, month, day);
-                    }
-                    else
+                    if (VOAUtilities.ChackEpisodeDate(page.AlbumID, year, month, day, out DateTime date) == false)
                         date = new DateTime(year, month, day);
 
                     #endregion

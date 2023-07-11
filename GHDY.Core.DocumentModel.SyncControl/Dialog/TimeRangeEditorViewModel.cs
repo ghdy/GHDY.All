@@ -29,8 +29,8 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
 
     public class TimeRangeEditorViewModel : INotifyPropertyChanged, IDisposable
     {
-        List<CommandBinding> _commandBindings = new List<CommandBinding>();
-        List<KeyBinding> _keyBindings = new List<KeyBinding>();
+        readonly List<CommandBinding> _commandBindings = new List<CommandBinding>();
+        readonly List<KeyBinding> _keyBindings = new List<KeyBinding>();
 
         double _min = 0;
         public double Minimum
@@ -137,7 +137,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
 
         #region Command
 
-        RoutedUICommand _cmdChangeBegin = new RoutedUICommand();
+        readonly RoutedUICommand _cmdChangeBegin = new RoutedUICommand();
         public RoutedUICommand CmdChangeBegin { get { return this._cmdChangeBegin; } }
 
         public void CmdChangeBegin_Execute(object sender, ExecutedRoutedEventArgs e)
@@ -152,7 +152,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
             }
         }
 
-        RoutedUICommand _cmdChangeEnd = new RoutedUICommand();
+        readonly RoutedUICommand _cmdChangeEnd = new RoutedUICommand();
         public RoutedUICommand CmdChangeEnd { get { return this._cmdChangeEnd; } }
 
         private void CmdChangeEnd_Execute(object sender, ExecutedRoutedEventArgs e)
@@ -171,7 +171,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
 
         private void BindingKey(ICommand cmd, Key key, ModifierKeys mKey, string para)
         {
-            KeyGesture keyG = null;
+            KeyGesture keyG;
             if (mKey == ModifierKeys.None)
                 keyG = new KeyGesture(key);
             else
@@ -187,8 +187,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
 
         public void NotifyPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
 

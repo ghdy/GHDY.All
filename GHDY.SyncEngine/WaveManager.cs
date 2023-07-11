@@ -24,8 +24,7 @@ namespace GHDY.SyncEngine
         // 毫秒
         public static double GetAudioLengthOfSeconds(string file)
         {
-            string waveFile = null;
-
+            string waveFile;
             if (Path.GetExtension(file) != ".wav")
             {
                 waveFile = Path.ChangeExtension(file, "wav");
@@ -42,8 +41,7 @@ namespace GHDY.SyncEngine
             mciSendString("status wave length", lengthBuf, lengthBuf.Capacity, IntPtr.Zero);
             mciSendString("close wave", null, 0, IntPtr.Zero);
 
-            double length = 0;
-            double.TryParse(lengthBuf.ToString(), out length);
+            double.TryParse(lengthBuf.ToString(), out double length);
 
             return length/1000;
         }

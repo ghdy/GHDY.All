@@ -120,7 +120,7 @@ namespace GHDY.Core.DocumentModel
         //            return nextParagraph.Sentences.First() as T;
         //    }
         //}
-        private static Dictionary<Type, DependencyObject> _lastestCurrentObjectDict = new Dictionary<Type, DependencyObject>();
+        private static readonly Dictionary<Type, DependencyObject> _lastestCurrentObjectDict = new Dictionary<Type, DependencyObject>();
         public static void SetIsCurrent(this DependencyObject dpObj, bool isCurrent)
         {
             Type type = dpObj.GetType();

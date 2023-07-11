@@ -108,20 +108,20 @@ namespace GHDY.Core
             sv1 = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(this.list_LyricsSentence, 0), 0) as ScrollViewer;
             sv2 = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(this.list_Sentences, 0), 0) as ScrollViewer;
 
-            sv1.ScrollChanged += new ScrollChangedEventHandler(sv1_ScrollChanged);
-            sv2.ScrollChanged += new ScrollChangedEventHandler(sv2_ScrollChanged);
+            sv1.ScrollChanged += new ScrollChangedEventHandler(Sv1_ScrollChanged);
+            sv2.ScrollChanged += new ScrollChangedEventHandler(Sv2_ScrollChanged);
 
             this.list_LyricsSentence.SelectionChanged += List_LyricsSentence_SelectionChanged;
             this.list_Sentences.SelectionChanged += List_Sentences_SelectionChanged;
         }
 
 
-        void sv1_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        void Sv1_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             sv2.ScrollToVerticalOffset(sv1.VerticalOffset);
         }
 
-        void sv2_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        void Sv2_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             sv1.ScrollToVerticalOffset(sv2.VerticalOffset);
         }
@@ -134,15 +134,12 @@ namespace GHDY.Core
         private void CmdProcessCollection_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             string cmd = e.Parameter.ToString().Trim();
-            ListBox target = e.Source as ListBox;
-            var selectedLP = this.list_LyricsSentence.SelectedItem as LyricsPhrase;
-            if (selectedLP != null)
+            //ListBox target = e.Source as ListBox;
+            if (this.list_LyricsSentence.SelectedItem is LyricsPhrase selectedLP)
                 ProcessLyrics(cmd, selectedLP);
             else
             {
-                var selectedSentence = this.list_Sentences.SelectedItem as DMSentence;
-
-                if (selectedSentence != null)
+                if (this.list_Sentences.SelectedItem is DMSentence selectedSentence)
                     ProcessSentence(cmd, selectedSentence);
             }
         }
@@ -210,19 +207,16 @@ namespace GHDY.Core
 
         private void List_LyricsSentence_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
             this.list_Sentences.SelectionChanged -= List_Sentences_SelectionChanged;
             this.list_Sentences.SelectedIndex = -1;
             this.list_Sentences.SelectionChanged += List_Sentences_SelectionChanged;
 
-            var lrcPhrase = this.list_LyricsSentence.SelectedItem as LyricsPhrase;
 
-            if (lrcPhrase != null)
+            if (this.list_LyricsSentence.SelectedItem is LyricsPhrase lrcPhrase)
             {
                 this.Message = string.Format("[Lyrics] << {0} ={2}= {1} >>", lrcPhrase.Begin.ToString("F2"), lrcPhrase.End.ToString("F2"), lrcPhrase.Duration.ToString("F2"));
 
-                if (this.OnLyricsChanged != null)
-                    this.OnLyricsChanged(this, new SyncableSelectedEventArgs(lrcPhrase.BeginTime, lrcPhrase.EndTime));
+                this.OnLyricsChanged?.Invoke(this, new SyncableSelectedEventArgs(lrcPhrase.BeginTime, lrcPhrase.EndTime));
             }
         }
         #endregion

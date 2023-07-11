@@ -84,9 +84,9 @@ namespace GHDY.Core
             }
         }
 
-        string[] lines;
+        readonly string[] lines;
 
-        public double offset { get; set; }
+        public double Offset { get; set; }
 
         public bool NeedSort { get; set; }
 
@@ -141,7 +141,7 @@ namespace GHDY.Core
                         {
                             if (array[1].Length > 0)
                             {
-                                offset = double.Parse(array[1]) / 1000;
+                                Offset = double.Parse(array[1]) / 1000;
                             }
 
                         }
@@ -163,7 +163,7 @@ namespace GHDY.Core
                         {
                             string time = matches[i].Value.Trim('[', ']').Trim();
 
-                            var begin = stringToInterval(time) - this.offset;
+                            var begin = StringToInterval(time) - this.Offset;
 
                             if (begin <= 0)
                                 continue;
@@ -202,7 +202,7 @@ namespace GHDY.Core
 
             foreach (var phrase in this.Phrases)
             {
-                var line = "[" + intervalToString(phrase.Begin) + "]" + phrase.Text;
+                var line = "[" + IntervalToString(phrase.Begin) + "]" + phrase.Text;
                 sb.AppendLine(line);
             }
 
@@ -217,7 +217,7 @@ namespace GHDY.Core
             {
                 var sentenceText = textArray[i].Trim();
                 TimeSpan begin = TimeSpan.Zero;
-                TimeSpan end = TimeSpan.Zero;
+                TimeSpan end;// = TimeSpan.Zero;
 
                 for (int j = phraseIndex; j < this.Phrases.Count; j++)
                 {
@@ -259,7 +259,7 @@ namespace GHDY.Core
 
                 if (temp < 1.1)
                 {
-                    var result = DiffHelper.matchString(text, phrase.Text);
+                    var result = DiffHelper.MatchString(text, phrase.Text);
                     temp = (double)(result.Same - result.Replace) / (double)phrase.Text.Length;
 
                     if (temp > 0.8)
@@ -298,7 +298,7 @@ namespace GHDY.Core
             StringBuilder sb = new StringBuilder();
             foreach (var phrase in this.Phrases)
             {
-                sb.AppendLine(string.Format("[{0}]{1}", this.intervalToString(phrase.Begin), phrase.Text));
+                sb.AppendLine(string.Format("[{0}]{1}", this.IntervalToString(phrase.Begin), phrase.Text));
             }
 
             File.WriteAllText(filePath, sb.ToString(), this.Encoding);
@@ -312,7 +312,7 @@ namespace GHDY.Core
             return 0;
         }
 
-        private string intervalToString(double interval)
+        private string IntervalToString(double interval)
         {
             int min;
             float sec;
@@ -323,7 +323,7 @@ namespace GHDY.Core
             return smin + ":" + ssec;
         }
 
-        private double stringToInterval(String str)
+        private double StringToInterval(String str)
         {
             try
             {

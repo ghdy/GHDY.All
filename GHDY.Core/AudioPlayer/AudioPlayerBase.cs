@@ -9,7 +9,7 @@ namespace GHDY.Core.AudioPlayer
     {
         public event EventHandler<PositionChangedEventArgs> PositionChanged = null;
 
-        private DispatcherTimer Timer = null;
+        private readonly DispatcherTimer Timer = null;
 
         private bool _isPlaying = false;
         public bool IsPlaying

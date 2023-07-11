@@ -49,8 +49,8 @@ namespace Dictation
 
                     DictationSyncEngine engine = new DictationSyncEngine("en-US");
 
-                    engine.SentenceRecognized += engine_SentenceRecognized;
-                    engine.RecognizeCompleted += engine_RecognizeCompleted;
+                    engine.SentenceRecognized += Engine_SentenceRecognized;
+                    engine.RecognizeCompleted += Engine_RecognizeCompleted;
                     engine.Process(waveFile);
                 }
             }
@@ -59,14 +59,13 @@ namespace Dictation
             Console.ReadLine();
         }
 
-        static void engine_RecognizeCompleted(object sender, System.Speech.Recognition.RecognizeCompletedEventArgs e)
+        static void Engine_RecognizeCompleted(object sender, System.Speech.Recognition.RecognizeCompletedEventArgs e)
         {
             DMDocument doc = new DMDocument();
             DMParagraph paragraph = new DMParagraph();
 
 
-            DictationSyncEngine engine = sender as DictationSyncEngine;
-            if (engine != null)
+            if (sender is DictationSyncEngine engine)
             {
                 for (int i = 0; i < engine.Result.Count; i++)
                 {
@@ -104,7 +103,7 @@ namespace Dictation
             return dmSentence;
         }
 
-        static void engine_SentenceRecognized(object sender, SentenceRecognizedEventArgs e)
+        static void Engine_SentenceRecognized(object sender, SentenceRecognizedEventArgs e)
         {
             Console.WriteLine(">>Recognized : " + e.Sentence.Text);
         }

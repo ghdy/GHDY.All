@@ -72,8 +72,7 @@ namespace GHDY.Core.LearningContentProviderCore
         {
             get
             {
-                DateTime newDt = DateTime.MinValue;
-                var result = BaseTarget.HasNewModify(this.URL, this.Date, out newDt);
+                var result = BaseTarget.HasNewModify(this.URL, this.Date, out DateTime newDt);
                 this.NewDate = newDt;
                 return result;
             }
@@ -89,8 +88,7 @@ namespace GHDY.Core.LearningContentProviderCore
 
         private void NotifyPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public XAlbum(XElement element)

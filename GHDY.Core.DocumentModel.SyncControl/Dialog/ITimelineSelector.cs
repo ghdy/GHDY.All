@@ -13,8 +13,10 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
 
         public TimelineEventArgs(ISyncable syncable)
         {
-            this.SyncableObjects = new List<ISyncable>();
-            this.SyncableObjects.Add(syncable);
+            this.SyncableObjects = new List<ISyncable>
+            {
+                syncable
+            };
         }
 
         public TimelineEventArgs(List<ISyncable> syncables)

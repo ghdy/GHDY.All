@@ -45,8 +45,7 @@ namespace GHDY.SyncEngine
 
         protected virtual void Engine_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            var indexGrammar = e.Result.Grammar as IndexGrammar;
-            if (indexGrammar != null)
+            if (e.Result.Grammar is IndexGrammar indexGrammar)
             {
                 indexGrammar.Enabled = false;
                 indexGrammar.RecoResult = e.Result;
@@ -55,20 +54,14 @@ namespace GHDY.SyncEngine
             var srea = new SentenceRecognizedEventArgs(e);
             this.Result.Add(srea.Sentence);
 
-            if (this.SentenceRecognized != null)
-            {
-                this.SentenceRecognized(this, srea);
-            }
+            this.SentenceRecognized?.Invoke(this, srea);
         }
 
         void Engine_RecognizeCompleted(object sender, RecognizeCompletedEventArgs e)
         {
             this.IsBusy = false;
 
-            if (this.RecognizeCompleted != null)
-            {
-                this.RecognizeCompleted(this, e);
-            }
+            this.RecognizeCompleted?.Invoke(this, e);
         }
 
         public void Process(string waveFile)

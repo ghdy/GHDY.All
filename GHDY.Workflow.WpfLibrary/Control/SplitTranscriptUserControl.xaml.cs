@@ -57,7 +57,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
             }
         }
 
-        private void btn_Reload_Click(object sender, RoutedEventArgs e)
+        private void Btn_Reload_Click(object sender, RoutedEventArgs e)
         {
             var bindingExp = txt_Paragraph.GetBindingExpression(TextBox.TextProperty);
             if (bindingExp != null)

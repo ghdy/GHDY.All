@@ -95,8 +95,7 @@ namespace GHDY.Core.DocumentModel
         {
             if (this.Inlines.Count == 1)
             {
-                var run = this.Inlines.First() as Run;
-                if (run != null)
+                if (this.Inlines.First() is Run run)
                     return run.Text;
                 else
                     return string.Empty;
@@ -128,8 +127,7 @@ namespace GHDY.Core.DocumentModel
         {
             if (this.Inlines.Count == 1)
             {
-                var run = this.Inlines.First() as Run;
-                if (run != null)
+                if (this.Inlines.First() is Run run)
                     return run.Text;
                 else
                     return string.Empty;
@@ -139,8 +137,7 @@ namespace GHDY.Core.DocumentModel
                 StringBuilder sb = new StringBuilder();
                 foreach (var inline in this.Inlines)
                 {
-                    Run run = inline as Run;
-                    if (run != null)
+                    if (inline is Run run)
                     {
                         sb.Append(run.Text);
                     }
@@ -163,7 +160,7 @@ namespace GHDY.Core.DocumentModel
                 if (this.Inlines.Count > 0)
                     this.Inlines.Add(new Run(" "));
 
-                _WordAndP wap = ProcessWordText(text);
+                WordAndP wap = ProcessWordText(text);
 
                 var wordLength = text.Length - wap.Left.Length - wap.Right.Length;
 
@@ -194,7 +191,7 @@ namespace GHDY.Core.DocumentModel
             }
         }
 
-        class _WordAndP
+        class WordAndP
         {
             public string Left { get; set; }
             public string Right { get; set; }
@@ -203,9 +200,9 @@ namespace GHDY.Core.DocumentModel
         }
 
         public static char[] PunctuationArray = { ',', ':', ';', '\"', '?', '!', '.' };
-        private _WordAndP ProcessWordText(string text)
+        private WordAndP ProcessWordText(string text)
         {
-            _WordAndP result = new _WordAndP();
+            WordAndP result = new WordAndP();
 
             Regex regex = new Regex("[A-Z, a-z, 0-9,']");
             if (regex.Match(text).Success == false)
@@ -332,8 +329,8 @@ namespace GHDY.Core.DocumentModel
                     var word = inline as SyncableWord;
                     newSentence.Inlines.Add(word.Clone() as SyncableWord);
                 }
-                else if (inline is Run)
-                    newSentence.Inlines.Add(new Run(((Run)inline).Text));
+                else if (inline is Run run)
+                    newSentence.Inlines.Add(new Run(run.Text));
             }
             newSentence.BeginTime = this.BeginTime;
             newSentence.EndTime = this.EndTime;

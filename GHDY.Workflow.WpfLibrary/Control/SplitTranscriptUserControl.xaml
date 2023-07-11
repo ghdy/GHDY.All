@@ -89,7 +89,7 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center">
             <Button Content="Split" Command="{Binding CmdManualSplitParagraph}" CommandParameter="{Binding ElementName=txt_Paragraph,Path=Text}"/>
-            <Button x:Name="btn_Reload" Content="Reload" Click="btn_Reload_Click"/>
+            <Button x:Name="btn_Reload" Content="Reload" Click="Btn_Reload_Click"/>
             <Button Content="Delete" Command="{Binding CmdDeleteParagraph}" CommandParameter="{Binding ElementName=list_Paragraph}"/>
         </WrapPanel>
     </Grid>

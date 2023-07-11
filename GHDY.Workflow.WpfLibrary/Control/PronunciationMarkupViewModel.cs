@@ -87,36 +87,33 @@ namespace GHDY.Workflow.WpfLibrary.Control
         {
             e.CanExecute = false;
 
-            var viewer = e.Parameter as DMDocumentScrollViewer;
-            if (viewer == null) return;
+            if (e.Parameter is DMDocumentScrollViewer viewer)
+            {
+                var collection = viewer.SelectedElements;
 
-            var collection = viewer.SelectedElements;
-
-            if (collection.Count == 1 && collection.First() is ISyncable)
-                e.CanExecute = true;
+                if (collection.Count == 1 && collection.First() is ISyncable)
+                    e.CanExecute = true;
+            }
         }
 
         private static void CmdSetSpecialPronounce_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            if (e.Parameter is DMDocumentScrollViewer viewer)
+            {
+                var syncable = viewer.SelectedElements.First() as ISyncable;
+                var dpoSync = syncable as DependencyObject;
+                var sentence = syncable.GetParent<DMSentence>();
 
-            var viewer = e.Parameter as DMDocumentScrollViewer;
-            if (viewer == null) return;
+                var editorDialog = new DialogSpeechTextEditor(sentence,
+                    new Action<string>(
+                        (speechText) =>
+                        {
+                            if (syncable as DependencyObject != null)
+                                SyncExtension.SetSpeechText(syncable as DependencyObject, speechText);
+                        }));
 
-            var syncable = viewer.SelectedElements.First() as ISyncable;
-            var dpoSync = syncable as DependencyObject;
-            var sentence = syncable.GetParent<DMSentence>();
-
-            var editorDialog = new DialogSpeechTextEditor(sentence,
-                new Action<string>(
-                    (speechText) =>
-                    {
-                        var dpo = syncable as DependencyObject;
-                        if (dpo != null)
-                            SyncExtension.SetSpeechText(dpo, speechText);
-                    }));
-
-            editorDialog.ShowDialog();
-
+                editorDialog.ShowDialog();
+            }
         }
         #endregion
 

@@ -18,7 +18,7 @@ namespace GHDY.Core.DocumentModel.SyncControl
 {
     public partial class DMDocumentScrollViewer : UserControl
     {
-        const string keyWordSpeechTextEditor = "WordSpeechTextEditor";
+        //const string keyWordSpeechTextEditor = "WordSpeechTextEditor";
 
         public TimeSpan SelectionBegin
         {
@@ -200,8 +200,7 @@ namespace GHDY.Core.DocumentModel.SyncControl
                 this.flowDocumentViewer.Selection.Changed += Selection_Changed;
             }
 
-            if (this.SelectionChanged != null)
-                this.SelectionChanged(this, new EventArgs());
+            this.SelectionChanged?.Invoke(this, new EventArgs());
 
             this.SelectedElements.Cast<DependencyObject>().ToList().ForEach(
                 (dpo) => {
@@ -213,7 +212,7 @@ namespace GHDY.Core.DocumentModel.SyncControl
 
         public void Dely(int milliSeconds)
         {
-            var window = Window.GetWindow(this);
+            //var window = Window.GetWindow(this);
             var t = DateTime.Now.AddMilliseconds(milliSeconds);
             while (DateTime.Now < t)
                 DispatcherHelper.DoEvents();
@@ -225,8 +224,8 @@ namespace GHDY.Core.DocumentModel.SyncControl
             var parent = selectionStart.Parent;
             while (parent != null)
             {
-                if (parent is T)
-                    return (T)parent;
+                if (parent is T t)
+                    return t;
                 else if (parent is TextElement)
                 {
                     var textElement = (parent as TextElement);
@@ -289,38 +288,38 @@ namespace GHDY.Core.DocumentModel.SyncControl
             //}
         }
 
-        private static void RefreshStyle<T>(DMDocumentScrollViewer syncDocViewer) where T : TextElement, ISyncable
-        {
-            var resources = syncDocViewer.Resources;
+        //private static void RefreshStyle<T>(DMDocumentScrollViewer syncDocViewer) where T : TextElement, ISyncable
+        //{
+        //    var resources = syncDocViewer.Resources;
 
-            Type addKeyType = GetAddStyleType(syncDocViewer.SelectMode);
+        //    Type addKeyType = GetAddStyleType(syncDocViewer.SelectMode);
 
-            Style addStyle = resources[addKeyType] as Style;
+        //    Style addStyle = resources[addKeyType] as Style;
 
-            Type delKeyType = typeof(T);
-        }
+        //    Type delKeyType = typeof(T);
+        //}
 
-        private static Type GetAddStyleType(SelectMode mode)
-        {
-            Type addKeyType = null;
-            switch (mode)
-            {
-                case SelectMode.Word:
-                    addKeyType = typeof(SyncableWord);
-                    break;
-                case SelectMode.Phrase:
-                    addKeyType = typeof(DMPhrase);
-                    break;
-                case SelectMode.Sentence:
-                    addKeyType = typeof(DMSentence);
-                    break;
-                case SelectMode.Paragraph:
-                    addKeyType = typeof(DMParagraph);
-                    break;
+        //private static Type GetAddStyleType(SelectMode mode)
+        //{
+        //    Type addKeyType = null;
+        //    switch (mode)
+        //    {
+        //        case SelectMode.Word:
+        //            addKeyType = typeof(SyncableWord);
+        //            break;
+        //        case SelectMode.Phrase:
+        //            addKeyType = typeof(DMPhrase);
+        //            break;
+        //        case SelectMode.Sentence:
+        //            addKeyType = typeof(DMSentence);
+        //            break;
+        //        case SelectMode.Paragraph:
+        //            addKeyType = typeof(DMParagraph);
+        //            break;
 
-            }
-            return addKeyType;
-        }
+        //    }
+        //    return addKeyType;
+        //}
 
         #endregion
 
@@ -336,8 +335,10 @@ namespace GHDY.Core.DocumentModel.SyncControl
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             //binding ContextMenu
-            Binding binding = new Binding("ContextMenu");
-            binding.Source = this;
+            Binding binding = new Binding("ContextMenu")
+            {
+                Source = this
+            };
             this.flowDocumentViewer.SetBinding(FlowDocumentScrollViewer.ContextMenuProperty, binding);
 
             ////binding FontSize
@@ -361,10 +362,10 @@ namespace GHDY.Core.DocumentModel.SyncControl
             this.CommandBindings.Add(new CommandBinding(ProcessCommands.SplitPhrase, ProcessCommands.CommandBinding_SplitPhrase_Executed, ProcessCommands.CommandBinding_SplitPhrase_CanExecuted));
             this.CommandBindings.Add(new CommandBinding(ProcessCommands.EditText, ProcessCommands.CommandBinding_EditText_Executed, ProcessCommands.CommandBinding_EditText_CanExecuted));
 
-            this.flowDocumentViewer.MouseDoubleClick += new MouseButtonEventHandler(flowDocumentViewer_MouseDoubleClick);
+            this.flowDocumentViewer.MouseDoubleClick += new MouseButtonEventHandler(FlowDocumentViewer_MouseDoubleClick);
         }
 
-        void flowDocumentViewer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void FlowDocumentViewer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (this.SelectedElements != null && this.SelectedElements.Count == 1)
             {
@@ -383,18 +384,18 @@ namespace GHDY.Core.DocumentModel.SyncControl
 
         void SyncDocumentScrollViewer_KeyDown(object sender, KeyEventArgs e)
         {
-            RefreshSelectMode(e);
+            RefreshSelectMode();
         }
 
         void SyncDocumentScrollViewer_KeyUp(object sender, KeyEventArgs e)
         {
-            RefreshSelectMode(e);
+            RefreshSelectMode();
         }
 
-        private void RefreshSelectMode(KeyEventArgs e)
+        private void RefreshSelectMode()
         {
             var modifierKey = Keyboard.Modifiers;
-            var key = e.Key;
+            //var key = e.Key;
 
             //e.Handled = true;
 

@@ -16,7 +16,7 @@ namespace GHDY.NLP
 {
     public static class NlpUtilities
     {
-        public static string mModelPath { get; private set; }
+        public static string MModelPath { get; private set; }
 
         public static string[] NameModels
         {
@@ -26,7 +26,7 @@ namespace GHDY.NLP
 
         static NlpUtilities()
         {
-            mModelPath = Path.Combine(Environment.CurrentDirectory, "OpenNLP", "Models");
+            MModelPath = Path.Combine(Environment.CurrentDirectory, "OpenNLP", "Models");
             NameModels = new string[] { "date", "location", "money", "organization", "percentage", "person", "time" };
         }
 
@@ -35,7 +35,7 @@ namespace GHDY.NLP
         {
             get
             {
-                var englishSD = Path.Combine(mModelPath, "EnglishSD.nbin");
+                var englishSD = Path.Combine(MModelPath, "EnglishSD.nbin");
                 if (_sentenceDetector == null)
                 {
                     if (File.Exists(englishSD) == false)
@@ -102,7 +102,7 @@ namespace GHDY.NLP
         {
             if (mTokenizer == null)
             {
-                mTokenizer = new OpenNLP.Tools.Tokenize.EnglishMaximumEntropyTokenizer(mModelPath + "EnglishTok.nbin");
+                mTokenizer = new OpenNLP.Tools.Tokenize.EnglishMaximumEntropyTokenizer(MModelPath + "EnglishTok.nbin");
             }
 
             return mTokenizer.Tokenize(sentence);
@@ -113,7 +113,7 @@ namespace GHDY.NLP
         {
             if (mPosTagger == null)
             {
-                mPosTagger = new OpenNLP.Tools.PosTagger.EnglishMaximumEntropyPosTagger(mModelPath + "EnglishPOS.nbin", mModelPath + @"\Parser\tagdict");
+                mPosTagger = new OpenNLP.Tools.PosTagger.EnglishMaximumEntropyPosTagger(MModelPath + "EnglishPOS.nbin", MModelPath + @"\Parser\tagdict");
             }
 
             return mPosTagger.Tag(tokens);
@@ -124,7 +124,7 @@ namespace GHDY.NLP
         {
             if (mChunker == null)
             {
-                mChunker = new OpenNLP.Tools.Chunker.EnglishTreebankChunker(mModelPath + "EnglishChunk.nbin");
+                mChunker = new OpenNLP.Tools.Chunker.EnglishTreebankChunker(MModelPath + "EnglishChunk.nbin");
             }
 
             return mChunker.GetChunks(tokens, tags);
@@ -135,7 +135,7 @@ namespace GHDY.NLP
         {
             if (mParser == null)
             {
-                mParser = new OpenNLP.Tools.Parser.EnglishTreebankParser(mModelPath, true, false);
+                mParser = new OpenNLP.Tools.Parser.EnglishTreebankParser(MModelPath, true, false);
             }
 
             return mParser.DoParse(sentence);

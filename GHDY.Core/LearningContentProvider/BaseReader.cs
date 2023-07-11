@@ -47,7 +47,7 @@ namespace GHDY.Core.LearningContentProviderCore
                 Path.GetFileName(filepath)));
         }
 
-        private static List<BaseReader> _Readers = new List<BaseReader>();
+        private static readonly List<BaseReader> _Readers = new List<BaseReader>();
         public static BaseReader GetReader(string targetID)
         {
             foreach (var reader in _Readers)

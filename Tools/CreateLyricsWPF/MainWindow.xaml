@@ -77,7 +77,7 @@
                 </RibbonGroup>
                 
                 <RibbonGroup Header="tools">
-                    <RibbonButton x:Name="btnFindDictation" Label="FindDictation" Click="btnFindDictation_Click"/>
+                    <RibbonButton x:Name="btnFindDictation" Label="FindDictation" Click="BtnFindDictation_Click"/>
                 </RibbonGroup>
             </RibbonTab>
             
@@ -98,7 +98,7 @@
 
         <ListBox Grid.Column="0" Grid.Row="2"
                  x:Name="list_Sentences"
-                 SelectionChanged="list_Sentences_SelectionChanged"
+                 SelectionChanged="List_Sentences_SelectionChanged"
                  ItemsSource="{Binding ContentDocument.Sentences}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -115,7 +115,7 @@
         <SyncControl:DMDocumentScrollViewer Grid.Column="1" Grid.Row="2" 
                                             x:Name="documentScrollViewer_dictation" 
                                             Background="AliceBlue"
-                                            SelectionChanged="documentScrollViewer_dictation_SelectionChanged"/>
+                                            SelectionChanged="DocumentScrollViewer_dictation_SelectionChanged"/>
 
     </Grid>
 </Window>

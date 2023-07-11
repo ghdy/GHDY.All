@@ -104,7 +104,7 @@ namespace GHDY.Workflow.Recognize
 
         void SyncEngine_SentenceRecognized(object sender, SentenceRecognizedEventArgs e)
         {
-            var message = $"Recognized: [{e.Sentence.Begin.TotalSeconds.ToString("F2")}, {e.Sentence.End.TotalSeconds.ToString("F2")} [{e.Sentence.Text}]]";
+            var message = $"Recognized: [{e.Sentence.Begin.TotalSeconds:F2}, {e.Sentence.End.TotalSeconds:F2} [{e.Sentence.Text}]]";
 
             Console.WriteLine(message);
             DMSentence sentence = null;

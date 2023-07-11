@@ -11,8 +11,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            double seconds = 0;
-            if (double.TryParse(value.ToString(), out seconds) == true)
+            if (double.TryParse(value.ToString(), out double seconds) == true)
             {
                 return TimeSpan.FromSeconds(seconds);
             }
@@ -22,8 +21,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            TimeSpan time = TimeSpan.Zero;
-            if (TimeSpan.TryParse(value.ToString(), out time) == true)
+            if (TimeSpan.TryParse(value.ToString(), out TimeSpan time) == true)
             {
                 return time.TotalSeconds;
             }

@@ -10,15 +10,15 @@ namespace GHDY.Core.LearningContentProviderCore
 {
     public class HttpHeader
     {
-        public string contentType { get; set; }
+        public string ContentType { get; set; }
 
-        public string accept { get; set; }
+        public string Accept { get; set; }
 
-        public string userAgent { get; set; }
+        public string UserAgent { get; set; }
 
-        public string method { get; set; }
+        public string Method { get; set; }
 
-        public int maxTry { get; set; }
+        public int MaxTry { get; set; }
     }
 
     public class HTTPHelper
@@ -33,14 +33,14 @@ namespace GHDY.Core.LearningContentProviderCore
         /// <returns></returns>
         public static CookieContainer GetCooKie(string loginUrl, string postdata, HttpHeader header)
         {
-            HttpWebRequest request = null;
-            HttpWebResponse response = null;
+            HttpWebRequest request;
+            HttpWebResponse response;
             try
             {
                 CookieContainer cc = new CookieContainer();
                 request = (HttpWebRequest)WebRequest.Create(loginUrl);
-                request.Method = header.method;
-                request.ContentType = header.contentType;
+                request.Method = header.Method;
+                request.ContentType = header.ContentType;
                 byte[] postdatabyte = Encoding.UTF8.GetBytes(postdata);
                 request.ContentLength = postdatabyte.Length;
                 request.AllowAutoRedirect = false;
@@ -86,11 +86,11 @@ namespace GHDY.Core.LearningContentProviderCore
             {
                 httpWebRequest = (HttpWebRequest)HttpWebRequest.Create(getUrl);
                 httpWebRequest.CookieContainer = cookieContainer;
-                httpWebRequest.ContentType = header.contentType;
-                httpWebRequest.ServicePoint.ConnectionLimit = header.maxTry;
+                httpWebRequest.ContentType = header.ContentType;
+                httpWebRequest.ServicePoint.ConnectionLimit = header.MaxTry;
                 httpWebRequest.Referer = getUrl;
-                httpWebRequest.Accept = header.accept;
-                httpWebRequest.UserAgent = header.userAgent;
+                httpWebRequest.Accept = header.Accept;
+                httpWebRequest.UserAgent = header.UserAgent;
                 httpWebRequest.Method = "GET";
                 httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 Stream responseStream = httpWebResponse.GetResponseStream();

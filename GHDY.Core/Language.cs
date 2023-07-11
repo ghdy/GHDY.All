@@ -24,6 +24,7 @@ namespace GHDY.Core
             {
                 
             }
+
             foreach (var l in Languages.All)
             {
                 if (l.Culture == culture)

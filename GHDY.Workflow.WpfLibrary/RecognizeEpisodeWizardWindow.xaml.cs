@@ -48,11 +48,9 @@ namespace GHDY.Workflow.WpfLibrary
 
                 foreach (var page in pages)
                 {
-                    var uc = page.Content as UserControl;
-                    if (uc != null)
+                    if (page.Content is UserControl uc)
                     {
-                        var vm = uc.DataContext as BaseStateControlViewModel;
-                        if (vm != null && vm.State == st)
+                        if (uc.DataContext is BaseStateControlViewModel vm && vm.State == st)
                         {
                             this.recognizeWizard.CurrentPage = page;
                             this.ViewModel.SetBusy(st.ToString());
@@ -72,7 +70,7 @@ namespace GHDY.Workflow.WpfLibrary
             this.ViewModel.RunWorkflow();
         }
 
-        bool AllPagesLoaded()
+        private bool AllPagesLoaded()
         {
             bool result = true;
             foreach (var svm in this.ViewModel.StateControlViewModels)
@@ -111,8 +109,7 @@ namespace GHDY.Workflow.WpfLibrary
         BaseStateControlViewModel GetStateControlViewModel(WizardPage page)
         {
             BaseStateControlViewModel result = null;
-            var uControl = page.Content as UserControl;
-            if (uControl != null)
+            if (page.Content is UserControl uControl)
                 if (uControl.DataContext is BaseStateControlViewModel)
                 {
                     result = uControl.DataContext as BaseStateControlViewModel;

@@ -36,7 +36,7 @@ namespace GHDY.Core
     public class DiffHelper
     {
         //public static double StringSimilar(string sourceString, string checkString)
-        public static DiffResult matchString(string sourceString, string checkString)
+        public static DiffResult MatchString(string sourceString, string checkString)
         {
             DiffEngine diffEngine = new DiffEngine();
             DiffList_CharData source = new DiffList_CharData(sourceString);

@@ -8,19 +8,16 @@ namespace GHDY.SyncEngine
 {
     public class DictationSyncEngine : SyncEngineBase
     {
-        string _cultureName = "";
-        string _possibleText = "";
+        readonly string _possibleText = "";
         public DictationSyncEngine(string cultureName)
             : base(cultureName)
         {
-            _cultureName = cultureName;
             ReSetGrammar();
         }
 
         public DictationSyncEngine(string cultureName,string possibleText)
             : base(cultureName)
         {
-            _cultureName = cultureName;
             _possibleText = possibleText;
             ReSetGrammar();
         }

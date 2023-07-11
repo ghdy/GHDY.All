@@ -173,7 +173,7 @@ namespace GHDY.Core.LearningContentProviderCore
 
         public void SaveContent(EpisodeContent content)
         {
-            var htmlFilePath = this.GetDownloadEpisodeWebPageFilePath(content.ID, content.AlbumID);
+            //var htmlFilePath = this.GetDownloadEpisodeWebPageFilePath(content.ID, content.AlbumID);
             var contentFolder = this.GetDownloadEpisodeContentFolderPath(content.ID, content.AlbumID);
 
             var contentFilePath = Path.Combine(contentFolder, content.ID) + EpisodeFileTypes.ContentFile.ToExt();

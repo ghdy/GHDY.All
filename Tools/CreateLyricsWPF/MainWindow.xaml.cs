@@ -41,7 +41,7 @@ namespace CreateLyricsWPF
     {
         public bool IsEdited { get; set; }
 
-        private MediaAudioPlayer _audioPlayer = new MediaAudioPlayer();
+        private readonly MediaAudioPlayer _audioPlayer = new MediaAudioPlayer();
         public MediaAudioPlayer AudioPlayer
         {
             get
@@ -145,7 +145,7 @@ namespace CreateLyricsWPF
             mw.Document = doc;
             mw.documentScrollViewer_dictation.Document = doc;
 
-            XContent content = null;
+            XContent content;
             TextSentencesLoader loader = new TextSentencesLoader(mw.TxtFilePath);
             if (File.Exists(mw.SubtitleFilePath) == false)
             {
@@ -255,13 +255,12 @@ namespace CreateLyricsWPF
             }
         }
 
-        private void documentScrollViewer_dictation_SelectionChanged(object sender, EventArgs e)
+        private void DocumentScrollViewer_dictation_SelectionChanged(object sender, EventArgs e)
         {
             ISyncable first = null, last = null;
             foreach (var element in this.documentScrollViewer_dictation.SelectedElements)
             {
-                var syncObj = element as ISyncable;
-                if (syncObj != null)
+                if (element is ISyncable syncObj)
                 {
                     if (first == null)
                         first = syncObj;
@@ -273,7 +272,7 @@ namespace CreateLyricsWPF
                 this.AudioPlayer.PlayRange(first.BeginTime, last.EndTime);
         }
 
-        private void list_Sentences_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void List_Sentences_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var sentence = list_Sentences.SelectedItem as XSentence;
             if (sentence.EndTime > sentence.BeginTime)
@@ -433,8 +432,7 @@ namespace CreateLyricsWPF
         private void CmdTimeUp_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = false;
-            var sentence = list_Sentences.SelectedItem as XSentence;
-            if (sentence != null)
+            if (list_Sentences.SelectedItem is XSentence)
                 if (this.txtBegin.IsFocused == true || this.txtEndin.IsFocused == true)
                     e.CanExecute = true;
         }
@@ -458,8 +456,7 @@ namespace CreateLyricsWPF
         private void CmdTimeDown_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = false;
-            var sentence = list_Sentences.SelectedItem as XSentence;
-            if (sentence != null)
+            if (list_Sentences.SelectedItem is XSentence)
                 if (this.txtBegin.IsFocused == true || this.txtEndin.IsFocused == true)
                     e.CanExecute = true;
         }
@@ -501,10 +498,9 @@ namespace CreateLyricsWPF
             this.AudioPlayer.PlayRange(time, sentence.EndTime);
         }
 
-        private void btnFindDictation_Click(object sender, RoutedEventArgs e)
+        private void BtnFindDictation_Click(object sender, RoutedEventArgs e)
         {
-            var sentence = list_Sentences.SelectedItem as XSentence;
-            if (sentence != null)
+            if (list_Sentences.SelectedItem is XSentence sentence)
             {
                 var result = this.Document.GetSyncable<DMSentence>(sentence.BeginTime.Add(TimeSpan.FromSeconds(1)));
                 if (result != null)

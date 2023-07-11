@@ -25,13 +25,15 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
         public ReferenceSoundMarkupUserControl()
         {
-            this.ViewModel = new ReferenceSoundMarkupViewModel(this);
-            this.ViewModel.DocumentChangedAction = new Action<Core.DocumentModel.DMDocument>(
+            this.ViewModel = new ReferenceSoundMarkupViewModel(this)
+            {
+                DocumentChangedAction = new Action<Core.DocumentModel.DMDocument>(
                 (doc) =>
                 {
                     this.dmDocumentScrollViewer.Document = doc;
                 }
-                );
+                )
+            };
 
             InitializeComponent();
         }

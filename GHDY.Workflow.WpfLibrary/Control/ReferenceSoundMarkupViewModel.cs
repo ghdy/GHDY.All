@@ -32,8 +32,10 @@ namespace GHDY.Workflow.WpfLibrary.Control
                 this.NotifyPropertyChanged("Document");
                 //this._document.FontSize = this.View.FontSize;
 
-                Binding binding = new Binding("FontSize");
-                binding.Source = this.View;
+                Binding binding = new Binding("FontSize")
+                {
+                    Source = this.View
+                };
                 this._document.SetBinding(DMDocument.FontSizeProperty, binding);
             }
         }
@@ -114,14 +116,18 @@ namespace GHDY.Workflow.WpfLibrary.Control
             ITimelineSelector selector = null;
             if (this.Lyrics != null)
             {
-                var lrcSelector = new LyricsTimelineSelector();
-                lrcSelector.Lyrics = this.Lyrics;
+                var lrcSelector = new LyricsTimelineSelector
+                {
+                    Lyrics = this.Lyrics
+                };
                 selector = lrcSelector;
             }
             else if (this.Dictation != null)
             {
-                var dictationSelector = new DictationTimeLineSelector();
-                dictationSelector.Dictation = this.Dictation;
+                var dictationSelector = new DictationTimeLineSelector
+                {
+                    Dictation = this.Dictation
+                };
                 selector = dictationSelector;
             }
 
@@ -192,8 +198,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
                 {
                     this.Document = DMDocument.Load(documentFilePath);
 
-                    if (this.DocumentChangedAction != null)
-                        this.DocumentChangedAction(this.Document);
+                    this.DocumentChangedAction?.Invoke(this.Document);
                 }
             });
         }

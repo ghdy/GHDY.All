@@ -13,7 +13,7 @@
              Margin="5"
              Background="LightYellow"
              SelectionMode="Extended" 
-             SelectionChanged="lb_LrcList_SelectionChanged"
+             SelectionChanged="Lb_LrcList_SelectionChanged"
              ItemsSource="{Binding Lyrics.Phrases}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>

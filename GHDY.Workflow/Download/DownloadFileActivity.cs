@@ -92,10 +92,10 @@ namespace GHDY.Workflow.Download
 
                 if (this._isNotifyDownloading == true)
                 {
-                    downloadClient.DownloadProgressChanged += downloadClient_DownloadProgressChanged;
+                    downloadClient.DownloadProgressChanged += DownloadClient_DownloadProgressChanged;
                 }
 
-                downloadClient.DownloadFileCompleted += downloadClient_DownloadFileCompleted;
+                downloadClient.DownloadFileCompleted += DownloadClient_DownloadFileCompleted;
 
                 var task = downloadClient.DownloadFileAsync(filePath, url);
 
@@ -139,7 +139,7 @@ namespace GHDY.Workflow.Download
         }
         #endregion
 
-        void downloadClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        private void DownloadClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             if (this._isNotifyDownloading == true)
                 Console.WriteLine();
@@ -152,7 +152,7 @@ namespace GHDY.Workflow.Download
             //this.autoResetEvent.Set();
         }
 
-        void downloadClient_DownloadProgressChanged(object sender, DownloadedChangedEventArgs e)
+        private void DownloadClient_DownloadProgressChanged(object sender, DownloadedChangedEventArgs e)
         {
             Console.Write(e.ProgressPercentage + "%_");
 

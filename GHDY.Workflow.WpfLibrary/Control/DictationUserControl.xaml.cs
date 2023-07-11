@@ -28,8 +28,10 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
         public DictationUserControl()
         {
-            this.ViewModel = new DictationViewModel(this);
-            this.ViewModel.Action_Complete = new Action(AddSelectionEvent);
+            this.ViewModel = new DictationViewModel(this)
+            {
+                Action_Complete = new Action(AddSelectionEvent)
+            };
 
             this.SizeChanged += DictationUserControl_SizeChanged;
 
@@ -115,8 +117,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
         {
             if (element is T)
                 return element as T;
-            var parentElement = element.Parent as TextElement;
-            if (parentElement != null)
+            if (element.Parent is TextElement parentElement)
             {
                 return GetParent<T>(parentElement);
             }

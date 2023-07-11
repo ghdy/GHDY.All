@@ -25,14 +25,15 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
         public PronunciationMarkupUserControl()
         {
-            this.ViewModel = new PronunciationMarkupViewModel(this);
-
-            this.ViewModel.DocumentChangedAction = new Action<Core.DocumentModel.DMDocument>(
+            this.ViewModel = new PronunciationMarkupViewModel(this)
+            {
+                DocumentChangedAction = new Action<Core.DocumentModel.DMDocument>(
                 (doc) =>
                 {
                     this.docScrollViewer.Document = doc;
                     this.docScrollViewer.Document.FontSize = this.FontSize;
-                });
+                })
+            };
 
             InitializeComponent();
         }

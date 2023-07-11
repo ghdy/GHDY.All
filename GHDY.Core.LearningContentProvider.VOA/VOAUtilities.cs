@@ -13,15 +13,24 @@ namespace LanguageResourceProvider.VOA
 
         static VOAUtilities()
         {
-            AlbumWeekDateDict = new Dictionary<string, int>();
-            AlbumWeekDateDict.Add("TechnologyReport", 1);
-            AlbumWeekDateDict.Add("DevelopmentReport", 1);
-            AlbumWeekDateDict.Add("AgricultureReport", 2);
-            AlbumWeekDateDict.Add("HealthReport", 3);
-            AlbumWeekDateDict.Add("EducationReport", 4);
-            AlbumWeekDateDict.Add("EconomicsReport", 5);
-            AlbumWeekDateDict.Add("InTheNews", 6);
-            AlbumWeekDateDict.Add("WordsAndTheirStories", 0);
+            AlbumWeekDateDict = new Dictionary<string, int>() {
+                { "TechnologyReport", 1 },
+                { "DevelopmentReport", 1 },
+                { "AgricultureReport", 2 },
+                { "HealthReport", 3},
+                { "EducationReport", 4 },
+                { "EconomicsReport", 5 },
+                { "InTheNews", 6 },
+                { "WordsAndTheirStories", 0 }
+            };
+            //AlbumWeekDateDict.Add("TechnologyReport", 1);
+            //AlbumWeekDateDict.Add("DevelopmentReport", 1);
+            //AlbumWeekDateDict.Add("AgricultureReport", 2);
+            //AlbumWeekDateDict.Add("HealthReport", 3);
+            //AlbumWeekDateDict.Add("EducationReport", 4);
+            //AlbumWeekDateDict.Add("EconomicsReport", 5);
+            //AlbumWeekDateDict.Add("InTheNews", 6);
+            //AlbumWeekDateDict.Add("WordsAndTheirStories", 0);
         }
 
         public static bool ChackEpisodeDate(string album, int year, int month, int day, out DateTime realDate)
@@ -54,7 +63,7 @@ namespace LanguageResourceProvider.VOA
             }
         }
 
-        public static int weekNumber(DateTime date)
+        public static int WeekNumber(DateTime date)
         {
             DateTime firstDay = new DateTime(date.Year, 1, 1);
             int theday;

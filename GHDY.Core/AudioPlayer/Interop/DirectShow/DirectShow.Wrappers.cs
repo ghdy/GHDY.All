@@ -79,13 +79,11 @@ namespace GHDY.Core.AudioPlayer.Interops.DirectShow
 
     class Filter
     {
-        IBaseFilter filter;
+        readonly IBaseFilter filter;
 
         public Filter(IBaseFilter filter)
         {
-            if (filter == null) throw new NullReferenceException("filter is null");
-
-            this.filter = filter;
+            this.filter = filter ?? throw new NullReferenceException("filter is null");
         }
 
         private IEnumerable<Pin> Pins

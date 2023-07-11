@@ -161,11 +161,14 @@ namespace GHDY.Workflow.WpfLibrary.Control
 
         public override void StateCompleted()
         {
-            var result = new SplitedDocument();
-            foreach (var sPara in this.SplitedParagraphs)
-            {
-                result.Paragraphs = this.SplitedParagraphs;
-            }
+            var result = new SplitedDocument() {
+                Paragraphs = this.SplitedParagraphs
+            };
+            //for (int i = 0; i < SplitedParagraphs.Count; i++)
+            //{
+            //    SplitedParagraph sPara = this.SplitedParagraphs[i];
+            //    result.Paragraphs = this.SplitedParagraphs;
+            //}
 
             this.ResumeBookmatk(this.State.ToString(), result);
         }

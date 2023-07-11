@@ -23,12 +23,12 @@ namespace GHDY.Core
         public DownloadClient()
             : this(TimeSpan.FromMinutes(2))
         {
-
+            this.Timeout = TimeSpan.FromMinutes(2);
         }
 
         public DownloadClient(TimeSpan timeout)
         {
-
+            this.Timeout = timeout;
         }
 
         #region DownloadFileAsync
@@ -38,10 +38,7 @@ namespace GHDY.Core
 
             if (url == null)
             {
-                if (this.DownloadFileCompleted != null)
-                {
-                    this.DownloadFileCompleted(this, new AsyncCompletedEventArgs(null, true, downloadingFilePath));
-                }
+                this.DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, true, downloadingFilePath));
             }
 
             try
@@ -57,23 +54,17 @@ namespace GHDY.Core
             catch (WebException webEx)
             {
                 File.Delete(downloadingFilePath);
-                if (this.DownloadFileCompleted != null)
-                {
-                    this.DownloadFileCompleted(this, new AsyncCompletedEventArgs(webEx, true, downloadingFilePath));
-                }
+                this.DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(webEx, true, downloadingFilePath));
             }
             catch (IOException ioEx)
             {
                 File.Delete(downloadingFilePath);
-                if (this.DownloadFileCompleted != null)
-                {
-                    this.DownloadFileCompleted(this, new AsyncCompletedEventArgs(ioEx, true, downloadingFilePath));
-                }
+                this.DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(ioEx, true, downloadingFilePath));
             }
             catch (Exception ex)
             {
                 File.Delete(downloadingFilePath);
-                throw new Exception("Error in DownloadClient.cs, " +ex.Message, ex);
+                throw new Exception("Error in DownloadClient.cs, " + ex.Message, ex);
             }
 
             return false;
@@ -132,8 +123,7 @@ namespace GHDY.Core
                 }
             }
 
-            if (this.DownloadFileCompleted != null)
-                this.DownloadFileCompleted(this, new AsyncCompletedEventArgs(null, false, null));
+            this.DownloadFileCompleted?.Invoke(this, new AsyncCompletedEventArgs(null, false, null));
 
 
             return result;// result.ToArray();

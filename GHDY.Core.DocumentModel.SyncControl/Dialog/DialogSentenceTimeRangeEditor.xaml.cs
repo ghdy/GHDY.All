@@ -75,8 +75,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
         private static void Sentence_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             DialogSentenceTimeRangeEditor editor = d as DialogSentenceTimeRangeEditor;
-            var sentence = e.NewValue as DMSentence;
-            if (sentence != null)
+            if (e.NewValue is DMSentence sentence)
             {
                 editor.BeginTime = sentence.BeginTime;
                 editor.EndTime = sentence.EndTime;
@@ -228,11 +227,11 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
 
             this.timeRangeEditor.ViewModel.Minimum = 0;
             this.timeRangeEditor.ViewModel.Maximum = this.AudioPlayer.Length.TotalSeconds;
-            this.timeRangeEditor.ViewModel.TimeRangeChanged += timeRangeEditor_TimeRangeChanged;
+            this.timeRangeEditor.ViewModel.TimeRangeChanged += TimeRangeEditor_TimeRangeChanged;
 
         }
 
-        void timeRangeEditor_TimeRangeChanged(object sender, TimeRangeChangedEventArgs e)
+        void TimeRangeEditor_TimeRangeChanged(object sender, TimeRangeChangedEventArgs e)
         {
             if (e.IsBeginChanged == true)
                 this.PlayBegin(e.Begin);
@@ -286,7 +285,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
 
         }
 
-        private void btn_AutoFind_Click(object sender, RoutedEventArgs e)
+        private void Btn_AutoFind_Click(object sender, RoutedEventArgs e)
         {
             if (this.TimeLineSelector.CanSelectByTranscript == true)
                 this.TimeLineSelector.SelectByTranscript(this.Sentence.ToString());

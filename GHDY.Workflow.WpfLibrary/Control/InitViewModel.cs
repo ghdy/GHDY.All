@@ -14,7 +14,7 @@ namespace GHDY.Workflow.WpfLibrary.Control
 {
     public class InitViewModel : BaseStateControlViewModel, INotifyInitialize
     {
-        StringBuilder _message = new StringBuilder();
+        readonly StringBuilder _message = new StringBuilder();
         public string Message { get { return this._message.ToString(); } }
 
         LocalEpisode _episode = null;

@@ -59,11 +59,7 @@ namespace GHDY.Workflow
                 {
                     doc = DMDocument.Load(filePath);
 
-                    if (doc.Sentences.Count() != lrc.Phrases.Count)
-                    {
-                        result = false;
-                    }
-                    else
+                    if (doc.Sentences.Count() == lrc.Phrases.Count)
                     {
                         var index = 0;
                         foreach (var sentence in doc.Sentences)
@@ -74,11 +70,11 @@ namespace GHDY.Workflow
                             sentence.EndTime = phrase.EndTime;
                             index += 1;
                         }
-                        result = true;
                     }
                 }
                 else
                     doc = BuildDocument(lrc);
+
                 result = true;
             }
             {

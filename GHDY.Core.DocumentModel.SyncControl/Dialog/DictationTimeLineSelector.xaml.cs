@@ -74,10 +74,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
             if (startWord == null)
                 return;
             //var endWord = end.GetSelectedSyncable<SyncableWord>();
-            if (this.SyncableObjectSelected != null)
-            {
-                this.SyncableObjectSelected(this, new TimelineEventArgs(startWord));
-            }
+            this.SyncableObjectSelected?.Invoke(this, new TimelineEventArgs(startWord));
         }
 
         #region ITimelineSelector
@@ -190,8 +187,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
             this.flowDocumentScrollViewer.Selection.Select(begin.ContentStart, end.ContentEnd);
             begin.BringIntoView();
 
-            if (this.SyncableObjectSelected != null)
-                this.SyncableObjectSelected(this, new TimelineEventArgs(begin));
+            this.SyncableObjectSelected?.Invoke(this, new TimelineEventArgs(begin));
 
             this.flowDocumentScrollViewer.Selection.Changed += Selection_Changed;
         }

@@ -221,19 +221,16 @@ namespace GHDY.Core.Episode
         public void ReloadLyrics()
         {
             this._lrc = null;
-            var lrc = this.Lrc;
         }
 
         public void ReloadSyncDocument()
         {
             this._syncDocument = null;
-            var syncDoc = this.SyncDocument;
         }
 
         public void ReloadDictationDocument()
         {
             this._dictationDocument = null;
-            var diction = this.DictationDocument;
         }
     }
 }

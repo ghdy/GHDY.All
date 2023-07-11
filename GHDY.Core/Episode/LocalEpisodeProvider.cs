@@ -10,7 +10,7 @@ namespace GHDY.Core.Episode
 {
     public class LocalEpisodeProvider : IEpisodeProvider
     {
-        EpisodeFileTypes[] _mustHaveFiles = new EpisodeFileTypes[] {EpisodeFileTypes.AudioFile };
+        readonly EpisodeFileTypes[] _mustHaveFiles = new EpisodeFileTypes[] {EpisodeFileTypes.AudioFile };
 
         public string ID { get; set; }
 
@@ -18,7 +18,7 @@ namespace GHDY.Core.Episode
 
         #region IEpisodeProvider
 
-        ObservableCollection<IEpisode> _episodeCollection = null;
+        readonly ObservableCollection<IEpisode> _episodeCollection = null;
 
         public ObservableCollection<IEpisode> EpisodeCollection
         {

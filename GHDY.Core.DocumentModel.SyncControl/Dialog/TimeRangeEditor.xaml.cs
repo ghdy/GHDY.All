@@ -23,7 +23,7 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
         public TimeRangeEditorViewModel ViewModel { get; private set; }
         public Window ParentWindow { get; private set; }
 
-        Key _stepKey = Key.LeftShift;
+        readonly Key _stepKey = Key.LeftShift;
 
         public TimeRangeEditor()
         {
@@ -79,13 +79,13 @@ namespace GHDY.Core.DocumentModel.SyncControl.Dialog
             }
         }
 
-        private void timelineSlider_HigherValueChanged(object sender, RoutedEventArgs e)
+        private void TimelineSlider_HigherValueChanged(object sender, RoutedEventArgs e)
         {
             //if (this.ViewModel.Begin != timelineSlider.LowerValue)
             //    this.ViewModel.Begin = timelineSlider.LowerValue;
         }
 
-        private void timelineSlider_LowerValueChanged(object sender, RoutedEventArgs e)
+        private void TimelineSlider_LowerValueChanged(object sender, RoutedEventArgs e)
         {
             //if (this.ViewModel.End != timelineSlider.HigherValue)
             //    this.ViewModel.End= timelineSlider.HigherValue;
