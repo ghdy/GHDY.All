@@ -28,8 +28,6 @@ namespace GHDY.Demo
     {
         public EpisodeDownloadWindowViewModel ViewModel { get; private set; }
 
-
-
         public EpisodeDownloadWindow()
         {
             InitializeComponent();
@@ -43,7 +41,7 @@ namespace GHDY.Demo
         {
             this.ViewModel = new EpisodeDownloadWindowViewModel(new Target_51VOA(2013), this);
             this.CommandBindings.Add(new CommandBinding(ApplicationCommands.Open, CmdOpenEpisode_Executed, CmdOpenEpisode_CanExecute));
-            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.SelectAll,CmdAutoDownloadAlbum_Executed,CmdAutoDownloadAlbum_CanExecute));
+            this.CommandBindings.Add(new CommandBinding(ApplicationCommands.SelectAll, CmdAutoDownloadAlbum_Executed, CmdAutoDownloadAlbum_CanExecute));
 
             this.DataContext = this.ViewModel;
         }
@@ -90,7 +88,8 @@ namespace GHDY.Demo
                     MessageBox.Show("Download Error:" + args.UnhandledException.Message);
                     return UnhandledExceptionAction.Cancel;
                 }),
-                Completed = new Action<WorkflowApplicationCompletedEventArgs>((args) => {
+                Completed = new Action<WorkflowApplicationCompletedEventArgs>((args) =>
+                {
                     MessageBox.Show("Download Completed!");
                 }),
             };
@@ -133,7 +132,5 @@ namespace GHDY.Demo
                     selector_Episode.SelectedIndex = 0;
             }
         }
-
-
     }
 }

@@ -19,9 +19,7 @@ using GHDY.Workflow.WpfLibrary.UxService;
 
 namespace GHDY.Demo
 {
-    public class EpisodeDownloadWindowViewModel : INotifyPropertyChanged,
-        IResourceReceiver,
-        INotifyEpisodeContentDownloadState
+    public class EpisodeDownloadWindowViewModel : INotifyPropertyChanged, IResourceReceiver, INotifyEpisodeContentDownloadState
     {
         public BaseTarget CurrentTarget { get; private set; }
 
@@ -29,7 +27,6 @@ namespace GHDY.Demo
         public IEnumerable<XPage> Pages { get; private set; }
         public IEnumerable<XEpisode> Episodes { get; private set; }
         public ObservableCollection<EpisodeContentDownloadInfo> DownloadInfoCollection { get; set; }
-
         public WorkflowApplication WorkFlowApp { get; set; }
 
         private string _message = "";
@@ -43,7 +40,7 @@ namespace GHDY.Demo
             }
         }
 
-        public Window CurrentWindow { get;private set; }
+        public Window CurrentWindow { get; private set; }
 
         CompositionContainer _container;
 
@@ -133,7 +130,8 @@ namespace GHDY.Demo
                         this.Message = "Download Episode Completed! Result:" + result;
                     }
                     this.WorkFlowApp = null;
-                    this.CurrentWindow.Dispatcher.Invoke(new Action(() => {
+                    this.CurrentWindow.Dispatcher.Invoke(new Action(() =>
+                    {
                         CommandManager.InvalidateRequerySuggested();
                     }));
                 }),
@@ -157,8 +155,6 @@ namespace GHDY.Demo
         }
 
         //----------------------------------------------------------------------------------------
-
-
         readonly RoutedUICommand _cmdCreateDocumentModel = new RoutedUICommand();
         public RoutedUICommand CmdCreateDocumentModel { get { return _cmdCreateDocumentModel; } }
 
@@ -193,7 +189,6 @@ namespace GHDY.Demo
             var syncEpisodeUC = new SyncEpisodeUserControl();
 
             //var karaokeService = new KaraokeHighlightService();
-
 
             if (this._container != null)
             {

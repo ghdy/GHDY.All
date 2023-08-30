@@ -91,6 +91,10 @@ namespace GHDY.Core.LearningContentProvider.VOA._51VOA
             else
                 albumHtml = File.ReadAllText(albumHtmlFilePath, Encoding.UTF8);
 
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(albumHtml);
+            var node = doc.DocumentNode.SelectSingleNode(".//div[@class=\"pagelist\"]");
+
             //var match = this.GetRegexResult("<b>\\d+?</b>/<b>(?<MaxPage>\\d+?)</b>\\s*?每页\\s*?<b>(?<PageEpisodes>\\d+?)</b>\\s*?共\\s*?<b>(?<EpisodeCount>\\d+?)</b>", albumHtml);
             var matches = BaseTarget.GetRegexResults("<a\\shref=\"(?<URL>[0-9a-zA-Z\\._]+?)\">.*?\\[(?<Index>\\d+?)\\].*?</a>", albumHtml);
             foreach (var match in matches)
